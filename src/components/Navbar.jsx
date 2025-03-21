@@ -14,7 +14,7 @@ const Navbar = () => {
   return (
     <nav className="fixed top-0 left-0 w-full z-50 bg-slate-950 text-white px-6 py-4 flex items-center justify-between shadow-md">
       <div className="text-2xl font-extralight tracking-wider cursor-pointer" onClick={() => handleNavClick("about")}>
-      <span>{"<Govid "}</span>
+      <span>{"<Govind "}</span>
       <span>{" Sharma />"}</span>
       </div>
 
