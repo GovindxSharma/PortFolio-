@@ -2,7 +2,7 @@ import React from "react";
 
 const About = () => {
   const resumeUrl =
-    "https://drive.google.com/file/d/1JRJODuGtPaW-FVwv3KUcyX89fDoQeqpd/view"; // Replace with your actual resume URL
+    "https://drive.google.com/file/d/1mbp8K61C5cjY5T2QE1Au-jPAFtLPLCHN/view?usp=drive_link"; // Replace with your actual resume URL
 
   return (
     <section id="about" className="bg-gray-900 text-white py-16 pt-30 px-6 md:px-16 lg:px-32">
