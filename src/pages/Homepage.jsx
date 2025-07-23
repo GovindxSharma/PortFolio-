@@ -1,10 +1,10 @@
 import React from 'react'
 import Navbar from '../components/Navbar'
 import About from '../components/About'
-import Experience from '../components/Experience'
+import ProjectsExperience from '../components/ProjectsExperience'
 import Education from '../components/Education'
 import Skills from '../components/Skills'
-import Projects from '../components/Projects'
+
 import Contact from '../components/Contact'
 
 const Homepage = () => {
@@ -12,10 +12,9 @@ const Homepage = () => {
    <>
    <Navbar/>
    <About/>
-   <Experience/>
+   <ProjectsExperience/>
    <Education/>
    <Skills/>
-   <Projects/>
    <Contact/>
    </>
   )

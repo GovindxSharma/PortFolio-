@@ -1,69 +1,129 @@
 import React from "react";
-import { FaEnvelope, FaPhone, FaCopy, FaGithub, FaLinkedin, FaWhatsapp, FaTelegram } from "react-icons/fa";
+import {
+  FaEnvelope,
+  FaPhone,
+  FaCopy,
+  FaGithub,
+  FaLinkedin,
+  FaWhatsapp,
+  FaTelegram,
+} from "react-icons/fa";
+import { motion } from "framer-motion";
+
+const email = "govindsharma2839@gmail.com";
+const phone = "9712935176";
+
+const fadeInUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: (i = 1) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: i * 0.1, duration: 0.6 },
+  }),
+};
 
 const Contact = () => {
-  const email = "govindsharma2839@gmail.com";
-  const phone = "9712935176";
-
-  // Function to copy text
   const copyToClipboard = (text) => {
     navigator.clipboard.writeText(text);
     alert(`Copied: ${text}`);
   };
 
   return (
-    <section id="contact" className="py-12 bg-[#0F2648] pt-20 text-white">
-      <div className="max-w-4xl mx-auto px-6 text-center">
-        {/* Section Title */}
-        <h2 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300 mb-8 tracking-wide drop-shadow-lg">
-        Contact Me
-      </h2>
-      
-      
+    <section
+      id="contact"
+      className="py-24 bg-gradient-to-br from-[#0F2648] via-[#09213F] to-[#050D1E] text-white px-6 md:px-16 lg:px-32"
+    >
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        transition={{ staggerChildren: 0.15 }}
+        className="max-w-3xl mx-auto text-center"
+      >
+        <motion.h2
+          className="text-4xl sm:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-blue-500 mb-14 tracking-wider drop-shadow-xl"
+          variants={fadeInUp}
+        >
+          Contact Me
+        </motion.h2>
 
-        {/* Contact Info */}
-        <div className="mt-8 space-y-6">
-          {/* Email */}
-          <div className="flex items-center justify-center bg-gray-800 rounded-lg p-4 shadow-lg w-full sm:w-96 mx-auto">
+        {/* Email */}
+        <motion.div
+          className="flex items-center justify-center bg-white/5 border border-white/10 rounded-xl p-5 backdrop-blur-md shadow-md w-full sm:w-96 mx-auto mb-6"
+          variants={fadeInUp}
+          custom={1}
+        >
+          <a
+            href={`mailto:${email}`}
+            className="flex items-center text-lg text-blue-300 hover:underline"
+          >
             <FaEnvelope className="text-blue-400 text-2xl mr-3" />
-            <span className="text-lg">{email}</span>
-            <button
-              onClick={() => copyToClipboard(email)}
-              className="ml-3 text-gray-400 hover:text-blue-400"
-            >
-              <FaCopy />
-            </button>
-          </div>
+            {email}
+          </a>
+          <button
+            onClick={() => copyToClipboard(email)}
+            className="ml-3 text-gray-400 hover:text-blue-400"
+          >
+            <FaCopy />
+          </button>
+        </motion.div>
 
-          {/* Phone Number */}
-          <div className="flex items-center justify-center bg-gray-800 rounded-lg p-4 shadow-lg w-full sm:w-96 mx-auto">
-            <FaPhone className="text-green-400 text-2xl mr-3" />
-            <span className="text-lg">{phone}</span>
-            <button
-              onClick={() => copyToClipboard(phone)}
-              className="ml-3 text-gray-400 hover:text-green-400"
-            >
-              <FaCopy />
-            </button>
-          </div>
-          
-          {/* Social Links */}
-          <div className="flex justify-center space-x-6 mt-6">
-            <a href="https://github.com/your-github-username" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white text-3xl">
-              <FaGithub />
-            </a>
-            <a href="https://www.linkedin.com/in/your-linkedin-username" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-white text-3xl">
-              <FaLinkedin />
-            </a>
-            <a href="https://wa.me/9712935176" target="_blank" rel="noopener noreferrer" className="text-green-400 hover:text-white text-3xl">
-              <FaWhatsapp />
-            </a>
-            <a href="https://t.me/your-telegram-username" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-white text-3xl">
-              <FaTelegram />
-            </a>
-          </div>
-        </div>
-      </div>
+        {/* Phone */}
+        <motion.div
+          className="flex items-center justify-center bg-white/5 border border-white/10 rounded-xl p-5 backdrop-blur-md shadow-md w-full sm:w-96 mx-auto mb-10"
+          variants={fadeInUp}
+          custom={2}
+        >
+          <FaPhone className="text-green-400 text-2xl mr-3" />
+          <span className="text-lg">{phone}</span>
+          <button
+            onClick={() => copyToClipboard(phone)}
+            className="ml-3 text-gray-400 hover:text-green-400"
+          >
+            <FaCopy />
+          </button>
+        </motion.div>
+
+        {/* Social Links */}
+        <motion.div
+          className="flex justify-center space-x-6"
+          variants={fadeInUp}
+          custom={3}
+        >
+          <a
+            href="https://github.com/GovindxSharma"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-400 hover:text-white text-3xl transition"
+          >
+            <FaGithub />
+          </a>
+          <a
+            href="https://www.linkedin.com/in/govind-sharmax30"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-500 hover:text-white text-3xl transition"
+          >
+            <FaLinkedin />
+          </a>
+          <a
+            href="https://wa.me/9712935176"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-green-400 hover:text-white text-3xl transition"
+          >
+            <FaWhatsapp />
+          </a>
+          <a
+            href="https://t.me/9712935176"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-400 hover:text-white text-3xl transition"
+          >
+            <FaTelegram />
+          </a>
+        </motion.div>
+      </motion.div>
     </section>
   );
 };

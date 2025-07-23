@@ -7,52 +7,65 @@ const Navbar = () => {
     const section = document.getElementById(id);
     if (section) {
       section.scrollIntoView({ behavior: "smooth" });
-      setMenuOpen(false); // Close mobile menu after clicking
+      setMenuOpen(false);
     }
   };
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 bg-slate-950 text-white px-6 py-4 flex items-center justify-between shadow-md">
-      <div className="text-2xl font-extralight tracking-wider cursor-pointer" onClick={() => handleNavClick("about")}>
-      <span>{"<Govind "}</span>
-      <span>{" Sharma />"}</span>
+    <nav className="fixed top-0 left-0 w-full z-50 bg-slate-950/95 backdrop-blur-sm text-white px-6 py-4 flex items-center justify-between shadow-md border-b border-white/10">
+      {/* Brand */}
+      <div
+        className="text-2xl font-light tracking-wide cursor-pointer bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent hover:scale-105 transition-transform"
+        onClick={() => handleNavClick("about")}
+      >
+        &lt;Govind <span className="font-medium">Sharma</span> /&gt;
       </div>
 
-      {/* Desktop Navbar */}
-      <ul className="hidden md:flex space-x-6 text-lg">
-        <li><a href="#about" onClick={() => handleNavClick("about")}>About</a></li>
-        <li><a href="#experience" onClick={() => handleNavClick("experience")}>Experience</a></li>
-        <li><a href="#education" onClick={() => handleNavClick("education")}>Education</a></li>
-        <li><a href="#strength" onClick={() => handleNavClick("strength")}>Strength</a></li>
-        <li><a href="#projects" onClick={() => handleNavClick("projects")}>Projects</a></li>
-        <li><a href="#contact" onClick={() => handleNavClick("contact")}>Contact</a></li>
+      {/* Desktop Links */}
+      <ul className="hidden md:flex space-x-8 text-sm font-medium tracking-wide">
+        {["about", "projectexperience", "education", "strength", "contact"].map((id) => (
+          <li key={id}>
+            <a
+              href={`#${id}`}
+              onClick={() => handleNavClick(id)}
+              className="text-gray-300 hover:text-blue-400 transition-colors duration-200"
+            >
+              {id === "projectexperience" ? "Projects + Experience" : id.charAt(0).toUpperCase() + id.slice(1)}
+            </a>
+          </li>
+        ))}
       </ul>
 
       {/* Mobile Menu Button */}
-      <button onClick={() => setMenuOpen(true)} className="md:hidden">
-        <svg className="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16m-7 6h7" />
+      <button onClick={() => setMenuOpen(true)} className="md:hidden focus:outline-none">
+        <svg className="w-7 h-7 text-white" fill="none" viewBox="0 0 24 24" strokeWidth="2">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16m0 6H4" />
         </svg>
       </button>
 
-      {/* Mobile Sidebar Menu */}
-      <div className={`fixed top-0 left-0 w-64 h-full bg-slate-900 text-white shadow-lg transform transition-transform duration-300 ${menuOpen ? "translate-x-0" : "-translate-x-full"} md:hidden`}>
+      {/* Mobile Sidebar */}
+      <div className={`fixed top-0 left-0 w-64 h-full bg-slate-900/95 backdrop-blur-md text-white shadow-2xl border-r border-white/10 transform transition-transform duration-300 ease-in-out ${menuOpen ? "translate-x-0" : "-translate-x-full"} md:hidden`}>
         <div className="p-4 flex justify-between items-center border-b border-gray-700">
-          <h2 className="text-xl font-bold">Menu</h2>
-          <button onClick={() => setMenuOpen(false)}>
-            <svg className="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
+          <h2 className="text-xl font-semibold tracking-wide">Menu</h2>
+          <button onClick={() => setMenuOpen(false)} className="text-white">
+            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" strokeWidth="2">
               <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
         </div>
 
-        <ul className="p-4 space-y-4 text-lg">
-          <li><a href="#about" onClick={() => handleNavClick("about")}>About</a></li>
-          <li><a href="#experience" onClick={() => handleNavClick("experience")}>Experience</a></li>
-          <li><a href="#education" onClick={() => handleNavClick("education")}>Education</a></li>
-          <li><a href="#strength" onClick={() => handleNavClick("strength")}>Strength</a></li>
-          <li><a href="#projects" onClick={() => handleNavClick("projects")}>Projects</a></li>
-          <li><a href="#contact" onClick={() => handleNavClick("contact")}>Contact</a></li>
+        <ul className="p-6 space-y-4 text-base font-medium">
+          {["about", "projectexperience", "education", "strength", "contact"].map((id) => (
+            <li key={id}>
+              <a
+                href={`#${id}`}
+                onClick={() => handleNavClick(id)}
+                className="block text-gray-300 hover:text-blue-400 transition-colors duration-200"
+              >
+                {id === "projectexperience" ? "Projects + Experience" : id.charAt(0).toUpperCase() + id.slice(1)}
+              </a>
+            </li>
+          ))}
         </ul>
       </div>
     </nav>
