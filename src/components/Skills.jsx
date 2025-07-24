@@ -10,8 +10,7 @@ import {
 import { TbDatabase } from "react-icons/tb";
 import { motion } from "framer-motion";
 
-
-// Skill Data
+// Skills Data
 const skills = {
   Frontend: [
     { name: "HTML5", icon: <FaHtml5 className="text-orange-500" /> },
@@ -49,12 +48,6 @@ const fadeInUp = {
   }),
 };
 
-// Split array into 2 halves
-const splitArray = (arr) => {
-  const mid = Math.ceil(arr.length / 2);
-  return [arr.slice(0, mid), arr.slice(mid)];
-};
-
 const Skills = () => {
   return (
     <section
@@ -68,77 +61,52 @@ const Skills = () => {
         transition={{ duration: 1 }}
         className="max-w-6xl mx-auto text-center"
       >
-        {/* Main Heading */}
-        <motion.h2
-          className="text-3xl sm:text-4xl font-semibold text-white mb-14 tracking-wide"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={fadeInUp}
-        >
-          <span className="text-blue-400">Strengths & Skills</span>
-        </motion.h2>
+        {/* Section Heading */}
+        <div className="text-center mb-14">
+          <p className="text-sm text-gray-400 uppercase tracking-widest mb-2">
+            Technical Arsenal
+          </p>
+          <h2 className="text-3xl sm:text-4xl font-semibold text-white">
+            <span className="text-blue-400">Strengths</span>{" "}
+            <span className="text-purple-400">& Skills</span>
+          </h2>
+          <div className="mt-2 w-10 h-0.5 bg-white/30 mx-auto rounded-full" />
+        </div>
 
-        {/* Category Sections */}
-        {Object.entries(skills).map(([category, list], idx) => {
-          const [firstRow, secondRow] = splitArray(list);
+        {/* Skill Categories */}
+        {Object.entries(skills).map(([category, list], idx) => (
+          <div key={category} className="mb-20">
+            <motion.h3
+              className="text-xl sm:text-2xl font-semibold text-white mb-8 tracking-widest uppercase"
+              custom={idx}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeInUp}
+            >
+              {category}
+            </motion.h3>
 
-          return (
-            <div key={category} className="mb-20">
-              {/* Category Heading */}
-              <motion.h3
-                className="text-xl sm:text-2xl font-semibold text-white mb-8 tracking-widest uppercase"
-                custom={idx}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={fadeInUp}
-              >
-                {category}
-              </motion.h3>
-
-              {/* First Row */}
-              <div className="flex flex-wrap justify-center gap-8 mb-6">
-                {firstRow.map((skill, i) => (
-                  <Tilt key={i} tiltMaxAngleX={10} tiltMaxAngleY={10} glareEnable={false}>
-                    <motion.div
-                      className="w-32 h-32 sm:w-36 sm:h-36 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl flex flex-col items-center justify-center hover:border-cyan-300 transition-all duration-300 hover:scale-105 shadow-md hover:shadow-cyan-500/20"
-                      custom={i}
-                      initial="hidden"
-                      whileInView="visible"
-                      viewport={{ once: true }}
-                      variants={fadeInUp}
-                    >
-                      <div className="text-4xl mb-2">{skill.icon}</div>
-                      <p className="text-sm font-medium text-center text-gray-300">{skill.name}</p>
-                    </motion.div>
-                  </Tilt>
-                ))}
-              </div>
-
-              {/* Second Row */}
-              {secondRow.length > 0 && (
-                <div className="flex flex-wrap justify-center gap-8">
-                  {secondRow.map((skill, i) => (
-                    <Tilt key={i} tiltMaxAngleX={10} tiltMaxAngleY={10} glareEnable={false}>
-                      <motion.div
-                        className="w-32 h-32 sm:w-36 sm:h-36 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl flex flex-col items-center justify-center hover:border-cyan-300 transition-all duration-300 hover:scale-105 shadow-md hover:shadow-cyan-500/20"
-                        custom={i}
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true }}
-                        variants={fadeInUp}
-                      >
-                        <div className="text-4xl mb-2">{skill.icon}</div>
-                        <p className="text-sm font-medium text-center text-gray-300">{skill.name}</p>
-                      </motion.div>
-                    </Tilt>
-                  ))}
-                </div>
-              )}
+            {/* Skill Grid */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 place-items-center">
+              {list.map((skill, i) => (
+                <Tilt key={i} tiltMaxAngleX={10} tiltMaxAngleY={10} glareEnable={false}>
+                  <motion.div
+                    className="w-28 h-28 sm:w-32 sm:h-32 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl flex flex-col items-center justify-center hover:border-cyan-300 transition-all duration-300 hover:scale-105 shadow-md hover:shadow-cyan-500/20"
+                    custom={i}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    variants={fadeInUp}
+                  >
+                    <div className="text-3xl sm:text-4xl mb-2">{skill.icon}</div>
+                    <p className="text-sm font-medium text-center text-gray-300">{skill.name}</p>
+                  </motion.div>
+                </Tilt>
+              ))}
             </div>
-          );
-        })}
+          </div>
+        ))}
       </motion.div>
     </section>
   );

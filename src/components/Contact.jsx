@@ -31,7 +31,7 @@ const Contact = () => {
   return (
     <section
       id="contact"
-      className="py-24 bg-gradient-to-br from-[#0F2648] via-[#09213F] to-[#050D1E] text-white px-6 md:px-16 lg:px-32"
+      className="py-24 bg-gradient-to-br from-[#0F2648] via-[#09213F] to-[#050D1E] text-white px-4 sm:px-8 md:px-16 lg:px-32"
     >
       <motion.div
         initial="hidden"
@@ -39,30 +39,33 @@ const Contact = () => {
         viewport={{ once: true }}
         className="max-w-3xl mx-auto text-center"
       >
-        <motion.h2
-          variants={fadeInUp}
-          custom={0}
-          className="text-3xl sm:text-4xl font-semibold text-white mb-14 tracking-wide"
-        >
-          Contact Me
-        </motion.h2>
+        {/* Section Title */}
+        <motion.div variants={fadeInUp} custom={0} className="mb-10">
+          <p className="text-sm text-gray-400 uppercase tracking-widest mb-2">
+            Get in Touch
+          </p>
+          <h2 className="text-3xl sm:text-4xl font-semibold text-white">
+            <span className="text-blue-400">Contact</span> Me
+          </h2>
+          <div className="mt-2 w-10 h-0.5 bg-white/30 mx-auto rounded-full" />
+        </motion.div>
 
         {/* Email */}
         <motion.div
           variants={fadeInUp}
           custom={1}
-          className="flex items-center justify-center bg-white/5 border border-white/10 rounded-xl p-5 backdrop-blur-md shadow-md w-full sm:w-96 mx-auto mb-6"
+          className="flex flex-col sm:flex-row items-center justify-between bg-white/5 border border-white/10 rounded-xl px-4 py-5 backdrop-blur-md shadow-md w-full max-w-md mx-auto mb-6 space-y-3 sm:space-y-0 sm:space-x-4"
         >
           <a
             href={`mailto:${email}`}
-            className="flex items-center text-lg text-blue-300 hover:underline"
+            className="flex items-center text-base text-blue-300 hover:underline break-all"
           >
-            <FaEnvelope className="text-blue-400 text-2xl mr-3" />
+            <FaEnvelope className="text-blue-400 text-xl mr-2" />
             {email}
           </a>
           <button
             onClick={() => copyToClipboard(email)}
-            className="ml-3 text-gray-400 hover:text-blue-400"
+            className="text-gray-400 hover:text-blue-400 text-lg"
           >
             <FaCopy />
           </button>
@@ -72,13 +75,15 @@ const Contact = () => {
         <motion.div
           variants={fadeInUp}
           custom={2}
-          className="flex items-center justify-center bg-white/5 border border-white/10 rounded-xl p-5 backdrop-blur-md shadow-md w-full sm:w-96 mx-auto mb-10"
+          className="flex flex-col sm:flex-row items-center justify-between bg-white/5 border border-white/10 rounded-xl px-4 py-5 backdrop-blur-md shadow-md w-full max-w-md mx-auto mb-10 space-y-3 sm:space-y-0 sm:space-x-4"
         >
-          <FaPhone className="text-green-400 text-2xl mr-3" />
-          <span className="text-lg">{phone}</span>
+          <div className="flex items-center text-base">
+            <FaPhone className="text-green-400 text-xl mr-2" />
+            <span>{phone}</span>
+          </div>
           <button
             onClick={() => copyToClipboard(phone)}
-            className="ml-3 text-gray-400 hover:text-green-400"
+            className="text-gray-400 hover:text-green-400 text-lg"
           >
             <FaCopy />
           </button>
@@ -88,7 +93,7 @@ const Contact = () => {
         <motion.div
           variants={fadeInUp}
           custom={3}
-          className="flex justify-center space-x-6"
+          className="flex justify-center flex-wrap gap-6"
         >
           <a
             href="https://github.com/GovindxSharma"
