@@ -48,11 +48,17 @@ const fadeInUp = {
   }),
 };
 
+// Helper to chunk array into 2 rows (smart split)
+const splitIntoRows = (arr) => {
+  const midpoint = Math.ceil(arr.length / 2);
+  return [arr.slice(0, midpoint), arr.slice(midpoint)];
+};
+
 const Skills = () => {
   return (
     <section
       id="strength"
-      className="bg-gradient-to-br from-[#0a0f24] via-[#0c1a3c] to-[#050d1e] text-white py-24 px-6 md:px-16 lg:px-32"
+      className="bg-gradient-to-br from-[#0a0f24] via-[#0c1a3c] to-[#050d1e] text-white py-24 px-6 md:px-16 lg:px-32 xl:px-48"
     >
       <motion.div
         initial={{ opacity: 0 }}
@@ -74,39 +80,73 @@ const Skills = () => {
         </div>
 
         {/* Skill Categories */}
-        {Object.entries(skills).map(([category, list], idx) => (
-          <div key={category} className="mb-20">
-            <motion.h3
-              className="text-xl sm:text-2xl font-semibold text-white mb-8 tracking-widest uppercase"
-              custom={idx}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeInUp}
-            >
-              {category}
-            </motion.h3>
+        {Object.entries(skills).map(([category, list], idx) => {
+          const [row1, row2] = splitIntoRows(list);
 
-            {/* Skill Grid */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 place-items-center">
-              {list.map((skill, i) => (
-                <Tilt key={i} tiltMaxAngleX={10} tiltMaxAngleY={10} glareEnable={false}>
-                  <motion.div
-                    className="w-28 h-28 sm:w-32 sm:h-32 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl flex flex-col items-center justify-center hover:border-cyan-300 transition-all duration-300 hover:scale-105 shadow-md hover:shadow-cyan-500/20"
-                    custom={i}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    variants={fadeInUp}
+          return (
+            <div key={category} className="mb-20">
+              <motion.h3
+                className="text-xl sm:text-2xl font-semibold text-white mb-8 tracking-widest uppercase"
+                custom={idx}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={fadeInUp}
+              >
+                {category}
+              </motion.h3>
+
+              {/* Two desktop rows */}
+              <div className="hidden lg:flex flex-col gap-6 items-center">
+                {[row1, row2].map((row, rowIdx) => (
+                  <div
+                    key={rowIdx}
+                    className="flex justify-center flex-wrap gap-6"
                   >
-                    <div className="text-3xl sm:text-4xl mb-2">{skill.icon}</div>
-                    <p className="text-sm font-medium text-center text-gray-300">{skill.name}</p>
-                  </motion.div>
-                </Tilt>
-              ))}
+                    {row.map((skill, i) => (
+                      <Tilt key={i} tiltMaxAngleX={10} tiltMaxAngleY={10}>
+                        <motion.div
+                          className="w-28 h-28 sm:w-32 sm:h-32 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl flex flex-col items-center justify-center gap-y-2 hover:border-cyan-300 transition-all duration-300 hover:scale-105 shadow-md hover:shadow-cyan-500/20"
+                          custom={i}
+                          initial="hidden"
+                          whileInView="visible"
+                          viewport={{ once: true }}
+                          variants={fadeInUp}
+                        >
+                          <div className="text-3xl sm:text-4xl">{skill.icon}</div>
+                          <p className="text-sm font-medium text-center text-gray-300">
+                            {skill.name}
+                          </p>
+                        </motion.div>
+                      </Tilt>
+                    ))}
+                  </div>
+                ))}
+              </div>
+
+              {/* Mobile/Tablet stacked grid */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 lg:hidden">
+                {list.map((skill, i) => (
+                  <Tilt key={i} tiltMaxAngleX={10} tiltMaxAngleY={10}>
+                    <motion.div
+                      className="w-28 h-28 sm:w-32 sm:h-32 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl flex flex-col items-center justify-center gap-y-2 hover:border-cyan-300 transition-all duration-300 hover:scale-105 shadow-md hover:shadow-cyan-500/20"
+                      custom={i}
+                      initial="hidden"
+                      whileInView="visible"
+                      viewport={{ once: true }}
+                      variants={fadeInUp}
+                    >
+                      <div className="text-3xl sm:text-4xl">{skill.icon}</div>
+                      <p className="text-sm font-medium text-center text-gray-300">
+                        {skill.name}
+                      </p>
+                    </motion.div>
+                  </Tilt>
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </motion.div>
     </section>
   );
