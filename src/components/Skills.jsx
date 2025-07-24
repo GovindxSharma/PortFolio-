@@ -10,6 +10,7 @@ import {
 import { TbDatabase } from "react-icons/tb";
 import { motion } from "framer-motion";
 
+
 // Skill Data
 const skills = {
   Frontend: [
