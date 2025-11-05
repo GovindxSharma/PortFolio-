@@ -1,210 +1,179 @@
 import React from "react";
-import {
-  FaCalculator,
-  FaComments,
-  FaShoppingCart,
-  FaGamepad,
-  FaMusic,
-  FaRobot,
-  FaGithub,
-} from "react-icons/fa";
-import {
-  SiDiscord,
-  SiTelegram,
-  SiReact,
-  SiYoutube,
-} from "react-icons/si";
-import { TbCapture } from "react-icons/tb";
-import { PiShoppingBagFill } from "react-icons/pi";
-import Tilt from "react-parallax-tilt";
 import { motion } from "framer-motion";
+import Tilt from "react-parallax-tilt";
+import {
+  FaGithub,
+  FaGlobe,
+  FaCodeBranch,
+  FaExternalLinkAlt,
+} from "react-icons/fa";
+import projects from "../data/projects";
 
-const projects = [
-  {
-    title: "Shopshere",
-    icon: <FaShoppingCart />,
-    desc: "Full-stack commerce app with Razorpay, admin dashboard, order mgmt.",
-    live: "https://shopsheretheshoppingzone.onrender.com/",
-    github: "https://github.com/GovindxSharma/ShopShereF",
-  },
-  {
-    title: "Chat-to-talk",
-    icon: <FaComments />,
-    desc: "Real-time chat app using Socket.io with group support and private rooms.",
-    live: "https://chat-to-talk.onrender.com",
-    github: "https://github.com/GovindxSharma/Chatt",
-  },
-  {
-    title: "Shopkart",
-    icon: <FaShoppingCart />,
-    desc: "React-based cart system with Context API and product filters.",
-    live: "https://shopkart-bx9j.onrender.com",
-    github: "https://github.com/GovindxSharma/Shopkart",
-  },
-  {
-    title: "Yard Management System (YMS V2)",
-    icon: <SiReact />,
-    desc: "Warehouse logistics dashboard with tracking, analytics & dispatch control.",
-    github: "https://github.com/GovindxSharma/YMs-v2",
-  },
-  {
-    title: "BuyIt",
-    icon: <FaShoppingCart />,
-    desc: "Catalog UI for static product listing without backend functionality.",
-    live: "https://buy-it-ocop.onrender.com",
-    github: "https://github.com/GovindxSharma/Buy-It",
-  },
-  {
-    title: "Skillbridge",
-    icon: <FaRobot />,
-    desc: "A professional platform to connect developers with opportunities.",
-    live: "Coming Soon",
-    github: "https://github.com/GovindxSharma/SkillBridge",
-  },
-  {
-    title: "WCTM Native App",
-    icon: <SiReact />,
-    desc: "React Native app for campus event updates, news, and attendance tracking.",
-    live: "https://drive.google.com/file/d/1ifGvpLulKBbvEOwR1BD-uVq03nG4z1mI/view",
-    github: "https://github.com/GovindxSharma/wctm-app",
-  },
-  {
-    title: "CRUD App (MERN)",
-    icon: <SiReact />,
-    desc: "Basic create-read-update-delete features.",
-    live: "https://crud-xy5k.onrender.com",
-    github: "https://github.com/GovindxSharma/CRUD",
-  },
-  {
-    title: "Screen Capture Service",
-    icon: <TbCapture />,
-    desc: "A tool to capture screenshots for tracking activity.",
-    github: "https://github.com/GovindxSharma/ScreenCapture",
-  },
-  {
-    title: "YouTube PiP Extension",
-    icon: <SiYoutube />,
-    desc: "Chrome extension to watch YouTube in picture-in-picture mode.",
-    github: "https://github.com/GovindxSharma/YouTube-PiP",
-  },
-  {
-    title: "Discord Bot",
-    icon: <SiDiscord />,
-    desc: "A Discord bot with moderation, music & utility commands.",
-    github: "https://github.com/GovindxSharma/DiscordAssistant",
-  },
-  {
-    title: "Telegram Bot",
-    icon: <SiTelegram />,
-    desc: "Automates responses and commands in Telegram chats.",
-    github: "https://github.com/GovindxSharma/TeleBot",
-  },
-  {
-    title: "Ping Pong Game",
-    icon: <FaGamepad />,
-    desc: "Browser-based ping pong game with keyboard controls and scoring.",
-    live: "https://pingpong-o8ct.onrender.com",
-    github: "https://github.com/GovindxSharma/PingPong",
-  },
-  {
-    title: "Music Player (Static)",
-    icon: <FaMusic />,
-    desc: "Frontend UI music player with modern design and theme toggler.",
-    live: "https://music-player-pa29.onrender.com",
-    github: "https://github.com/GovindxSharma/Music-Player",
-  },
-  {
-    title: "Calculator",
-    icon: <FaCalculator />,
-    desc: "Responsive calculator with clear display and theme toggle.",
-    live: "https://calculator-9f5l.onrender.com",
-    github: "https://github.com/GovindxSharma/Calculator",
-  },
-];
-
-const fadeInUp = {
+const fadeInUp = (delay = 0) => ({
   hidden: { opacity: 0, y: 30 },
-  visible: (i = 1) => ({
+  visible: {
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.1, duration: 0.5, ease: "easeOut" },
-  }),
-};
+    transition: { duration: 0.6, delay },
+  },
+});
 
-const ProjectsExperience = () => (
-  <section
-    id="projectexperience"
-    className="scroll-mt-24 bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white py-24 px-6 md:px-16 lg:px-32"
-  >
-    <div className="max-w-6xl mx-auto">
-      <div className="text-center mb-14">
-        <p className="text-sm text-gray-400 uppercase tracking-widest mb-2">My Work</p>
-        <h2 className="text-3xl sm:text-4xl font-semibold text-white">
-          <span className="text-blue-400">Projects</span>{" "}
-          <span className="text-purple-400">& Experience</span>
-        </h2>
-        <div className="mt-2 w-10 h-0.5 bg-white/30 mx-auto rounded-full" />
+export default function ProjectsExperience() {
+  const featured = projects.filter((p) => p.highlight);
+  const others = projects.filter((p) => !p.highlight);
+
+  return (
+    <section
+      id="projects"
+      className="relative bg-gradient-to-br from-gray-950 via-gray-900 to-black text-white py-24 px-6 md:px-12 lg:px-24 overflow-hidden"
+    >
+      {/* background glow */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-0 left-0 w-[400px] h-[400px] bg-blue-500/20 blur-[150px] rounded-full" />
+        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-purple-500/20 blur-[150px] rounded-full" />
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-        {projects.map((project, i) => (
-          <Tilt
-            key={i}
-            tiltMaxAngleX={25}
-            tiltMaxAngleY={25}
-            scale={1.05}
-            transitionSpeed={250}
-            glareEnable={false}
-            className="rounded-2xl"
-          >
+      {/* header */}
+      <motion.div
+        variants={fadeInUp(0.2)}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        className="relative text-center mb-16"
+      >
+        <p className="text-sm uppercase tracking-widest text-gray-400 mb-2">
+          My Work
+        </p>
+        <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+          Projects & Experience
+        </h2>
+        <p className="mt-3 text-gray-400 max-w-2xl mx-auto">
+          A showcase of my best full-stack, frontend, and AI-powered projects
+          — built with precision, creativity, and performance in mind.
+        </p>
+      </motion.div>
+
+      {/* Featured projects */}
+      <div className="flex flex-wrap justify-center gap-10 mb-20">
+        {featured.map((p, i) => (
+          <Tilt key={i} tiltMaxAngleX={10} tiltMaxAngleY={10} scale={1.07}>
             <motion.div
-              className="bg-white/5 backdrop-blur-md p-6 rounded-2xl shadow-xl border border-white/10 hover:border-blue-500 transition-all duration-300 hover:scale-[1.015] group h-full flex flex-col justify-between"
-              variants={fadeInUp}
+              variants={fadeInUp(i * 0.15 + 0.3)}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              custom={i}
+              whileHover={{ y: -10, scale: 1.04 }}
+              className="relative group w-[320px] md:w-[360px] rounded-3xl p-[2px] bg-gradient-to-br from-blue-500/40 to-purple-500/40 hover:from-blue-500/60 hover:to-purple-500/60 transition-all duration-700"
             >
-              <div>
-                <div className="w-12 h-12 flex items-center justify-center rounded-full bg-blue-500/20 text-blue-400 text-2xl mb-5">
-                  {project.icon}
+              <div className="rounded-3xl p-7 bg-gray-950/80 backdrop-blur-xl border border-white/10 shadow-2xl group-hover:shadow-blue-500/20 transition-all duration-700">
+                <div className="flex flex-col items-start">
+                  <div className="w-14 h-14 flex items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-purple-500 text-white text-2xl mb-4 shadow-lg shadow-blue-500/20">
+                    {p.icon || <FaGlobe />}
+                  </div>
+                  <h3 className="text-xl font-semibold mb-2">{p.title}</h3>
+                  <p className="text-gray-300 text-sm mb-6 leading-relaxed">
+                    {p.desc}
+                  </p>
+                  <div className="flex justify-between items-center w-full">
+                    {p.live && p.live !== "Coming Soon" ? (
+                      <a
+                        href={p.live}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-4 py-2 text-sm font-medium rounded-md bg-blue-600/30 hover:bg-blue-600/50 text-blue-200 transition flex items-center gap-2"
+                      >
+                        <FaExternalLinkAlt size={13} />
+                        Live
+                      </a>
+                    ) : (
+                      <span className="px-4 py-2 text-sm rounded-md bg-gray-700/30 text-gray-400 italic">
+                        Coming Soon
+                      </span>
+                    )}
+
+                    {p.github ? (
+                      <a
+                        href={p.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-4 py-2 flex items-center gap-2 text-sm rounded-md bg-white/10 hover:bg-white/20 text-gray-300 transition"
+                      >
+                        <FaGithub />
+                        Code
+                      </a>
+                    ) : (
+                      <span className="px-4 py-2 text-sm rounded-md bg-gray-700/20 text-gray-500">
+                        Private Repo
+                      </span>
+                    )}
+                  </div>
                 </div>
-                <h3 className="text-lg font-semibold text-white group-hover:text-blue-400 transition-colors duration-200 mb-2">
-                  {project.title}
-                </h3>
-                <p className="text-gray-300 text-sm leading-relaxed mb-6">
-                  {project.desc}
-                </p>
-              </div>
-              <div className="flex justify-between items-center text-sm font-medium mt-auto">
-                {project.live && project.live !== "Coming Soon" ? (
-                  <a
-                    href={project.live}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-400 hover:text-blue-200 transition-colors"
-                  >
-                    🔗 Live
-                  </a>
-                ) : (
-                  <span />
-                )}
-                <a
-                  href={project.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-1 text-gray-400 hover:text-gray-200 transition-colors"
-                >
-                  <FaGithub className="text-base" />
-                  GitHub
-                </a>
               </div>
             </motion.div>
           </Tilt>
         ))}
       </div>
-    </div>
-  </section>
-);
 
-export default ProjectsExperience;
+      {/* Other projects grid */}
+      <motion.div
+        variants={fadeInUp(0.5)}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10"
+      >
+        {others.map((p, i) => (
+          <Tilt key={i} tiltMaxAngleX={6} tiltMaxAngleY={6} scale={1.03}>
+            <motion.div
+              whileHover={{ y: -6, scale: 1.02 }}
+              className="p-6 rounded-2xl bg-gradient-to-br from-gray-800/40 to-gray-900/40 border border-white/10 backdrop-blur-lg hover:from-blue-600/10 hover:to-purple-600/10 hover:border-blue-500/30 transition-all duration-500"
+            >
+              <div className="mb-4">
+                <div className="w-12 h-12 flex items-center justify-center rounded-full bg-blue-500/20 text-blue-300 text-xl shadow-md shadow-blue-500/20">
+                  {p.icon || <FaGlobe />}
+                </div>
+              </div>
+              <h3 className="text-lg font-semibold mb-2">{p.title}</h3>
+              <p className="text-gray-400 text-sm mb-6 leading-relaxed">
+                {p.desc}
+              </p>
+              <div className="flex justify-between text-sm">
+                {p.live && p.live !== "Coming Soon" ? (
+                  <a
+                    href={p.live}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-3 py-1.5 flex items-center gap-2 rounded-md bg-blue-500/20 hover:bg-blue-500/40 text-blue-300 transition"
+                  >
+                    <FaExternalLinkAlt size={12} />
+                    Live
+                  </a>
+                ) : (
+                  <span className="text-gray-500 italic text-xs bg-gray-700/20 px-3 py-1.5 rounded-md">
+                    Coming Soon
+                  </span>
+                )}
+
+                {p.github ? (
+                  <a
+                    href={p.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 px-3 py-1.5 rounded-md bg-white/10 hover:bg-white/20 text-gray-300 transition"
+                  >
+                    <FaCodeBranch className="text-sm" />
+                    Code
+                  </a>
+                ) : (
+                  <span className="text-gray-500 italic text-xs bg-gray-700/20 px-3 py-1.5 rounded-md">
+                    Private Repo
+                  </span>
+                )}
+              </div>
+            </motion.div>
+          </Tilt>
+        ))}
+      </motion.div>
+    </section>
+  );
+}
