@@ -30,7 +30,7 @@ const projects = [
     title: "SK Foodz",
     icon: <FaGlobe />,
     desc: "Modern product-based site for a healthy food brand with category filtering and clean design.",
-    live: "https://skfoodz.onrender.com",
+    live: "https://skfoodz.in",
     highlight: true,
   },
   {
