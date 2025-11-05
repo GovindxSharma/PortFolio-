@@ -24,7 +24,7 @@ export default function ProjectsExperience() {
 
   return (
     <section
-      id="projects"
+      id ="projectexperience"
       className="relative bg-gradient-to-br from-gray-950 via-gray-900 to-black text-white py-24 px-6 md:px-12 lg:px-24 overflow-hidden"
     >
       {/* background glow */}
