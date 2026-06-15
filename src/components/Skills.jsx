@@ -1,153 +1,139 @@
 import React from "react";
-import Tilt from "react-parallax-tilt";
-import {
-  FaHtml5, FaJs, FaNodeJs, FaReact, FaBootstrap,
-} from "react-icons/fa";
-import {
-  SiJquery, SiExpress, SiNextdotjs, SiRedux,
-  SiTypescript, SiRender, SiTailwindcss, SiMongodb,
-} from "react-icons/si";
-import { TbDatabase } from "react-icons/tb";
-import { motion } from "framer-motion";
-
-// Skills Data
-const skills = {
-  Frontend: [
-    { name: "HTML5", icon: <FaHtml5 className="text-orange-500" /> },
-    { name: "JavaScript", icon: <FaJs className="text-yellow-400" /> },
-    { name: "React", icon: <FaReact className="text-blue-400" /> },
-    { name: "Next.js", icon: <SiNextdotjs className="text-white" /> },
-    { name: "Tailwind CSS", icon: <SiTailwindcss className="text-blue-400" /> },
-    { name: "Bootstrap", icon: <FaBootstrap className="text-purple-500" /> },
-    { name: "jQuery", icon: <SiJquery className="text-blue-300" /> },
-  ],
-  Backend: [
-    { name: "Node.js", icon: <FaNodeJs className="text-green-500" /> },
-    { name: "Express", icon: <SiExpress className="text-gray-300" /> },
-    { name: "MongoDB", icon: <SiMongodb className="text-green-600" /> },
-  ],
-  Tools: [
-    { name: "Redux", icon: <SiRedux className="text-purple-400" /> },
-    { name: "TypeScript", icon: <SiTypescript className="text-blue-500" /> },
-    { name: "Render", icon: <SiRender className="text-gray-400" /> },
-  ],
-  Concepts: [
-    { name: "OOPs", icon: <TbDatabase className="text-blue-400" /> },
-    { name: "Data Structures", icon: <TbDatabase className="text-green-400" /> },
-    { name: "C++", icon: <TbDatabase className="text-indigo-400" /> },
-  ],
-};
-
-// Animation
-const fadeInUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: (i = 1) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: i * 0.05, duration: 0.6 },
-  }),
-};
-
-// Helper to chunk array into 2 rows (smart split)
-const splitIntoRows = (arr) => {
-  const midpoint = Math.ceil(arr.length / 2);
-  return [arr.slice(0, midpoint), arr.slice(midpoint)];
-};
 
 const Skills = () => {
+  const skillGroups = [
+    {
+      title: "Frontend Engineering",
+      items: [
+        "React.js", "Next.js", "JavaScript (ES6+)", "TypeScript",
+        "Redux Toolkit", "Context API", "Tailwind CSS",
+        "HTML5", "CSS3", "Responsive UI Design",
+        "Web Performance Optimization",
+      ],
+    },
+    {
+      title: "Backend Engineering",
+      items: [
+        "Node.js", "Express.js", "REST API Design",
+        "Authentication & Authorization", "JWT", "OAuth (Google Login)",
+        "Middleware Architecture", "Error Handling",
+      ],
+    },
+    {
+      title: "Databases & Data Modeling",
+      items: [
+        "MongoDB", "MySQL Basics", "PostgreSQL Basics",
+        "Prisma ORM", "Mongoose ODM",
+        "Database Design", "Schema Modeling",
+      ],
+    },
+    {
+      title: "System Design & Architecture",
+      items: [
+        "MVC Architecture",
+        "Scalable Backend Design (Basics)",
+        "Monolithic Architecture Understanding",
+        "API Design Principles",
+        "Rate Limiting (Basics)",
+      ],
+    },
+    {
+      title: "DevOps & Deployment",
+      items: [
+        "Git & GitHub",
+        "Docker Basics",
+        "CI/CD Basics",
+        "Vercel Deployment",
+        "Render Deployment",
+        "Environment Management (.env)",
+      ],
+    },
+    {
+      title: "Software Engineering Fundamentals",
+      items: [
+        "Data Structures & Algorithms",
+        "Problem Solving",
+        "Object-Oriented Programming",
+        "Clean Code Principles",
+        "Debugging & Optimization",
+      ],
+    },
+    {
+      title: "Modern Integrations",
+      items: [
+        "Cloudinary (File Uploads)",
+        "AI API Integration",
+        "OpenAI / LLM Basics",
+        "Third-party API Integration",
+      ],
+    },
+  ];
+
   return (
-    <section
-      id="strength"
-      className="bg-gradient-to-br from-[#0a0f24] via-[#0c1a3c] to-[#050d1e] text-white py-24 px-6 md:px-16 lg:px-32 xl:px-48"
-    >
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1 }}
-        className="max-w-6xl mx-auto text-center"
-      >
-        {/* Section Heading */}
-        <div className="text-center mb-14">
-          <p className="text-sm text-gray-400 uppercase tracking-widest mb-2">
-            Technical Arsenal
-          </p>
-          <h2 className="text-3xl sm:text-4xl font-semibold text-white">
-            <span className="text-blue-400">Strengths</span>{" "}
-            <span className="text-purple-400">& Skills</span>
+    <section id="skills"className="relative py-24 px-6 bg-white dark:bg-slate-950">
+
+      <div className="max-w-6xl mx-auto">
+
+        {/* HEADER */}
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white">
+            Technical <span className="text-cyan-500">Expertise</span>
           </h2>
-          <div className="mt-2 w-10 h-0.5 bg-white/30 mx-auto rounded-full" />
+
+          <p className="mt-3 text-slate-500 dark:text-slate-400">
+            Structured full-stack engineering & production-ready development skills
+          </p>
         </div>
 
-        {/* Skill Categories */}
-        {Object.entries(skills).map(([category, list], idx) => {
-          const [row1, row2] = splitIntoRows(list);
+        {/* GRID SECTIONS */}
+        <div className="grid md:grid-cols-2 gap-6">
 
-          return (
-            <div key={category} className="mb-20">
-              <motion.h3
-                className="text-xl sm:text-2xl font-semibold text-white mb-8 tracking-widest uppercase"
-                custom={idx}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={fadeInUp}
-              >
-                {category}
-              </motion.h3>
+          {skillGroups.map((group, i) => (
+            <div
+              key={i}
+              className="
+                rounded-2xl
+                border border-slate-200 dark:border-slate-800
+                bg-slate-50/60 dark:bg-slate-900/40
+                p-6
+                hover:border-cyan-500/30
+                transition
+              "
+            >
 
-              {/* Two desktop rows */}
-              <div className="hidden lg:flex flex-col gap-6 items-center">
-                {[row1, row2].map((row, rowIdx) => (
-                  <div
-                    key={rowIdx}
-                    className="flex justify-center flex-wrap gap-6"
+              {/* TITLE */}
+              <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-4">
+                {group.title}
+              </h3>
+
+              {/* ITEMS */}
+              <div className="flex flex-wrap gap-2">
+                {group.items.map((skill, idx) => (
+                  <span
+                    key={idx}
+                    className="
+                      text-xs md:text-sm
+                      px-3 py-1.5
+                      rounded-full
+                      border border-slate-200 dark:border-slate-800
+                      text-slate-700 dark:text-slate-300
+                      bg-white dark:bg-slate-950
+                      hover:border-cyan-400/40
+                      hover:text-cyan-500
+                      transition
+                    "
                   >
-                    {row.map((skill, i) => (
-                      <Tilt key={i} tiltMaxAngleX={10} tiltMaxAngleY={10}>
-                        <motion.div
-                          className="w-28 h-28 sm:w-32 sm:h-32 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl flex flex-col items-center justify-center gap-y-2 hover:border-cyan-300 transition-all duration-300 hover:scale-105 shadow-md hover:shadow-cyan-500/20"
-                          custom={i}
-                          initial="hidden"
-                          whileInView="visible"
-                          viewport={{ once: true }}
-                          variants={fadeInUp}
-                        >
-                          <div className="text-3xl sm:text-4xl">{skill.icon}</div>
-                          <p className="text-sm font-medium text-center text-gray-300">
-                            {skill.name}
-                          </p>
-                        </motion.div>
-                      </Tilt>
-                    ))}
-                  </div>
+                    {skill}
+                  </span>
                 ))}
               </div>
 
-              {/* Mobile/Tablet stacked grid */}
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 lg:hidden">
-                {list.map((skill, i) => (
-                  <Tilt key={i} tiltMaxAngleX={10} tiltMaxAngleY={10}>
-                    <motion.div
-                      className="w-28 h-28 sm:w-32 sm:h-32 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl flex flex-col items-center justify-center gap-y-2 hover:border-cyan-300 transition-all duration-300 hover:scale-105 shadow-md hover:shadow-cyan-500/20"
-                      custom={i}
-                      initial="hidden"
-                      whileInView="visible"
-                      viewport={{ once: true }}
-                      variants={fadeInUp}
-                    >
-                      <div className="text-3xl sm:text-4xl">{skill.icon}</div>
-                      <p className="text-sm font-medium text-center text-gray-300">
-                        {skill.name}
-                      </p>
-                    </motion.div>
-                  </Tilt>
-                ))}
-              </div>
             </div>
-          );
-        })}
-      </motion.div>
+          ))}
+
+        </div>
+
+      </div>
     </section>
   );
 };

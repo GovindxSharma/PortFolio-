@@ -1,55 +1,135 @@
 import React from "react";
+import { ArrowUpRight, Sparkles } from "lucide-react";
 
 const About = () => {
   const resumeUrl =
-    "https://drive.google.com/file/d/1Lst3cr9luApujRO9Zt5aQPtzAN7K-T_L/view?usp=sharing";
+    "https://drive.google.com/file/d/1hzAaMHUEFeLnl0hI6LkEGuo4jBbR5wWF/view?usp=drive_link";
+
+  const techStack = [
+    "React",
+    "Node.js",
+    "Express",
+    "MongoDB",
+    "TypeScript",
+    "Tailwind CSS",
+    "AI",
+    "JavaScript",
+  ];
 
   return (
     <section
       id="about"
-      className="scroll-mt-24 bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white py-20 px-4 sm:px-8 md:px-16 lg:px-32"
+      className="relative overflow-hidden scroll-mt-20 px-6 py-16 md:py-20"
     >
-      <div className="max-w-5xl mx-auto bg-white/5 backdrop-blur-md rounded-3xl p-8 sm:p-10 md:p-14 shadow-2xl border border-white/10 animate-fade-in-up">
-        <div className="flex flex-col md:flex-row items-center gap-10">
-          
-          {/* Text Content */}
-          <div className="md:w-2/3 text-center md:text-left">
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-blue-400 mb-2">
-              Govind Sharma
+      {/* Background Glow */}
+      <div className="absolute left-0 top-10 h-60 w-60 rounded-full bg-cyan-500/10 blur-[120px]" />
+      <div className="absolute bottom-0 right-0 h-60 w-60 rounded-full bg-violet-500/10 blur-[120px]" />
+
+      <div className="relative mx-auto max-w-7xl">
+        <div className="grid items-center gap-10 lg:grid-cols-2">
+
+          {/* LEFT */}
+          <div className="text-center lg:text-left">
+
+            {/* Badge */}
+            <div className="inline-flex items-center justify-center lg:justify-start gap-2 rounded-full border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-1.5 shadow-sm">
+              <Sparkles size={14} className="text-cyan-500" />
+              <span className="text-xs md:text-sm font-medium text-slate-800 dark:text-slate-200">
+                Available for Opportunities
+              </span>
+            </div>
+
+            {/* Heading */}
+            <h2 className="mt-5 text-3xl md:text-6xl font-black leading-tight text-slate-950 dark:text-slate-100">
+              Crafting{" "}
+              <span className="bg-gradient-to-r from-cyan-500 via-blue-500 to-violet-500 bg-clip-text text-transparent">
+                Scalable
+              </span>
+              <br />
+              Digital Products
             </h2>
-            <p className="text-xs sm:text-sm text-gray-400 mb-4">Full-Stack Developer</p>
 
-            <p className="text-gray-300 text-base sm:text-lg leading-relaxed">
-              Hello! I'm a passionate and performance-driven full-stack developer with a strong inclination toward{" "}
-              <span className="text-blue-400 font-medium">backend engineering</span>. I build{" "}
-              <span className="text-blue-400 font-medium">robust, scalable systems</span> using{" "}
-              <span className="text-blue-400">JavaScript, TypeScript, Node.js</span>, and modern database technologies.
+            {/* Text */}
+            <p className="mt-5 text-sm md:text-lg text-slate-800 dark:text-slate-300 leading-relaxed">
+              I'm Govind Sharma, a Full-Stack Developer focused on building
+              performant backend systems and beautiful user experiences.
             </p>
 
-            <p className="text-gray-400 text-sm sm:text-base mt-4">
-              I enjoy solving complex problems, optimizing backend architecture, and collaborating across the stack to build impactful, real-world applications. I'm currently diving deeper into system design, distributed architecture, and contributing to scalable full-stack projects.
+            <p className="mt-3 text-sm md:text-base text-slate-600 dark:text-slate-400">
+              I specialize in JavaScript, TypeScript, Node.js, React, MongoDB,
+              and AI-powered applications.
             </p>
 
-            <a
-              href={resumeUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block mt-6 px-6 py-2 sm:px-8 sm:py-3 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white text-sm sm:text-base font-semibold rounded-full shadow-md transition duration-300"
-            >
-              View Resume
-            </a>
-          </div>
+            {/* Tech */}
+            <div className="mt-5 flex flex-wrap justify-center lg:justify-start gap-2">
+              {techStack.map((tech) => (
+                <span
+                  key={tech}
+                  className="rounded-full border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-1 text-xs md:text-sm text-slate-700 dark:text-slate-200"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
 
-          {/* Profile Image */}
-          <div className="md:w-1/3 flex justify-center">
-            <div className="w-32 h-32 sm:w-40 sm:h-40 md:w-52 md:h-52 rounded-full overflow-hidden border-4 border-blue-500 shadow-xl">
-              <img
-                src="/github.png"
-                alt="Govind Sharma"
-                className="object-cover w-full h-full"
-              />
+            {/* Button */}
+            <div className="mt-6 flex justify-center lg:justify-start">
+              <a
+                href={resumeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-cyan-500 via-blue-500 to-violet-600 px-6 py-3 text-sm md:text-base font-semibold text-white hover:scale-105 transition"
+              >
+                View Resume
+                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+              </a>
             </div>
           </div>
+
+          {/* RIGHT */}
+          <div className="relative flex justify-center">
+            <div className="absolute -inset-4 rounded-[30px] bg-gradient-to-r from-cyan-500/20 via-blue-500/20 to-violet-500/20 blur-2xl" />
+
+            <div className="relative overflow-hidden rounded-2xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 p-4 shadow-lg w-full max-w-sm">
+              <img
+                src="/github.png"
+                alt="profile"
+                className="h-[260px] md:h-[360px] w-full max-w-sm rounded-xl object-cover"
+              />
+
+              {/* Stats */}
+              <div className="mt-4 grid grid-cols-3 gap-2">
+                <div className="rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 p-3 text-center">
+                  <h3 className="text-lg font-bold text-slate-900 dark:text-white">
+                    10+
+                  </h3>
+                  <p className="text-[10px] text-slate-600 dark:text-slate-400">
+                    Projects
+                  </p>
+                </div>
+
+                <div className="rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 p-3 text-center">
+                  <h3 className="text-lg font-bold text-slate-900 dark:text-white">
+                    MERN
+                  </h3>
+                  <p className="text-[10px] text-slate-600 dark:text-slate-400">
+                    Stack
+                  </p>
+                </div>
+
+                <div className="rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 p-3 text-center">
+                  <h3 className="text-lg font-bold text-slate-900 dark:text-white">
+                    AI
+                  </h3>
+                  <p className="text-[10px] text-slate-600 dark:text-slate-400">
+                    Powered
+                  </p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
