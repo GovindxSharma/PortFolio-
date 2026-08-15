@@ -3,25 +3,41 @@ import { createContext, useContext, useEffect, useState } from "react";
 const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
-  const [darkMode, setDarkMode] = useState(() => {
-    return localStorage.getItem("theme") === "dark";
+  const [themeMode, setThemeMode] = useState(() => {
+    return localStorage.getItem("theme_mode") || "dark";
   });
 
+  const darkMode = themeMode === "dark" || themeMode === "red";
+  const isRedGate = themeMode === "red";
+
   useEffect(() => {
-    if (darkMode) {
+    document.documentElement.classList.remove("dark", "red-gate-active");
+    if (themeMode === "dark") {
       document.documentElement.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("theme", "light");
+    } else if (themeMode === "red") {
+      document.documentElement.classList.add("dark", "red-gate-active");
     }
-  }, [darkMode]);
+    localStorage.setItem("theme_mode", themeMode);
+    localStorage.setItem("theme", darkMode ? "dark" : "light");
+  }, [themeMode, darkMode]);
+
+  const toggleTheme = () => {
+    setThemeMode((prev) => (prev === "dark" ? "light" : "dark"));
+  };
+
+  const toggleRedGate = () => {
+    setThemeMode((prev) => (prev === "red" ? "dark" : "red"));
+  };
 
   return (
     <ThemeContext.Provider
       value={{
+        themeMode,
         darkMode,
-        toggleTheme: () => setDarkMode(!darkMode),
+        isRedGate,
+        setThemeMode,
+        toggleTheme,
+        toggleRedGate,
       }}
     >
       {children}

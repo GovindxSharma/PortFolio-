@@ -1,37 +1,49 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { FaGraduationCap } from "react-icons/fa";
+import { ShieldAlert, Sparkles, CheckCircle2, ChevronRight, Award } from "lucide-react";
+import { soundFX } from "../utils/soundEffects";
 
 const educationData = [
   {
+    floor: "FLOOR 5 • CURRENT SUMMIT",
     title: "WCTM College",
-    subtitle: "2024 - Present",
-    desc: "Computer Science focused on Software Dev, Cloud & AI",
-    skills: ["React", "Node", "AI", "Cloud"],
+    subtitle: "2024 – Present",
+    desc: "Computer Science specializing in Distributed Software Development, Cloud Architecture & AI Engineering.",
+    skills: ["React.js", "Node.js", "AI & LLMs", "Cloud Architecture", "Three.js"],
+    current: true,
   },
   {
+    floor: "FLOOR 4 • CLEARED",
     title: "Maharshi Dayanand University",
-    subtitle: "2020 - 2023",
-    desc: "BCA with DSA & Full Stack Engineering focus",
-    skills: ["DSA", "MERN", "System Design"],
+    subtitle: "2020 – 2023",
+    desc: "Bachelor of Computer Applications (BCA) with rigorous focus on Data Structures, Algorithms & Full-Stack Systems.",
+    skills: ["DSA", "MERN Stack", "System Design", "Database Modeling", "OOP"],
+    current: false,
   },
   {
+    floor: "FLOOR 3 • CLEARED",
     title: "Coding Ninjas",
     subtitle: "2023",
-    desc: "C++, DSA & MERN Stack Development",
-    skills: ["C++", "DSA", "MERN"],
+    desc: "Intensive DSA Bootcamp in C++, Advanced Algorithms, Problem Solving & Full-Stack MERN Architecture.",
+    skills: ["C++", "DSA Mastery", "MERN Engineering", "Competitive Coding"],
+    current: false,
   },
   {
+    floor: "FLOOR 2 • CLEARED",
     title: "Adani Public School",
-    subtitle: "2018 - 2020",
-    desc: "Science & Math foundation",
-    skills: ["Logic", "Math", "Problem Solving"],
+    subtitle: "2018 – 2020",
+    desc: "Senior Secondary with core focus in Advanced Mathematics, Physics, Logic & Analytical Problem Solving.",
+    skills: ["Analytical Logic", "Mathematics", "Problem Solving", "Science"],
+    current: false,
   },
   {
+    floor: "FLOOR 1 • CLEARED",
     title: "Aga Khan School",
-    subtitle: "2006 - 2018",
-    desc: "Early academic foundation",
-    skills: ["Basics", "Discipline", "Consistency"],
+    subtitle: "2006 – 2018",
+    desc: "Foundational academic training instilling discipline, consistency, and core intellectual curiosity.",
+    skills: ["Foundations", "Discipline", "Consistency", "Curiosity"],
+    current: false,
   },
 ];
 
@@ -39,108 +51,127 @@ export default function Education() {
   return (
     <section
       id="education"
-      className="relative py-24 px-6 bg-white dark:bg-slate-950 overflow-hidden"
+      className="relative py-12 md:py-20 px-2 sm:px-6 bg-slate-50/60 dark:bg-[#090a0f] overflow-hidden"
     >
-      {/* soft ambient light */}
-      <div className="absolute top-0 left-0 w-[450px] h-[450px] bg-cyan-500/10 blur-[160px] rounded-full" />
-      <div className="absolute bottom-0 right-0 w-[450px] h-[450px] bg-violet-500/10 blur-[160px] rounded-full" />
+      {/* Glow Orbs */}
+      <div className="absolute top-0 left-0 w-[450px] h-[450px] bg-cyan-500/10 blur-[170px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-[450px] h-[450px] bg-violet-500/10 blur-[170px] rounded-full pointer-events-none" />
 
-      <div className="max-w-3xl mx-auto relative">
+      <div className="max-w-4xl mx-auto relative">
 
         {/* HEADER */}
         <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white">
-            Development Journey
+          <div className="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-white/70 dark:bg-[#12141c] px-3.5 py-1 text-xs font-mono text-cyan-400 font-bold mb-3">
+            <Award size={13} className="text-cyan-400" />
+            <span>[ DUNGEON ASCENSION // KNOWLEDGE ARCHIVE ]</span>
+          </div>
+
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 dark:text-[#f8fafc] font-['Rajdhani',sans-serif] tracking-tight">
+            Dungeon Floor{" "}
+            <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-violet-500 bg-clip-text text-transparent">
+              Clearance & Journey
+            </span>
           </h2>
-          <p className="text-slate-500 dark:text-slate-400 mt-2 text-sm">
-            A structured evolution of real-world developer skills
+
+          <p className="text-slate-600 dark:text-slate-400 mt-2 text-sm sm:text-base font-mono">
+            A structured evolution of computer science, algorithmic intellect, and engineering foundations.
           </p>
         </div>
 
-        {/* CORE LINE */}
+        {/* TIMELINE / ASCENSION PATH */}
         <div className="relative">
 
-          <div className="absolute left-3 top-0 bottom-0 w-[2px] bg-gradient-to-b from-cyan-500 via-blue-500 to-violet-500 opacity-40" />
+          {/* Central / Left Line */}
+          <div className="absolute left-4 sm:left-6 top-4 bottom-4 w-[2px] bg-gradient-to-b from-cyan-400 via-blue-500 to-violet-600 opacity-50" />
 
-          {educationData.map((edu, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.45, delay: i * 0.08 }}
-              className="relative pl-12 pb-8 group"
-            >
+          <div className="space-y-6 sm:space-y-8">
+            {educationData.map((edu, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                onMouseEnter={() => soundFX.playHover()}
+                className="relative pl-12 sm:pl-16 group"
+              >
+                {/* NODE BADGE ON LINE */}
+                <div className="absolute left-1.5 sm:left-3.5 top-3 -translate-x-1/2">
+                  <div
+                    className={`h-7 w-7 sm:h-8 sm:w-8 rounded-full flex items-center justify-center shadow-lg transition-transform group-hover:scale-125 ${
+                      edu.current
+                        ? "bg-gradient-to-r from-cyan-400 to-violet-600 text-white shadow-[0_0_15px_rgba(6,182,212,0.8)] animate-pulse"
+                        : "bg-slate-900 dark:bg-[#12141c] text-cyan-400 border border-cyan-500/40"
+                    }`}
+                  >
+                    <FaGraduationCap className="text-xs sm:text-sm" />
+                  </div>
 
-              {/* NODE */}
-              <div className="absolute left-0 top-1.5">
-                <div className="h-6 w-6 rounded-full bg-slate-900 dark:bg-white flex items-center justify-center shadow-lg">
-                  <FaGraduationCap className="text-cyan-500 text-sm" />
+                  {edu.current && (
+                    <div className="absolute -inset-1 rounded-full bg-cyan-400/30 animate-ping pointer-events-none" />
+                  )}
                 </div>
 
-                {/* pulse ring */}
-                <div className="absolute inset-0 h-6 w-6 rounded-full bg-cyan-500/20 animate-ping" />
-              </div>
+                {/* CONTENT CARD */}
+                <div
+                  className={`
+                    relative rounded-2xl sm:rounded-3xl
+                    border p-5 sm:p-6 transition-all duration-300
+                    bg-white/90 dark:bg-[#101218]/90 backdrop-blur-xl
+                    group-hover:-translate-y-1
+                    ${
+                      edu.current
+                        ? "border-cyan-400/60 shadow-[0_0_25px_rgba(6,182,212,0.2)] group-hover:shadow-[0_0_35px_rgba(6,182,212,0.35)]"
+                        : "border-slate-200 dark:border-white/10 group-hover:border-cyan-500/40"
+                    }
+                  `}
+                >
+                  {/* Floor Header */}
+                  <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+                    <span
+                      className={`text-[10px] sm:text-[11px] font-mono font-bold px-2.5 py-0.5 rounded-full border ${
+                        edu.current
+                          ? "bg-cyan-500/20 text-cyan-400 border-cyan-400/50"
+                          : "bg-slate-100 dark:bg-[#151822] text-slate-700 dark:text-slate-300 border-slate-200 dark:border-white/5"
+                      }`}
+                    >
+                      {edu.floor}
+                    </span>
 
-              {/* CONTENT CARD */}
-              <div className="
-                relative
-                rounded-xl
-                border border-slate-200 dark:border-slate-800
-                bg-white/60 dark:bg-slate-900/40
-                backdrop-blur-xl
-                p-4
-                transition-all duration-300
-                group-hover:translate-x-1
-                group-hover:border-cyan-500/40
-              ">
+                    <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
+                      📅 {edu.subtitle}
+                    </span>
+                  </div>
 
-                {/* top row */}
-                <div className="flex items-center justify-between">
-                  <h3 className="text-md font-semibold text-slate-900 dark:text-white group-hover:text-cyan-500 transition">
+                  {/* Institution Title */}
+                  <h3 className="text-lg sm:text-xl font-bold font-['Rajdhani',sans-serif] text-slate-900 dark:text-white group-hover:text-cyan-400 transition-colors">
                     {edu.title}
                   </h3>
 
-                  <span className="text-[11px] text-slate-500">
-                    {edu.subtitle}
-                  </span>
+                  {/* Description */}
+                  <p className="mt-2 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                    {edu.desc}
+                  </p>
+
+                  {/* Awakened Skills Pills */}
+                  <div className="flex flex-wrap gap-1.5 sm:gap-2 mt-4 pt-3 border-t border-slate-100 dark:border-white/5">
+                    {edu.skills.map((s, idx) => (
+                      <span
+                        key={idx}
+                        className="text-[11px] font-mono px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-[#141720] text-slate-800 dark:text-slate-300 border border-slate-200 dark:border-white/5 group-hover:border-cyan-400/40 transition"
+                      >
+                        {s}
+                      </span>
+                    ))}
+                  </div>
+
                 </div>
-
-                {/* description */}
-                <p className="text-sm text-slate-600 dark:text-slate-300 mt-1">
-                  {edu.desc}
-                </p>
-
-                {/* SKILL PILLS (IMPORTANT PART) */}
-                <div className="flex flex-wrap gap-2 mt-3">
-                  {edu.skills.map((s, idx) => (
-                    <motion.span
-                      key={idx}
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: i * 0.05 + idx * 0.03 }}
-                      className="
-                        text-[11px]
-                        px-2 py-1
-                        rounded-full
-                        bg-slate-100 dark:bg-slate-800
-                        text-slate-700 dark:text-slate-300
-                        border border-slate-200 dark:border-slate-700
-                        hover:border-cyan-500/40
-                        transition
-                      "
-                    >
-                      {s}
-                    </motion.span>
-                  ))}
-                </div>
-
-              </div>
-
-            </motion.div>
-          ))}
+              </motion.div>
+            ))}
+          </div>
 
         </div>
+
       </div>
     </section>
   );

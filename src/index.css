@@ -1,19 +1,145 @@
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: #090a0f;
+  }
+
+  body {
+    overflow-x: hidden;
+    background-color: #090a0f;
+    color: #f8fafc;
+  }
+
+  /* Completely remove/hide visible scrollbars across ALL browsers while preserving full scrolling */
+  *,
+  *::before,
+  *::after {
+    -ms-overflow-style: none !important; /* IE and Edge */
+    scrollbar-width: none !important; /* Firefox */
+  }
+
+  ::-webkit-scrollbar {
+    display: none !important;
+    width: 0px !important;
+    height: 0px !important;
+    background: transparent !important;
+  }
+}
+
 @layer utilities {
-    @keyframes fade-in-up {
-      0% {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
+  @keyframes fade-in-up {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
     }
-  
-    .animate-fade-in-up {
-      animation: fade-in-up 0.8s ease-out forwards;
+    100% {
+      opacity: 1;
+      transform: translateY(0);
     }
   }
-  
+
+  @keyframes pulse-glow {
+    0%, 100% {
+      box-shadow: 0 0 15px rgba(0, 240, 255, 0.3), inset 0 0 15px rgba(168, 85, 247, 0.15);
+    }
+    50% {
+      box-shadow: 0 0 35px rgba(0, 240, 255, 0.6), inset 0 0 25px rgba(168, 85, 247, 0.35);
+    }
+  }
+
+  @keyframes float-slow {
+    0%, 100% {
+      transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+      transform: translateY(-8px) rotate(1deg);
+    }
+  }
+
+  @keyframes arise-shockwave {
+    0% {
+      opacity: 0.9;
+      transform: scale(0.6);
+      filter: blur(0px);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(2.2);
+      filter: blur(20px);
+    }
+  }
+
+  .animate-fade-in-up {
+    animation: fade-in-up 0.8s ease-out forwards;
+  }
+
+  .animate-pulse-glow {
+    animation: pulse-glow 3s ease-in-out infinite;
+  }
+
+  .animate-float-slow {
+    animation: float-slow 5s ease-in-out infinite;
+  }
+
+  /* Solo Leveling Font Utility Classes */
+  .font-orbitron {
+    font-family: 'Orbitron', sans-serif;
+  }
+
+  .font-rajdhani {
+    font-family: 'Rajdhani', sans-serif;
+  }
+
+  .font-cinzel {
+    font-family: 'Cinzel', serif;
+  }
+
+  /* Matte Black Surface & Holographic UI Helpers */
+  .matte-card {
+    background-color: #111319;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  }
+
+  .matte-card-hover {
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .matte-card-hover:hover {
+    border-color: rgba(0, 240, 255, 0.4);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 240, 255, 0.2);
+  }
+
+  .hud-panel {
+    position: relative;
+    backdrop-filter: blur(16px);
+  }
+
+  .hud-panel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0, 240, 255, 0.5), transparent);
+  }
+
+  /* Zero Scrollbar Utilities */
+  .no-scrollbar::-webkit-scrollbar,
+  .custom-scrollbar::-webkit-scrollbar {
+    display: none !important;
+    width: 0px !important;
+    height: 0px !important;
+  }
+
+  .no-scrollbar,
+  .custom-scrollbar {
+    -ms-overflow-style: none !important;
+    scrollbar-width: none !important;
+  }
+}
