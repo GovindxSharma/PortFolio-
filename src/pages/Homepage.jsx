@@ -57,7 +57,8 @@ const Homepage = () => {
   const nextSection = () => {
     if (currentIndex < totalSections - 1 && !isScrollingRef.current) {
       isScrollingRef.current = true;
-      goToSection(currentIndex + 1);
+      soundFX.playClick();
+      setCurrentIndex((prev) => prev + 1);
       setTimeout(() => {
         isScrollingRef.current = false;
       }, 1000);
@@ -67,7 +68,8 @@ const Homepage = () => {
   const prevSection = () => {
     if (currentIndex > 0 && !isScrollingRef.current) {
       isScrollingRef.current = true;
-      goToSection(currentIndex - 1);
+      soundFX.playClick();
+      setCurrentIndex((prev) => prev - 1);
       setTimeout(() => {
         isScrollingRef.current = false;
       }, 1000);
@@ -108,7 +110,7 @@ const Homepage = () => {
       // Scrolling Down
       if (delta > 0) {
         if (isScrollable && !isAtBottom) {
-          return; // Allow vertical reading
+          return;
         }
 
         e.preventDefault();
@@ -132,7 +134,7 @@ const Homepage = () => {
       // Scrolling Up
       else if (delta < 0) {
         if (isScrollable && !isAtTop) {
-          return; // Allow vertical reading up
+          return;
         }
 
         e.preventDefault();
@@ -159,60 +161,73 @@ const Homepage = () => {
     return () => window.removeEventListener("wheel", handleWheel);
   }, [currentIndex, totalSections, statusOpen, terminalOpen]);
 
-  // MOBILE TOUCH & SWIPE BOUNDARY ENGINE:
-  // Auto-scrolls vertically through section, and once at bottom/top, advances or retreats horizontally!
-  const touchStartRef = useRef({ x: 0, y: 0, scrollTop: 0, time: 0 });
+  // BULLETPROOF MOBILE TOUCH BOUNDARY AUTO-SCROLL ENGINE
+  // Directly attached to the active section container to guarantee execution on iOS Safari & Android Chrome
+  useEffect(() => {
+    const el = sectionRefs.current[currentIndex];
+    if (!el) return;
 
-  const handleTouchStart = (e) => {
-    const activeEl = sectionRefs.current[currentIndex];
-    touchStartRef.current = {
-      x: e.touches[0].clientX,
-      y: e.touches[0].clientY,
-      scrollTop: activeEl ? activeEl.scrollTop : 0,
-      time: Date.now(),
+    let touchStartY = 0;
+    let touchStartX = 0;
+    let touchStartScrollTop = 0;
+    let isTouching = false;
+
+    const onTouchStart = (e) => {
+      touchStartY = e.touches[0].clientY;
+      touchStartX = e.touches[0].clientX;
+      touchStartScrollTop = el.scrollTop;
+      isTouching = true;
     };
-  };
 
-  const handleTouchEnd = (e) => {
-    if (statusOpen || terminalOpen || isScrollingRef.current) return;
+    const onTouchEnd = (e) => {
+      if (!isTouching || statusOpen || terminalOpen || isScrollingRef.current) return;
+      isTouching = false;
 
-    const deltaX = e.changedTouches[0].clientX - touchStartRef.current.x;
-    const deltaY = e.changedTouches[0].clientY - touchStartRef.current.y;
-    const activeEl = sectionRefs.current[currentIndex];
+      const touchEndY = e.changedTouches[0].clientY;
+      const touchEndX = e.changedTouches[0].clientX;
+      const deltaY = touchStartY - touchEndY; // Positive = Swiping UP (scrolling DOWN)
+      const deltaX = touchStartX - touchEndX; // Positive = Swiping LEFT (next realm)
 
-    // 1. Horizontal Touch Swipe (Swipe Left -> Next, Swipe Right -> Prev)
-    if (Math.abs(deltaX) > 50 && Math.abs(deltaX) > Math.abs(deltaY) * 1.1) {
-      if (deltaX < 0) {
-        nextSection();
-      } else {
-        prevSection();
+      // 1. Horizontal Swipe (Swipe Left -> Next, Swipe Right -> Prev)
+      if (Math.abs(deltaX) > 40 && Math.abs(deltaX) > Math.abs(deltaY) * 1.1) {
+        if (deltaX > 0) {
+          nextSection();
+        } else {
+          prevSection();
+        }
+        return;
       }
-      return;
-    }
 
-    // 2. Vertical Touch Drag at Boundaries (Drag Up at bottom -> Next, Drag Down at top -> Prev)
-    if (activeEl && Math.abs(deltaY) > 40) {
-      const { scrollTop, scrollHeight, clientHeight } = activeEl;
+      // 2. Vertical Boundary Auto-Scroll:
+      const { scrollTop, scrollHeight, clientHeight } = el;
       const isScrollable = scrollHeight > clientHeight + 10;
       const isAtBottom = scrollTop + clientHeight >= scrollHeight - 20;
       const isAtTop = scrollTop <= 15;
 
-      // User dragged finger UP (deltaY < -40) -> Scrolling DOWN
-      if (deltaY < -40) {
-        const startedNearBottom = touchStartRef.current.scrollTop + clientHeight >= scrollHeight - 35;
-        if (!isScrollable || isAtBottom || startedNearBottom) {
+      // Swiping UP (Scrolling DOWN) -> Reached bottom of section -> Go to NEXT realm!
+      if (deltaY > 30) {
+        const wasNearBottom = touchStartScrollTop + clientHeight >= scrollHeight - 40;
+        if (!isScrollable || isAtBottom || wasNearBottom) {
           nextSection();
         }
       }
-      // User dragged finger DOWN (deltaY > 40) -> Scrolling UP
-      else if (deltaY > 40) {
-        const startedNearTop = touchStartRef.current.scrollTop <= 25;
-        if (!isScrollable || isAtTop || startedNearTop) {
+      // Swiping DOWN (Scrolling UP) -> Reached top of section -> Go to PREVIOUS realm!
+      else if (deltaY < -30) {
+        const wasNearTop = touchStartScrollTop <= 25;
+        if (!isScrollable || isAtTop || wasNearTop) {
           prevSection();
         }
       }
-    }
-  };
+    };
+
+    el.addEventListener("touchstart", onTouchStart, { passive: true });
+    el.addEventListener("touchend", onTouchEnd, { passive: true });
+
+    return () => {
+      el.removeEventListener("touchstart", onTouchStart);
+      el.removeEventListener("touchend", onTouchEnd);
+    };
+  }, [currentIndex, totalSections, statusOpen, terminalOpen]);
 
   // Keyboard Navigation
   useEffect(() => {
@@ -256,8 +271,6 @@ const Homepage = () => {
         select-none
         no-scrollbar
       "
-      onTouchStart={handleTouchStart}
-      onTouchEnd={handleTouchEnd}
     >
       {/* Cinematic Solo Leveling Awakening Intro Loader */}
       {showIntro && <AwakeningIntro onComplete={() => setShowIntro(false)} />}
@@ -347,38 +360,38 @@ const Homepage = () => {
                 {sec.component}
               </div>
 
-              {/* End of Section Realm Transition Indicator */}
-              <div className="mt-12 mb-4 pt-6 border-t border-slate-200 dark:border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 font-mono text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 text-center sm:text-left">
+              {/* End of Section Realm Transition Indicator & Direct Tap Buttons */}
+              <div className="mt-12 mb-4 pt-6 border-t border-slate-200 dark:border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 font-mono text-xs text-slate-500 dark:text-slate-400 text-center sm:text-left">
                 <div>
                   {idx > 0 ? (
                     <button
                       onClick={prevSection}
-                      className="flex items-center gap-1.5 text-cyan-400 hover:text-cyan-300 font-bold transition"
+                      className="flex items-center gap-1.5 py-2 px-3 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-400 font-bold transition active:scale-95"
                     >
-                      <ChevronLeft size={14} />
-                      <span>Prev: {sections[idx - 1].title}</span>
+                      <ChevronLeft size={16} />
+                      <span>Prev Realm: {sections[idx - 1].title}</span>
                     </button>
                   ) : (
-                    <span>[ REALM 01 START ]</span>
+                    <span className="text-[11px] text-slate-500">[ REALM 01 START ]</span>
                   )}
                 </div>
 
-                <div className="flex items-center gap-1.5 text-cyan-400">
-                  <MoveHorizontal size={13} className="animate-pulse" />
-                  <span>Swipe or scroll down to enter next realm</span>
+                <div className="flex items-center gap-1.5 text-cyan-400 text-[11px] sm:text-xs">
+                  <MoveHorizontal size={14} className="animate-pulse" />
+                  <span>Scroll or swipe to advance realm</span>
                 </div>
 
                 <div>
                   {idx < totalSections - 1 ? (
                     <button
                       onClick={nextSection}
-                      className="flex items-center gap-1.5 text-cyan-400 hover:text-cyan-300 font-bold transition"
+                      className="flex items-center gap-1.5 py-2 px-3 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-400 font-bold transition active:scale-95"
                     >
-                      <span>Next: {sections[idx + 1].title}</span>
-                      <ChevronRight size={14} />
+                      <span>Next Realm: {sections[idx + 1].title}</span>
+                      <ChevronRight size={16} />
                     </button>
                   ) : (
-                    <span>[ FINAL REALM REACHED ]</span>
+                    <span className="text-[11px] text-slate-500">[ FINAL REALM REACHED ]</span>
                   )}
                 </div>
               </div>
