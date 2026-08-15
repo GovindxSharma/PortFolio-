@@ -55,14 +55,22 @@ const Homepage = () => {
   };
 
   const nextSection = () => {
-    if (currentIndex < totalSections - 1) {
+    if (currentIndex < totalSections - 1 && !isScrollingRef.current) {
+      isScrollingRef.current = true;
       goToSection(currentIndex + 1);
+      setTimeout(() => {
+        isScrollingRef.current = false;
+      }, 1000);
     }
   };
 
   const prevSection = () => {
-    if (currentIndex > 0) {
+    if (currentIndex > 0 && !isScrollingRef.current) {
+      isScrollingRef.current = true;
       goToSection(currentIndex - 1);
+      setTimeout(() => {
+        isScrollingRef.current = false;
+      }, 1000);
     }
   };
 
@@ -82,9 +90,7 @@ const Homepage = () => {
     setTimeout(() => setShowIntro(true), 50);
   };
 
-  // SILKY NESTED BOUNDARY SCROLL ENGINE:
-  // 1. Fully reads current section vertically without visible scrollbars.
-  // 2. When moving back or forward, the next/previous section opens right at its TOP!
+  // DESKTOP MOUSEWHEEL NESTED BOUNDARY SCROLL ENGINE
   useEffect(() => {
     const handleWheel = (e) => {
       if (statusOpen || terminalOpen) return;
@@ -102,7 +108,7 @@ const Homepage = () => {
       // Scrolling Down
       if (delta > 0) {
         if (isScrollable && !isAtBottom) {
-          return; // Allow natural vertical reading inside active section
+          return; // Allow vertical reading
         }
 
         e.preventDefault();
@@ -123,10 +129,10 @@ const Homepage = () => {
           });
         }
       }
-      // Scrolling Up (Back to Previous Section -> Opens TOP of Previous Section!)
+      // Scrolling Up
       else if (delta < 0) {
         if (isScrollable && !isAtTop) {
-          return; // Allow natural vertical reading back up
+          return; // Allow vertical reading up
         }
 
         e.preventDefault();
@@ -139,7 +145,7 @@ const Homepage = () => {
             const prevIdx = prev - 1;
             setTimeout(() => {
               if (sectionRefs.current[prevIdx]) {
-                sectionRefs.current[prevIdx].scrollTop = 0; // Guaranteed TOP of previous section!
+                sectionRefs.current[prevIdx].scrollTop = 0;
               }
               isScrollingRef.current = false;
             }, 1200);
@@ -153,24 +159,57 @@ const Homepage = () => {
     return () => window.removeEventListener("wheel", handleWheel);
   }, [currentIndex, totalSections, statusOpen, terminalOpen]);
 
-  // Touch Swipe Gesture for mobile & tablets
-  const touchStartRef = useRef({ x: 0, y: 0 });
+  // MOBILE TOUCH & SWIPE BOUNDARY ENGINE:
+  // Auto-scrolls vertically through section, and once at bottom/top, advances or retreats horizontally!
+  const touchStartRef = useRef({ x: 0, y: 0, scrollTop: 0, time: 0 });
+
   const handleTouchStart = (e) => {
+    const activeEl = sectionRefs.current[currentIndex];
     touchStartRef.current = {
       x: e.touches[0].clientX,
       y: e.touches[0].clientY,
+      scrollTop: activeEl ? activeEl.scrollTop : 0,
+      time: Date.now(),
     };
   };
 
   const handleTouchEnd = (e) => {
+    if (statusOpen || terminalOpen || isScrollingRef.current) return;
+
     const deltaX = e.changedTouches[0].clientX - touchStartRef.current.x;
     const deltaY = e.changedTouches[0].clientY - touchStartRef.current.y;
+    const activeEl = sectionRefs.current[currentIndex];
 
-    if (Math.abs(deltaX) > 60 && Math.abs(deltaX) > Math.abs(deltaY) * 1.5) {
+    // 1. Horizontal Touch Swipe (Swipe Left -> Next, Swipe Right -> Prev)
+    if (Math.abs(deltaX) > 50 && Math.abs(deltaX) > Math.abs(deltaY) * 1.1) {
       if (deltaX < 0) {
         nextSection();
       } else {
         prevSection();
+      }
+      return;
+    }
+
+    // 2. Vertical Touch Drag at Boundaries (Drag Up at bottom -> Next, Drag Down at top -> Prev)
+    if (activeEl && Math.abs(deltaY) > 40) {
+      const { scrollTop, scrollHeight, clientHeight } = activeEl;
+      const isScrollable = scrollHeight > clientHeight + 10;
+      const isAtBottom = scrollTop + clientHeight >= scrollHeight - 20;
+      const isAtTop = scrollTop <= 15;
+
+      // User dragged finger UP (deltaY < -40) -> Scrolling DOWN
+      if (deltaY < -40) {
+        const startedNearBottom = touchStartRef.current.scrollTop + clientHeight >= scrollHeight - 35;
+        if (!isScrollable || isAtBottom || startedNearBottom) {
+          nextSection();
+        }
+      }
+      // User dragged finger DOWN (deltaY > 40) -> Scrolling UP
+      else if (deltaY > 40) {
+        const startedNearTop = touchStartRef.current.scrollTop <= 25;
+        if (!isScrollable || isAtTop || startedNearTop) {
+          prevSection();
+        }
       }
     }
   };
@@ -247,7 +286,7 @@ const Homepage = () => {
         <QuestNotification onOpenStatus={handleOpenStatus} />
       </div>
 
-      {/* Quantum Monarch Capsule Header (De-congested Dynamic Floating Island) */}
+      {/* Quantum Monarch Dynamic Capsule Header */}
       <Navbar
         currentSectionIndex={currentIndex}
         onSelectSection={goToSection}
