@@ -8,7 +8,7 @@ const About = ({ onOpenStatus }) => {
   const [ariseActive, setAriseActive] = useState(false);
 
   const resumeUrl =
-    "https://drive.google.com/file/d/1-DH9zTJ3Ft05GeR1M6ceR1umdA_1H0zQ/view";
+    "https://drive.google.com/file/d/1-DH9zTJ3Ft05GeR1M6ceR1umdA_1H0zQ/view?usp=drive_link";
 
   const techStack = [
     "React.js",
