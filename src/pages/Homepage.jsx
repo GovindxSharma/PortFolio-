@@ -417,13 +417,13 @@ const Homepage = () => {
           <div
             key={sec.id}
             ref={(el) => (sectionRefs.current[idx] = el)}
-            className="w-screen h-full shrink-0 relative overflow-y-auto overflow-x-hidden select-text pt-18 sm:pt-22 md:pt-24 pb-24 sm:pb-26 px-3 sm:px-8 flex flex-col justify-start md:justify-center"
+            className="w-screen h-full shrink-0 relative overflow-y-auto overflow-x-hidden select-text pt-24 sm:pt-28 pb-24 sm:pb-28 px-3 sm:px-8 flex flex-col justify-start"
             style={{
               WebkitOverflowScrolling: "touch",
               overscrollBehavior: "contain",
             }}
           >
-            <div className="w-full max-w-6xl mx-auto my-0 md:my-auto flex flex-col justify-between">
+            <div className="w-full max-w-6xl mx-auto my-0 flex flex-col justify-between">
               <div>
                 {sec.component}
               </div>

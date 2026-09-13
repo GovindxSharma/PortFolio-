@@ -338,7 +338,7 @@ export default function ProjectsExperience() {
   return (
     <section
       id="projects"
-      className="relative flex flex-col justify-center px-1 sm:px-4 py-3 sm:py-6 overflow-hidden text-slate-900 dark:text-white"
+      className="relative px-1 sm:px-4 py-3 sm:py-6 overflow-hidden text-slate-900 dark:text-white"
     >
       {/* Ambient Glows */}
       <div className="absolute top-10 left-1/4 w-[500px] h-[500px] bg-cyan-500/10 blur-[170px] rounded-full pointer-events-none" />

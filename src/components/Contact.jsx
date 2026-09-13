@@ -52,7 +52,7 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="relative flex items-center justify-center px-1 sm:px-4 py-3 sm:py-6 overflow-hidden text-slate-900 dark:text-white"
+      className="relative px-1 sm:px-4 py-3 sm:py-6 overflow-hidden text-slate-900 dark:text-white"
     >
       {/* Background Mana Glowing Nebulae */}
       <div className="absolute top-1/4 left-0 w-[500px] h-[500px] bg-cyan-400/10 blur-[180px] rounded-full pointer-events-none" />

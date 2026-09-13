@@ -37,7 +37,7 @@ const About = ({ onOpenStatus, onOpenRecruiterBrief, onOpenSimulator, onOpenArch
   return (
     <section
       id="about"
-      className="relative overflow-hidden py-3 sm:py-6 px-1 sm:px-4 flex items-center"
+      className="relative overflow-hidden py-3 sm:py-6 px-1 sm:px-4"
     >
       {/* ARISE Screen Flash & Shadow Resonance Effect */}
       {ariseActive && (
