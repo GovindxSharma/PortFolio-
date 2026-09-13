@@ -119,7 +119,7 @@ export default function HunterTerminal({ isOpen, onClose, onOpenStatus }) {
 
       case "resume":
         window.open(
-          "https://drive.google.com/file/d/1hzAaMHUEFeLnl0hI6LkEGuo4jBbR5wWF/view?usp=drive_link",
+          "https://drive.google.com/file/d/1-DH9zTJ3Ft05GeR1M6ceR1umdA_1H0zQ/view?usp=drive_link",
           "_blank"
         );
         newHistory.push({ type: "output", text: "Opening Govind's Resume in a new tab..." });

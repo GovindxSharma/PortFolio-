@@ -11,7 +11,7 @@ import {
   FaPaperPlane,
 } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sparkles, MessageSquare, Send, CheckCircle2, Shield } from "lucide-react";
+import { Sparkles, MessageSquare, Send, CheckCircle2, Shield, FileText, ArrowUpRight } from "lucide-react";
 import { soundFX } from "../utils/soundEffects";
 
 const email = "govindsharma2839@gmail.com";
@@ -183,6 +183,33 @@ export default function Contact() {
                 {s.icon}
               </motion.a>
             ))}
+          </div>
+
+          {/* Official Dossier / Resume Link */}
+          <div className="mt-4">
+            <a
+              href="https://drive.google.com/file/d/1-DH9zTJ3Ft05GeR1M6ceR1umdA_1H0zQ/view?usp=drive_link"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => soundFX.playClick()}
+              onMouseEnter={() => soundFX.playHover()}
+              className="flex items-center justify-between p-3.5 rounded-2xl bg-gradient-to-r from-cyan-500/10 via-blue-500/10 to-violet-600/10 border border-cyan-500/30 hover:border-cyan-400 hover:shadow-[0_0_20px_rgba(6,182,212,0.25)] transition cursor-pointer group"
+            >
+              <div className="flex items-center gap-3">
+                <div className="p-2.5 rounded-xl bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 group-hover:scale-110 transition">
+                  <FileText size={14} />
+                </div>
+                <div className="text-left">
+                  <span className="text-[10px] font-mono text-cyan-500 dark:text-cyan-400 uppercase font-bold block">
+                    OFFICIAL DOSSIER
+                  </span>
+                  <span className="text-xs sm:text-sm font-mono font-bold text-slate-900 dark:text-white">
+                    View Govind's Resume (PDF)
+                  </span>
+                </div>
+              </div>
+              <ArrowUpRight className="text-cyan-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" size={18} />
+            </a>
           </div>
 
         </motion.div>

@@ -19,6 +19,8 @@ import {
   ChevronDown,
   X,
   Compass,
+  FileText,
+  ArrowUpRight,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "../context/ThemeContext";
@@ -264,6 +266,19 @@ export default function Navbar({
                   })}
                 </div>
 
+                {/* Direct Resume Action */}
+                <a
+                  href="https://drive.google.com/file/d/1-DH9zTJ3Ft05GeR1M6ceR1umdA_1H0zQ/view?usp=drive_link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => soundFX.playClick()}
+                  className="w-full mt-3 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500/20 via-blue-500/20 to-violet-600/20 hover:from-cyan-500/30 hover:to-violet-600/30 border border-cyan-500/30 hover:border-cyan-400 text-cyan-300 hover:text-white font-mono text-xs font-bold flex items-center justify-center gap-2 transition"
+                >
+                  <FileText size={13} />
+                  <span>View Hunter Resume (PDF)</span>
+                  <ArrowUpRight size={13} />
+                </a>
+
                 {/* Replay Intro Trigger */}
                 {onReplayIntro && (
                   <button
@@ -272,7 +287,7 @@ export default function Navbar({
                       setHudOpen(false);
                       onReplayIntro();
                     }}
-                    className="w-full mt-3 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 text-slate-400 hover:text-white font-mono text-[10px] flex items-center justify-center gap-1.5 transition"
+                    className="w-full mt-2 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 text-slate-400 hover:text-white font-mono text-[10px] flex items-center justify-center gap-1.5 transition"
                   >
                     <RotateCcw size={12} /> Replay Awakening Sequence
                   </button>

@@ -13,6 +13,8 @@ import {
   Brain,
   Compass,
   CheckCircle2,
+  FileText,
+  ArrowUpRight,
 } from "lucide-react";
 import { soundFX } from "../utils/soundEffects";
 
@@ -322,18 +324,31 @@ export default function StatusWindowModal({ isOpen, onClose }) {
             </div>
 
             {/* Bottom Alert */}
-            <div className="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-[11px] text-slate-400 font-mono">
+            <div className="mt-4 pt-3 border-t border-white/10 flex flex-wrap items-center justify-between gap-2.5 text-[11px] text-slate-400 font-mono">
               <span className="flex items-center gap-1.5 text-cyan-400">
                 <Sparkles className="h-3.5 w-3.5" /> All systems functioning at Monarch capacity
               </span>
-              <button
-                onClick={() => {
-                  soundFX.playLevelUp();
-                }}
-                className="text-xs px-3 py-1 rounded-lg bg-gradient-to-r from-cyan-500 to-violet-600 text-white font-bold hover:scale-105 active:scale-95 transition shadow-[0_0_15px_rgba(6,182,212,0.3)]"
-              >
-                Claim Blessing ✨
-              </button>
+              <div className="flex items-center gap-2">
+                <a
+                  href="https://drive.google.com/file/d/1-DH9zTJ3Ft05GeR1M6ceR1umdA_1H0zQ/view?usp=drive_link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => soundFX.playClick()}
+                  className="text-xs px-3 py-1.5 rounded-lg border border-cyan-500/40 bg-cyan-500/10 hover:bg-cyan-500/25 text-cyan-300 font-bold transition flex items-center gap-1.5 active:scale-95 shadow-[0_0_12px_rgba(6,182,212,0.2)]"
+                >
+                  <FileText className="h-3.5 w-3.5" />
+                  <span>Resume (PDF)</span>
+                  <ArrowUpRight className="h-3 w-3" />
+                </a>
+                <button
+                  onClick={() => {
+                    soundFX.playLevelUp();
+                  }}
+                  className="text-xs px-3 py-1.5 rounded-lg bg-gradient-to-r from-cyan-500 to-violet-600 text-white font-bold hover:scale-105 active:scale-95 transition shadow-[0_0_15px_rgba(6,182,212,0.3)]"
+                >
+                  Claim Blessing ✨
+                </button>
+              </div>
             </div>
           </motion.div>
         </div>
