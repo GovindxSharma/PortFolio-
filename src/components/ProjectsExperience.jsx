@@ -22,6 +22,9 @@ import {
   Search,
   X,
   RotateCcw,
+  Zap,
+  Target,
+  Cpu,
 } from "lucide-react";
 import projects from "../data/projects";
 import { soundFX } from "../utils/soundEffects";
@@ -204,13 +207,40 @@ export default function ProjectsExperience() {
           </h3>
 
           {/* Description */}
-          <p className="mt-2.5 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed line-clamp-3">
+          <p className="mt-2 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed line-clamp-2">
             {p.desc}
           </p>
+
+          {/* Key Measured Impact */}
+          {p.impact && (
+            <div className="mt-3 flex items-start gap-1.5 p-2 rounded-xl bg-cyan-500/10 border border-cyan-500/25 text-cyan-600 dark:text-cyan-300 font-mono text-[11px]">
+              <Zap size={13} className="text-cyan-400 shrink-0 mt-0.5 animate-pulse" />
+              <span className="font-semibold leading-tight">{p.impact}</span>
+            </div>
+          )}
+
+          {/* Core Tech Stack Pills */}
+          {p.tech && (
+            <div className="mt-3 flex flex-wrap gap-1">
+              {p.tech.slice(0, 3).map((t, idx) => (
+                <span
+                  key={idx}
+                  className="text-[9px] font-mono px-2 py-0.5 rounded-md bg-slate-100 dark:bg-[#151822] text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-white/5 font-medium"
+                >
+                  {t}
+                </span>
+              ))}
+              {p.tech.length > 3 && (
+                <span className="text-[9px] font-mono px-1.5 py-0.5 rounded text-cyan-400 font-bold">
+                  +{p.tech.length - 3}
+                </span>
+              )}
+            </div>
+          )}
         </div>
 
         {/* Actions & Links */}
-        <div className="mt-6 pt-4 border-t border-slate-100 dark:border-white/5 flex items-center justify-between gap-2">
+        <div className="mt-5 pt-3.5 border-t border-slate-100 dark:border-white/5 flex items-center justify-between gap-2">
           <div className="flex items-center gap-2">
             {p.live && p.live !== "Coming Soon" ? (
               <a
@@ -512,10 +542,70 @@ export default function ProjectsExperience() {
                 </button>
               </div>
 
-              <p className="text-sm text-slate-300 leading-relaxed mb-6">
+              {/* Brief Overview */}
+              <p className="text-sm text-slate-300 leading-relaxed mb-4">
                 {activeModalProject.desc}
               </p>
 
+              {/* Architectural Breakdown Grid */}
+              <div className="space-y-2.5 mb-5 font-mono text-xs">
+                {/* 1. Problem Statement */}
+                {activeModalProject.problem && (
+                  <div className="p-3 rounded-2xl bg-amber-500/10 border border-amber-500/25">
+                    <span className="text-[10px] uppercase font-bold text-amber-400 flex items-center gap-1.5 mb-1">
+                      <Target size={12} /> Problem Addressed
+                    </span>
+                    <p className="text-xs text-slate-200 leading-relaxed font-sans">
+                      {activeModalProject.problem}
+                    </p>
+                  </div>
+                )}
+
+                {/* 2. Architecture & Decision (How & Why) */}
+                {activeModalProject.solution && (
+                  <div className="p-3 rounded-2xl bg-violet-500/10 border border-violet-500/25">
+                    <span className="text-[10px] uppercase font-bold text-violet-400 flex items-center gap-1.5 mb-1">
+                      <Cpu size={12} /> Engineering Architecture (How & Why)
+                    </span>
+                    <p className="text-xs text-slate-200 leading-relaxed font-sans">
+                      {activeModalProject.solution}
+                    </p>
+                  </div>
+                )}
+
+                {/* 3. Measured Impact */}
+                {activeModalProject.impact && (
+                  <div className="p-3 rounded-2xl bg-cyan-500/10 border border-cyan-500/30">
+                    <span className="text-[10px] uppercase font-bold text-cyan-400 flex items-center gap-1.5 mb-1">
+                      <Zap size={12} /> Measured Production Impact
+                    </span>
+                    <p className="text-xs text-cyan-300 font-bold leading-relaxed font-sans">
+                      {activeModalProject.impact}
+                    </p>
+                  </div>
+                )}
+              </div>
+
+              {/* Full Tech Stack Pills */}
+              {activeModalProject.tech && (
+                <div className="mb-5">
+                  <span className="text-[10px] font-mono uppercase text-slate-400 font-bold block mb-1.5">
+                    Technologies & Frameworks
+                  </span>
+                  <div className="flex flex-wrap gap-1.5">
+                    {activeModalProject.tech.map((t, idx) => (
+                      <span
+                        key={idx}
+                        className="text-[10px] font-mono px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-cyan-300"
+                      >
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Action Buttons */}
               <div className="flex items-center gap-3">
                 {activeModalProject.live && activeModalProject.live !== "Coming Soon" && (
                   <a

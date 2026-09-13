@@ -61,10 +61,12 @@ export default function StatusWindowModal({ isOpen, onClose }) {
   ];
 
   const titles = [
-    "Shadow Monarch Full-Stack Architect",
-    "S-Rank Web Hunter",
-    "Wolf Slayer (Bug Exterminator)",
-    "System Pioneer (AI & Cloud)",
+    "2,000+ Algorithmic Problems Solved (LeetCode / CodeStudio)",
+    "Production Full-Stack Engineer (6+ Deployed Systems)",
+    "Vizon Technolabs & Aerion MedTech Software Engineer",
+    "Database Optimization: -35% Query Latency via Indexing",
+    "Real-Time Engineer: Sub-50ms WebSocket Event Propagation",
+    "Frontend Performance: Consistent 95+ Lighthouse Scores",
   ];
 
   return (

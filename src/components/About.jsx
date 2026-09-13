@@ -94,12 +94,12 @@ const About = ({ onOpenStatus }) => {
 
             {/* Intro paragraph */}
             <p className="mt-4 sm:mt-5 text-sm sm:text-lg md:text-xl text-slate-700 dark:text-slate-300 leading-relaxed max-w-2xl mx-auto lg:mx-0">
-              I'm <span className="text-cyan-500 dark:text-cyan-400 font-bold">Govind Sharma</span>, a Full-Stack Engineer and Shadow Monarch of development. I forge high-performance backend microservices, intuitive 3D frontend worlds, and AI-accelerated web systems.
+              I'm <span className="text-cyan-500 dark:text-cyan-400 font-bold">Govind Sharma</span>, a Full-Stack Engineer with production experience building real-time systems, scalable REST/WebSocket APIs, and secure payment workflows. Proven track record of shipping 6+ production platforms with deep algorithmic problem-solving and database optimization.
             </p>
 
             {/* Sub-text */}
             <p className="mt-2 text-xs sm:text-sm text-slate-600 dark:text-slate-400 font-mono">
-              Specialized in JavaScript, TypeScript, React, Node.js, Three.js, MongoDB, and AI API Workflows.
+              Specialized in high-concurrency Node/Express architectures, 60 FPS React interfaces, and low-latency MongoDB indexing.
             </p>
 
             {/* Awakened Runes / Tech Stack Chips */}
@@ -223,32 +223,41 @@ const About = ({ onOpenStatus }) => {
                 </div>
               </div>
 
-              {/* Live Hunter Stats Grid (Plain & Simple) */}
-              <div className="mt-3 sm:mt-4 grid grid-cols-3 gap-1.5 sm:gap-2 text-center font-mono">
-                <div className="rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-[#141720] p-2 sm:p-2.5 hover:border-cyan-400/40 transition">
-                  <h3 className="text-base sm:text-lg font-black text-slate-900 dark:text-cyan-300 font-['Rajdhani',sans-serif]">
-                    18+
+              {/* Quantified Production Impact Grid */}
+              <div className="mt-3 sm:mt-4 grid grid-cols-2 gap-1.5 sm:gap-2 text-center font-mono">
+                <div className="rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-[#141720] p-2 hover:border-cyan-400/40 transition">
+                  <h3 className="text-base sm:text-lg font-black text-cyan-500 dark:text-cyan-300 font-['Rajdhani',sans-serif]">
+                    2,000+
                   </h3>
-                  <p className="text-[9px] sm:text-[10px] text-slate-500 dark:text-slate-400 uppercase">
-                    Raids
+                  <p className="text-[9px] text-slate-500 dark:text-slate-400 uppercase font-semibold">
+                    DSA Solved (LeetCode)
                   </p>
                 </div>
 
-                <div className="rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-[#141720] p-2 sm:p-2.5 hover:border-cyan-400/40 transition">
-                  <h3 className="text-base sm:text-lg font-black text-slate-900 dark:text-cyan-300 font-['Rajdhani',sans-serif]">
-                    MERN & AI
+                <div className="rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-[#141720] p-2 hover:border-cyan-400/40 transition">
+                  <h3 className="text-base sm:text-lg font-black text-emerald-500 dark:text-emerald-400 font-['Rajdhani',sans-serif]">
+                    -35% Latency
                   </h3>
-                  <p className="text-[9px] sm:text-[10px] text-slate-500 dark:text-slate-400 uppercase">
-                    Stack
+                  <p className="text-[9px] text-slate-500 dark:text-slate-400 uppercase font-semibold">
+                    DB Indexing Speedup
                   </p>
                 </div>
 
-                <div className="rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-[#141720] p-2 sm:p-2.5 hover:border-cyan-400/40 transition">
-                  <h3 className="text-base sm:text-lg font-black text-slate-900 dark:text-cyan-300 font-['Rajdhani',sans-serif]">
-                    100%
+                <div className="rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-[#141720] p-2 hover:border-cyan-400/40 transition">
+                  <h3 className="text-base sm:text-lg font-black text-violet-500 dark:text-violet-400 font-['Rajdhani',sans-serif]">
+                    95+ Score
                   </h3>
-                  <p className="text-[9px] sm:text-[10px] text-slate-500 dark:text-slate-400 uppercase">
-                    Shipped
+                  <p className="text-[9px] text-slate-500 dark:text-slate-400 uppercase font-semibold">
+                    Lighthouse SEO & Speed
+                  </p>
+                </div>
+
+                <div className="rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-[#141720] p-2 hover:border-cyan-400/40 transition">
+                  <h3 className="text-base sm:text-lg font-black text-blue-500 dark:text-blue-400 font-['Rajdhani',sans-serif]">
+                    &lt;50ms
+                  </h3>
+                  <p className="text-[9px] text-slate-500 dark:text-slate-400 uppercase font-semibold">
+                    WebSocket Events
                   </p>
                 </div>
               </div>
