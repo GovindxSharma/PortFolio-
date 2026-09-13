@@ -25,6 +25,7 @@ import {
   Zap,
   Target,
   Cpu,
+  Download,
 } from "lucide-react";
 import projects from "../data/projects";
 import { soundFX } from "../utils/soundEffects";
@@ -260,7 +261,23 @@ export default function ProjectsExperience() {
         {/* Actions & Links */}
         <div className="mt-5 pt-3.5 border-t border-slate-100 dark:border-white/5 flex items-center justify-between gap-2">
           <div className="flex items-center gap-2">
-            {p.live && p.live !== "Coming Soon" ? (
+            {p.apk ? (
+              <a
+                href={p.apk}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  soundFX.playClick();
+                }}
+                onMouseEnter={() => soundFX.playHover()}
+                className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 text-white text-xs font-mono font-bold hover:scale-105 transition shadow-[0_0_12px_rgba(16,185,129,0.35)]"
+                title="Download Android APK (Google Drive Direct)"
+              >
+                <Download size={11} className="animate-bounce" />
+                <span>Download APK</span>
+              </a>
+            ) : p.live && p.live !== "Coming Soon" ? (
               <a
                 href={p.live}
                 target="_blank"
@@ -643,14 +660,26 @@ export default function ProjectsExperience() {
               )}
 
               {/* Action Buttons */}
-              <div className="flex items-center gap-3">
-                {activeModalProject.live && activeModalProject.live !== "Coming Soon" && (
+              <div className="flex flex-wrap items-center gap-3">
+                {activeModalProject.apk && (
+                  <a
+                    href={activeModalProject.apk}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => soundFX.playClick()}
+                    className="flex-1 min-w-[140px] py-3 px-4 rounded-xl bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 text-white font-mono font-bold text-xs text-center shadow-lg hover:scale-[1.02] transition flex items-center justify-center gap-2"
+                  >
+                    <Download size={14} />
+                    <span>Download Android APK 📥</span>
+                  </a>
+                )}
+                {activeModalProject.live && !activeModalProject.apk && activeModalProject.live !== "Coming Soon" && (
                   <a
                     href={activeModalProject.live}
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => soundFX.playClick()}
-                    className="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-mono font-bold text-xs text-center shadow-lg hover:scale-[1.02] transition"
+                    className="flex-1 min-w-[140px] py-3 px-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-mono font-bold text-xs text-center shadow-lg hover:scale-[1.02] transition"
                   >
                     Launch Live System 🚀
                   </a>
@@ -661,7 +690,7 @@ export default function ProjectsExperience() {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => soundFX.playClick()}
-                    className="flex-1 py-3 px-4 rounded-xl border border-slate-300 dark:border-white/10 text-slate-800 dark:text-cyan-300 font-mono font-bold text-xs text-center hover:bg-slate-100 dark:hover:bg-cyan-500/10 transition"
+                    className="flex-1 min-w-[140px] py-3 px-4 rounded-xl border border-slate-300 dark:border-white/10 text-slate-800 dark:text-cyan-300 font-mono font-bold text-xs text-center hover:bg-slate-100 dark:hover:bg-cyan-500/10 transition"
                   >
                     GitHub Repository
                   </a>

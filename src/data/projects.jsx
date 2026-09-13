@@ -66,6 +66,8 @@ const projects = [
     impact: "Generated customized ₹40–₹250/day meal tiers with sub-100ms database response monitoring.",
     tech: ["React Native", "Expo", "TypeScript", "Node.js", "MongoDB"],
     github: "https://github.com/GovindxSharma/Mealfit",
+    live: "https://drive.google.com/file/d/10Dea2nUxYs5ntmRBtK4Wr0ydxXs1Pkft/view?usp=sharing",
+    apk: "https://drive.google.com/file/d/10Dea2nUxYs5ntmRBtK4Wr0ydxXs1Pkft/view?usp=sharing",
     highlight: true,
   },
   {

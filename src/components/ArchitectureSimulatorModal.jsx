@@ -15,6 +15,7 @@ import {
   Gauge,
   Layers,
   ShoppingBag,
+  Download,
 } from "lucide-react";
 import { soundFX } from "../utils/soundEffects";
 
@@ -419,8 +420,21 @@ export default function ArchitectureSimulatorModal({ isOpen, onClose }) {
                 </div>
               </div>
 
-              <div className="p-3.5 rounded-2xl bg-violet-500/10 border border-violet-500/20 text-xs font-mono text-slate-700 dark:text-slate-300">
-                <strong>Real Production Logic in MealFit:</strong> Implemented linear programming algorithms matching Indian local Kirana staples (Sattu, Chana, Moong, Paneer) to protein requirements while keeping total daily expenditure constrained to user budget limits.
+              <div className="p-3.5 rounded-2xl bg-violet-500/10 border border-violet-500/20 text-xs font-mono text-slate-700 dark:text-slate-300 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                <div className="flex-1">
+                  <strong>Real Production Logic in MealFit:</strong> Implemented linear programming algorithms matching Indian local Kirana staples (Sattu, Chana, Moong, Paneer) to protein requirements while keeping total daily expenditure constrained to user budget limits.
+                </div>
+                <a
+                  href="https://drive.google.com/file/d/10Dea2nUxYs5ntmRBtK4Wr0ydxXs1Pkft/view?usp=sharing"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => soundFX.playClick()}
+                  className="shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-cyan-500 text-white font-bold text-xs shadow-md hover:scale-105 transition active:scale-95"
+                  title="Download Android APK via Google Drive"
+                >
+                  <Download size={13} />
+                  <span>Download APK</span>
+                </a>
               </div>
             </div>
           )}

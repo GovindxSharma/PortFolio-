@@ -13,6 +13,7 @@ import {
   ArrowRight,
   Sparkles,
   CheckCircle2,
+  Download,
 } from "lucide-react";
 import { soundFX } from "../utils/soundEffects";
 
@@ -207,20 +208,36 @@ export default function SystemArchitectureModal({ isOpen, onClose }) {
             >
               Vizon Technolabs Production Architecture (MERN + Sockets)
             </button>
-            <button
-              onClick={() => {
-                soundFX.playClick();
-                setActiveSystem("mealfit");
-                setSelectedNode(null);
-              }}
-              className={`px-4 py-2 rounded-xl text-xs font-mono font-bold transition ${
-                activeSystem === "mealfit"
-                  ? "bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-md shadow-cyan-500/20"
-                  : "bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-white/10"
-              }`}
-            >
-              MealFit Mobile & Backend Architecture
-            </button>
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <button
+                onClick={() => {
+                  soundFX.playClick();
+                  setActiveSystem("mealfit");
+                  setSelectedNode(null);
+                }}
+                className={`px-4 py-2 rounded-xl text-xs font-mono font-bold transition ${
+                  activeSystem === "mealfit"
+                    ? "bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-md shadow-cyan-500/20"
+                    : "bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-white/10"
+                }`}
+              >
+                MealFit Mobile & Backend Architecture
+              </button>
+
+              {activeSystem === "mealfit" && (
+                <a
+                  href="https://drive.google.com/file/d/10Dea2nUxYs5ntmRBtK4Wr0ydxXs1Pkft/view?usp=sharing"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => soundFX.playClick()}
+                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 text-white font-mono font-bold text-xs shadow-md hover:scale-105 transition active:scale-95"
+                  title="Download MealFit Android APK (Google Drive Direct)"
+                >
+                  <Download size={13} className="animate-bounce" />
+                  <span>Download MealFit APK 📥</span>
+                </a>
+              )}
+            </div>
           </div>
 
           {/* Interactive Node Flowchart Strip */}
