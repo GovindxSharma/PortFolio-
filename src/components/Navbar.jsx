@@ -406,53 +406,6 @@ export default function Navbar({
 
         </nav>
       </header>
-
-      {/* ================= DESKTOP FLOATING DOCK ================= */}
-      <div className="fixed bottom-6 left-1/2 z-40 hidden md:block -translate-x-1/2">
-        <div className="relative group">
-          <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-cyan-500 via-blue-500 to-violet-600 blur-md opacity-25 group-hover:opacity-50 transition duration-500" />
-
-          <div className="relative flex items-center gap-1.5 rounded-full border border-slate-200/90 dark:border-white/10 bg-white/95 dark:bg-[#101218]/90 p-2 sm:p-2.5 backdrop-blur-3xl shadow-[0_8px_30px_rgba(0,0,0,0.08)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
-            {navItems.map((item, idx) => {
-              const Icon = item.icon;
-              const isActive = currentSectionIndex === idx;
-
-              return (
-                <div key={item.id} className="relative group/item">
-                  <motion.button
-                    onClick={() => handleNavigate(idx)}
-                    onMouseEnter={() => soundFX.playHover()}
-                    whileHover={{ y: -5, scale: 1.12 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="relative flex h-11 w-11 items-center justify-center rounded-full transition-all"
-                  >
-                    {isActive && (
-                      <motion.div
-                        layoutId="activeDock"
-                        className="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-500 via-blue-600 to-violet-600 shadow-[0_0_20px_rgba(6,182,212,0.6)]"
-                      />
-                    )}
-
-                    <Icon
-                      className={`relative z-10 h-5 w-5 transition-colors ${
-                        isActive
-                          ? "text-white"
-                          : "text-slate-500 dark:text-slate-400 group-hover/item:text-cyan-500 dark:group-hover/item:text-cyan-400"
-                      }`}
-                    />
-                  </motion.button>
-
-                  <div className="pointer-events-none absolute -top-11 left-1/2 -translate-x-1/2 opacity-0 group-hover/item:opacity-100 transition-all duration-200 scale-95 group-hover/item:scale-100">
-                    <div className="px-2.5 py-1 text-[11px] font-mono font-bold rounded-lg bg-slate-900 dark:bg-[#0c0d12] text-white dark:text-cyan-300 border border-slate-700 dark:border-white/10 shadow-xl whitespace-nowrap">
-                      {item.floor}: {item.label}
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </div>
     </>
   );
 }
