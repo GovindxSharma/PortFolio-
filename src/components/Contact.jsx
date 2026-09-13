@@ -74,7 +74,7 @@ export default function Contact() {
         )}
       </AnimatePresence>
 
-      <div className="max-w-6xl w-full grid lg:grid-cols-12 gap-8 lg:gap-14 items-center relative">
+      <div className="max-w-6xl w-full grid lg:grid-cols-12 gap-6 lg:gap-10 items-center relative">
 
         {/* LEFT INFORMATION (5 cols) */}
         <motion.div
@@ -84,27 +84,27 @@ export default function Contact() {
           transition={{ duration: 0.6 }}
           className="lg:col-span-5 text-center lg:text-left"
         >
-          <div className="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-white/70 dark:bg-[#12141c] px-3.5 py-1 text-xs font-mono text-cyan-400 font-bold mb-3">
+          <div className="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-white/70 dark:bg-[#12141c] px-3.5 py-1 text-xs font-mono text-cyan-400 font-bold mb-2">
             <MessageSquare size={13} className="text-cyan-400" />
             <span>[ SUMMON PORTAL // TRANSMISSION ]</span>
           </div>
 
-          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black font-['Rajdhani',sans-serif] leading-[1.1] text-slate-900 dark:text-[#f8fafc]">
+          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black font-['Rajdhani',sans-serif] leading-[1.1] text-slate-900 dark:text-[#f8fafc]">
             Summon The{" "}
             <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-violet-500 bg-clip-text text-transparent">
               Shadow Monarch
             </span>
           </h2>
 
-          <p className="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed font-mono">
+          <p className="mt-2 text-xs sm:text-sm md:text-base text-slate-600 dark:text-slate-300 leading-relaxed font-mono">
             Looking for an S-Rank Full-Stack Architect to lead software engineering, build production web apps, or conquer ambitious engineering quests? Transmit your signal below.
           </p>
 
           {/* Hunter Availability Beacon */}
-          <div className="mt-5 inline-flex items-center justify-center lg:justify-start gap-3 p-3 rounded-2xl bg-white/80 dark:bg-[#12141c] border border-slate-200 dark:border-white/10 backdrop-blur-md">
-            <span className="relative flex h-3 w-3">
+          <div className="mt-3.5 inline-flex items-center justify-center lg:justify-start gap-2.5 p-2.5 rounded-2xl bg-white/80 dark:bg-[#12141c] border border-slate-200 dark:border-white/10 backdrop-blur-md">
+            <span className="relative flex h-2.5 w-2.5">
               <span className="animate-ping absolute h-full w-full rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative h-3 w-3 rounded-full bg-emerald-500" />
+              <span className="relative h-2.5 w-2.5 rounded-full bg-emerald-500" />
             </span>
             <span className="text-xs font-mono font-bold text-slate-800 dark:text-cyan-200">
               Active For Opportunities & High-Level Quests
@@ -112,12 +112,12 @@ export default function Contact() {
           </div>
 
           {/* Quick Copy Contact Cards */}
-          <div className="mt-6 space-y-2.5">
+          <div className="mt-3.5 space-y-2">
             {/* Email Card */}
             <div
               onClick={() => copyToClipboard(email, "Email")}
               onMouseEnter={() => soundFX.playHover()}
-              className="flex items-center justify-between p-3.5 rounded-2xl bg-white/80 dark:bg-[#101218] border border-slate-200 dark:border-white/10 hover:border-cyan-400 dark:hover:shadow-[0_0_20px_rgba(6,182,212,0.2)] transition cursor-pointer group"
+              className="flex items-center justify-between p-3 rounded-2xl bg-white/80 dark:bg-[#101218] border border-slate-200 dark:border-white/10 hover:border-cyan-400 dark:hover:shadow-[0_0_20px_rgba(6,182,212,0.2)] transition cursor-pointer group"
             >
               <div className="flex items-center gap-3">
                 <div className="p-2.5 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 group-hover:scale-110 transition">
@@ -137,7 +137,7 @@ export default function Contact() {
             <div
               onClick={() => copyToClipboard(phone, "Phone")}
               onMouseEnter={() => soundFX.playHover()}
-              className="flex items-center justify-between p-3.5 rounded-2xl bg-white/80 dark:bg-[#101218] border border-slate-200 dark:border-white/10 hover:border-cyan-400 dark:hover:shadow-[0_0_20px_rgba(6,182,212,0.2)] transition cursor-pointer group"
+              className="flex items-center justify-between p-3 rounded-2xl bg-white/80 dark:bg-[#101218] border border-slate-200 dark:border-white/10 hover:border-cyan-400 dark:hover:shadow-[0_0_20px_rgba(6,182,212,0.2)] transition cursor-pointer group"
             >
               <div className="flex items-center gap-3">
                 <div className="p-2.5 rounded-xl bg-violet-500/10 text-violet-400 border border-violet-500/20 group-hover:scale-110 transition">
@@ -155,7 +155,7 @@ export default function Contact() {
           </div>
 
           {/* Social Crystal Orbs */}
-          <div className="grid grid-cols-4 gap-2.5 mt-5">
+          <div className="grid grid-cols-4 gap-2.5 mt-3">
             {[
               { name: "GitHub", icon: <FaGithub size={17} />, link: PROFILE.socials.github },
               { name: "LinkedIn", icon: <FaLinkedin size={17} />, link: PROFILE.socials.linkedin },
@@ -172,7 +172,7 @@ export default function Contact() {
                 whileHover={{ scale: 1.08, y: -2 }}
                 whileTap={{ scale: 0.95 }}
                 className="
-                  h-12 w-full flex items-center justify-center rounded-2xl
+                  h-10 sm:h-11 w-full flex items-center justify-center rounded-2xl
                   bg-white/80 dark:bg-[#101218]
                   border border-slate-200 dark:border-white/10
                   text-slate-700 dark:text-cyan-300
@@ -187,17 +187,17 @@ export default function Contact() {
           </div>
 
           {/* Official Dossier / Resume Link */}
-          <div className="mt-4">
+          <div className="mt-3">
             <a
               href={PROFILE.resumeUrl}
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => soundFX.playClick()}
               onMouseEnter={() => soundFX.playHover()}
-              className="flex items-center justify-between p-3.5 rounded-2xl bg-gradient-to-r from-cyan-500/10 via-blue-500/10 to-violet-600/10 border border-cyan-500/30 hover:border-cyan-400 hover:shadow-[0_0_20px_rgba(6,182,212,0.25)] transition cursor-pointer group"
+              className="flex items-center justify-between p-3 rounded-2xl bg-gradient-to-r from-cyan-500/10 via-blue-500/10 to-violet-600/10 border border-cyan-500/30 hover:border-cyan-400 hover:shadow-[0_0_20px_rgba(6,182,212,0.25)] transition cursor-pointer group"
             >
               <div className="flex items-center gap-3">
-                <div className="p-2.5 rounded-xl bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 group-hover:scale-110 transition">
+                <div className="p-2 rounded-xl bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 group-hover:scale-110 transition">
                   <FileText size={14} />
                 </div>
                 <div className="text-left">
@@ -223,11 +223,11 @@ export default function Contact() {
           transition={{ duration: 0.6 }}
           className="lg:col-span-7"
         >
-          <div className="relative rounded-3xl border border-slate-200 dark:border-white/10 bg-white/90 dark:bg-[#101218]/95 p-5 sm:p-8 shadow-2xl backdrop-blur-2xl overflow-hidden">
+          <div className="relative rounded-3xl border border-slate-200 dark:border-white/10 bg-white/90 dark:bg-[#101218]/95 p-5 sm:p-6 shadow-2xl backdrop-blur-2xl overflow-hidden">
             {/* Top Glowing Edge */}
             <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent" />
 
-            <div className="flex items-center justify-between border-b border-slate-200 dark:border-white/10 pb-3 mb-5 font-mono text-xs text-cyan-400">
+            <div className="flex items-center justify-between border-b border-slate-200 dark:border-white/10 pb-2.5 mb-4 font-mono text-xs text-cyan-400">
               <span className="flex items-center gap-2">
                 <Send size={13} /> GUILD TRANSMISSION FORM
               </span>
@@ -251,9 +251,9 @@ export default function Contact() {
                 </p>
               </motion.div>
             ) : (
-              <form onSubmit={handleSendMessage} className="space-y-3.5 font-mono text-xs">
+              <form onSubmit={handleSendMessage} className="space-y-3 font-mono text-xs">
                 <div>
-                  <label className="block text-slate-700 dark:text-slate-300 font-bold mb-1.5 uppercase text-[11px]">
+                  <label className="block text-slate-700 dark:text-slate-300 font-bold mb-1 uppercase text-[11px]">
                     Your Name / Guild:
                   </label>
                   <input
@@ -262,12 +262,12 @@ export default function Contact() {
                     value={senderName}
                     onChange={(e) => setSenderName(e.target.value)}
                     placeholder="e.g. Sung Jin-Woo / Tech Lead"
-                    className="w-full rounded-xl border border-slate-300 dark:border-white/10 bg-slate-50 dark:bg-[#0c0d12] px-4 py-3 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-400 transition"
+                    className="w-full rounded-xl border border-slate-300 dark:border-white/10 bg-slate-50 dark:bg-[#0c0d12] px-3.5 py-2.5 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-400 transition"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-slate-700 dark:text-slate-300 font-bold mb-1.5 uppercase text-[11px]">
+                  <label className="block text-slate-700 dark:text-slate-300 font-bold mb-1 uppercase text-[11px]">
                     Your Email Address:
                   </label>
                   <input
@@ -276,12 +276,12 @@ export default function Contact() {
                     value={senderEmail}
                     onChange={(e) => setSenderEmail(e.target.value)}
                     placeholder="e.g. hunter@association.org"
-                    className="w-full rounded-xl border border-slate-300 dark:border-white/10 bg-slate-50 dark:bg-[#0c0d12] px-4 py-3 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-400 transition"
+                    className="w-full rounded-xl border border-slate-300 dark:border-white/10 bg-slate-50 dark:bg-[#0c0d12] px-3.5 py-2.5 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-400 transition"
                   />
                 </div>
 
                 <div>
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 mb-1.5">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 mb-1">
                     <label className="block text-slate-700 dark:text-slate-300 font-bold uppercase text-[11px]">
                       Quest Transmission Message:
                     </label>
@@ -322,19 +322,19 @@ export default function Contact() {
                   </div>
 
                   <textarea
-                    rows={4}
+                    rows={3}
                     required
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     placeholder="Describe your project, hiring opportunity, or architectural inquiry..."
-                    className="w-full rounded-xl border border-slate-300 dark:border-white/10 bg-slate-50 dark:bg-[#0c0d12] px-4 py-3 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-400 transition resize-none"
+                    className="w-full rounded-xl border border-slate-300 dark:border-white/10 bg-slate-50 dark:bg-[#0c0d12] px-3.5 py-2.5 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-400 transition resize-none"
                   />
                 </div>
 
                 <button
                   type="submit"
                   onMouseEnter={() => soundFX.playHover()}
-                  className="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-cyan-500 via-blue-600 to-violet-600 text-white font-mono font-bold text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(6,182,212,0.3)] hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] hover:scale-[1.01] active:scale-[0.99] transition"
+                  className="w-full py-3 px-6 rounded-xl bg-gradient-to-r from-cyan-500 via-blue-600 to-violet-600 text-white font-mono font-bold text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(6,182,212,0.3)] hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] hover:scale-[1.01] active:scale-[0.99] transition"
                 >
                   <FaPaperPlane size={13} />
                   <span>Transmit Transmission To Govind</span>

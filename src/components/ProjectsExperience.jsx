@@ -178,10 +178,10 @@ export default function ProjectsExperience() {
         }}
         className={`
           relative h-full flex flex-col justify-between
-          rounded-2xl sm:rounded-3xl p-5 sm:p-6
+          rounded-2xl sm:rounded-3xl p-4 sm:p-5
           border transition-all duration-300
           bg-white/90 dark:bg-[#101218]/95 backdrop-blur-xl
-          hover:-translate-y-2 cursor-pointer group
+          hover:-translate-y-1.5 cursor-pointer group
           ${
             isRankS
               ? "border-cyan-400/70 shadow-[0_0_25px_rgba(6,182,212,0.18)] hover:shadow-[0_0_35px_rgba(6,182,212,0.35)]"
@@ -330,19 +330,19 @@ export default function ProjectsExperience() {
       <div className="max-w-7xl mx-auto w-full relative">
 
         {/* SECTION HEADER */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-5 mb-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-4 sm:mb-5">
           <div>
-            <div className="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-white/70 dark:bg-[#12141c] px-3.5 py-1 text-xs font-mono text-cyan-400 font-bold mb-2.5">
+            <div className="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-white/70 dark:bg-[#12141c] px-3.5 py-1 text-xs font-mono text-cyan-400 font-bold mb-2">
               <Swords size={13} className="text-cyan-400" />
               <span>[ DUNGEON VAULT // 18+ PRODUCTION SYSTEMS ]</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 dark:text-[#f8fafc] font-['Rajdhani',sans-serif] tracking-tight">
+            <h2 className="text-2xl sm:text-4xl md:text-5xl font-black text-slate-900 dark:text-[#f8fafc] font-['Rajdhani',sans-serif] tracking-tight">
               Artifacts &{" "}
               <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-violet-500 bg-clip-text text-transparent">
                 Dungeon Raids
               </span>
             </h2>
-            <p className="mt-1.5 text-xs sm:text-sm text-slate-600 dark:text-slate-400 font-mono">
+            <p className="mt-1 text-xs sm:text-sm text-slate-600 dark:text-slate-400 font-mono">
               Explore 18+ engineered applications across Full-Stack, MedTech, AI Agents & Web Utilities.
             </p>
           </div>
@@ -408,7 +408,7 @@ export default function ProjectsExperience() {
         </div>
 
         {/* SEARCH & FILTER BAR */}
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 mb-5">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 mb-4">
           {/* Category Tabs */}
           <div className="flex items-center gap-1.5 overflow-x-auto pb-1 no-scrollbar">
             {categories.map((cat) => {

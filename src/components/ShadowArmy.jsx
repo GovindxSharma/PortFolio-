@@ -71,26 +71,26 @@ export default function ShadowArmy() {
       <div className="max-w-6xl mx-auto relative">
 
         {/* Section Header */}
-        <div className="text-center mb-10">
-          <div className="inline-flex items-center gap-2 rounded-full border border-violet-500/30 bg-white/70 dark:bg-[#12141c] px-3.5 py-1 text-xs font-mono text-violet-400 font-bold mb-3">
+        <div className="text-center mb-5 sm:mb-6">
+          <div className="inline-flex items-center gap-2 rounded-full border border-violet-500/30 bg-white/70 dark:bg-[#12141c] px-3.5 py-1 text-xs font-mono text-violet-400 font-bold mb-2.5">
             <Sparkles size={13} className="text-violet-400" />
             <span>[ SHADOW EXTRACTION STATION // ALLIED COMMANDERS ]</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black font-['Rajdhani',sans-serif] text-slate-900 dark:text-[#f8fafc]">
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-black font-['Rajdhani',sans-serif] text-slate-900 dark:text-[#f8fafc]">
             The Shadow Army of{" "}
             <span className="bg-gradient-to-r from-violet-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent">
               Engineering Disciplines
             </span>
           </h2>
 
-          <p className="mt-2 text-sm sm:text-base text-slate-600 dark:text-slate-400 font-mono">
+          <p className="mt-1.5 text-xs sm:text-sm md:text-base text-slate-600 dark:text-slate-400 font-mono max-w-2xl mx-auto">
             Click to summon and inspect Govind's specialized shadow commanders commanding each technical domain.
           </p>
         </div>
 
         {/* COMMANDERS SELECTOR DOCK */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3 mb-4 sm:mb-5">
           {shadowCommanders.map((c) => {
             const Icon = c.icon;
             const isSelected = activeCommander.id === c.id;
@@ -102,7 +102,7 @@ export default function ShadowArmy() {
                 whileHover={{ scale: 1.03, y: -2 }}
                 whileTap={{ scale: 0.98 }}
                 className={`
-                  p-4 rounded-2xl border transition-all duration-300 text-left flex flex-col justify-between
+                  p-3.5 sm:p-4 rounded-2xl border transition-all duration-300 text-left flex flex-col justify-between
                   bg-white/80 dark:bg-[#101218]/90 backdrop-blur-xl
                   ${
                     isSelected
@@ -111,9 +111,9 @@ export default function ShadowArmy() {
                   }
                 `}
               >
-                <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center justify-between mb-2.5">
                   <div
-                    className={`h-10 w-10 rounded-xl flex items-center justify-center text-white bg-gradient-to-br ${c.color} shadow-lg`}
+                    className={`h-9 w-9 sm:h-10 sm:w-10 rounded-xl flex items-center justify-center text-white bg-gradient-to-br ${c.color} shadow-lg`}
                   >
                     <Icon size={18} />
                   </div>
@@ -145,7 +145,7 @@ export default function ShadowArmy() {
             transition={{ duration: 0.3 }}
             className="
               relative rounded-3xl border border-cyan-500/40
-              bg-white/90 dark:bg-[#101218]/95 backdrop-blur-2xl p-6 sm:p-8
+              bg-white/90 dark:bg-[#101218]/95 backdrop-blur-2xl p-5 sm:p-6
               shadow-[0_0_40px_rgba(0,0,0,0.6)] text-slate-900 dark:text-white overflow-hidden
             "
           >
@@ -155,10 +155,10 @@ export default function ShadowArmy() {
               style={{ background: activeCommander.glow }}
             />
 
-            <div className="grid md:grid-cols-12 gap-8 items-center relative z-10">
+            <div className="grid md:grid-cols-12 gap-5 sm:gap-7 items-center relative z-10">
 
               {/* Left Info (7 cols) */}
-              <div className="md:col-span-7 space-y-4">
+              <div className="md:col-span-7 space-y-3">
                 <div className="flex items-center gap-2 font-mono text-xs text-cyan-400">
                   <span className="h-2 w-2 rounded-full bg-cyan-400 animate-ping" />
                   <span>[ SHADOW COMMANDER EXTRACTED & READY ]</span>

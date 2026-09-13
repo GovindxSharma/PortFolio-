@@ -244,8 +244,8 @@ export default function Skills() {
       <div className="max-w-7xl mx-auto relative">
 
         {/* HEADER */}
-        <div className="text-center mb-6 sm:mb-8">
-          <div className="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-white/70 dark:bg-[#12141c] px-3.5 py-1 text-xs font-mono text-cyan-600 dark:text-cyan-400 font-bold mb-2.5">
+        <div className="text-center mb-4 sm:mb-6">
+          <div className="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-white/70 dark:bg-[#12141c] px-3.5 py-1 text-xs font-mono text-cyan-600 dark:text-cyan-400 font-bold mb-2">
             <Zap size={13} className="text-cyan-400" />
             <span>[ AWAKENED SKILL MATRIX // PRACTICAL ENGINEERING APPLIED ]</span>
           </div>
@@ -254,7 +254,7 @@ export default function Skills() {
             Technical <span className="text-cyan-600 dark:text-cyan-400">Mastery</span> & Production Spells
           </h2>
 
-          <p className="mt-1.5 text-xs sm:text-sm text-slate-600 dark:text-slate-400 font-mono max-w-2xl mx-auto">
+          <p className="mt-1 text-xs sm:text-sm md:text-base text-slate-600 dark:text-slate-400 font-mono max-w-2xl mx-auto">
             Abilities tested through 2,000+ competitive algorithm challenges and high-concurrency production platforms.
           </p>
         </div>
@@ -265,9 +265,9 @@ export default function Skills() {
             key={activeHighlight.skill}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mb-6 p-4 sm:p-5 rounded-2xl sm:rounded-3xl border border-cyan-400/50 bg-gradient-to-r from-cyan-500/10 via-white dark:via-[#101218] to-violet-600/10 shadow-[0_4px_25px_rgba(6,182,212,0.12)] backdrop-blur-xl"
+            className="mb-4 sm:mb-5 p-3.5 sm:p-4 rounded-2xl sm:rounded-3xl border border-cyan-400/50 bg-gradient-to-r from-cyan-500/10 via-white dark:via-[#101218] to-violet-600/10 shadow-[0_4px_25px_rgba(6,182,212,0.12)] backdrop-blur-xl"
           >
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-slate-200 dark:border-white/10 pb-3 mb-3">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-slate-200 dark:border-white/10 pb-2.5 mb-2.5">
               <div className="flex items-center gap-2.5">
                 <span className="flex h-2.5 w-2.5 rounded-full bg-cyan-400 animate-ping" />
                 <span className="text-xs font-mono font-bold uppercase text-cyan-600 dark:text-cyan-400 tracking-wider">
@@ -304,7 +304,7 @@ export default function Skills() {
         )}
 
         {/* CATEGORY FILTER TABS */}
-        <div className="flex items-center gap-1.5 overflow-x-auto pb-2 mb-5 no-scrollbar">
+        <div className="flex items-center gap-1.5 overflow-x-auto pb-1.5 mb-3.5 sm:mb-4 no-scrollbar">
           {filterCategories.map((cat) => {
             const isSelected = selectedCategory === cat.id;
 
@@ -329,7 +329,7 @@ export default function Skills() {
         </div>
 
         {/* SKILLS GRID */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3.5 sm:gap-5">
           {filteredGroups.map((group, i) => {
             const Icon = group.icon;
 
@@ -342,7 +342,7 @@ export default function Skills() {
                 transition={{ duration: 0.4, delay: i * 0.06 }}
                 onMouseEnter={() => soundFX.playHover()}
                 className="
-                  group relative rounded-2xl sm:rounded-3xl p-5 sm:p-6
+                  group relative rounded-2xl sm:rounded-3xl p-4 sm:p-5
                   border border-slate-200 dark:border-white/10
                   bg-white/90 dark:bg-[#101218]/90
                   backdrop-blur-xl

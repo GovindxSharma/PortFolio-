@@ -59,8 +59,8 @@ const Experience = () => {
       <div className="max-w-6xl mx-auto relative">
 
         {/* HEADER */}
-        <div className="relative mb-6 sm:mb-12 text-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-white/70 dark:bg-[#12141c] px-3.5 py-1 text-[10px] sm:text-xs font-mono text-cyan-400 font-bold mb-2 sm:mb-3">
+        <div className="relative mb-4 sm:mb-6 text-center">
+          <div className="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-white/70 dark:bg-[#12141c] px-3.5 py-1 text-[10px] sm:text-xs font-mono text-cyan-400 font-bold mb-2">
             <Terminal size={12} className="text-cyan-400" />
             <span>[ SYSTEM LOGS // GUILD EXPEDITIONS & PRODUCTION WORK ]</span>
           </div>
@@ -72,19 +72,19 @@ const Experience = () => {
             </span>
           </h2>
 
-          <p className="text-xs sm:text-base text-slate-600 dark:text-slate-400 font-mono mt-1 sm:mt-2">
+          <p className="text-xs sm:text-sm md:text-base text-slate-600 dark:text-slate-400 font-mono mt-1 sm:mt-1.5 max-w-2xl mx-auto">
             Real-world battlegrounds where enterprise client platforms were architected, optimized, and deployed to production.
           </p>
 
           {/* ONLINE BADGE */}
-          <div className="mt-3 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono text-[10px] sm:text-xs">
+          <div className="mt-2.5 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono text-[10px] sm:text-xs">
             <Activity className="h-3 w-3 animate-pulse" />
             <span>PRODUCTION ACTIVE // ZERO DOWNTIME</span>
           </div>
         </div>
 
         {/* GRID */}
-        <div className="grid md:grid-cols-2 gap-5 sm:gap-7 lg:gap-8">
+        <div className="grid md:grid-cols-2 gap-4 sm:gap-6">
           {experiences.map((exp, i) => {
             const Icon = exp.icon;
             const isActive = exp.status === "Active System";
@@ -98,7 +98,7 @@ const Experience = () => {
                 transition={{ duration: 0.4, delay: i * 0.1 }}
                 onMouseEnter={() => soundFX.playHover()}
                 className={`
-                  relative rounded-2xl sm:rounded-3xl p-5 sm:p-7
+                  relative rounded-2xl sm:rounded-3xl p-5 sm:p-6
                   border transition-all duration-300
                   bg-white/85 dark:bg-[#101218]/90
                   backdrop-blur-xl

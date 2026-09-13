@@ -469,7 +469,7 @@ const Homepage = () => {
           <div
             key={sec.id}
             ref={(el) => (sectionRefs.current[idx] = el)}
-            className="w-screen h-full shrink-0 relative overflow-y-auto overflow-x-hidden select-text pt-13 sm:pt-16 pb-6 sm:pb-8 px-3 sm:px-8 flex flex-col justify-center"
+            className="w-screen h-full shrink-0 relative overflow-y-auto overflow-x-hidden select-text pt-20 sm:pt-24 pb-22 sm:pb-26 px-3 sm:px-8 flex flex-col justify-center"
             style={{
               WebkitOverflowScrolling: "touch",
               overscrollBehaviorY: "none",
