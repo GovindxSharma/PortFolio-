@@ -46,15 +46,15 @@ const shadowCommanders = [
   {
     id: "tank",
     name: "Tank (Frost Beast Core)",
-    title: "Architect of 3D WebGL & UI/UX Immersion",
-    role: "Three.js & Framer Motion Shaders",
+    title: "Architect of Ultra-Fast UI/UX & Responsive Engines",
+    role: "React, Vite, Tailwind CSS & Fluid Interactions",
     rank: "Elite Knight",
     icon: Snowflake,
     color: "from-violet-500 to-purple-800",
     glow: "rgba(147, 51, 234, 0.5)",
-    quote: "Freezing dropped frames into silky smooth 60 FPS.",
-    buff: "+120% Visual Fluidity & Micro-Interactions",
-    stats: { Atk: "92/100", Def: "96/100", Speed: "88/100", Mana: "3,200 MP" },
+    quote: "Eliminating dropped frames into silky smooth 60 FPS across all devices.",
+    buff: "+120% Visual Fluidity, Responsiveness & Accessible UX",
+    stats: { Atk: "92/100", Def: "96/100", Speed: "94/100", Mana: "3,200 MP" },
   },
 ];
 

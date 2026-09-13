@@ -23,7 +23,7 @@ export default function StatusWindowModal({ isOpen, onClose }) {
 
   const stats = [
     { name: "Strength (System Architecture)", val: 98, max: 100, icon: Shield, desc: "Distributed scalable backend & clean architecture" },
-    { name: "Agility (Frontend Speed & FPS)", val: 96, max: 100, icon: Zap, desc: "React, Vite, Three.js 60 FPS visual smoothness" },
+    { name: "Agility (Frontend Speed & FPS)", val: 96, max: 100, icon: Zap, desc: "React, Vite, Tailwind CSS 60 FPS visual smoothness & clean UI" },
     { name: "Intelligence (DSA & AI Logic)", val: 99, max: 100, icon: Brain, desc: "Data structures, problem solving, OpenAI/LLM pipelines" },
     { name: "Vitality (Code Resilience & Testing)", val: 95, max: 100, icon: Flame, desc: "Type safety, error handling, Docker & CI/CD deployment" },
     { name: "Sense (UI/UX Intuition & Polish)", val: 97, max: 100, icon: Compass, desc: "Vibrant aesthetics, micro-interactions, responsive UX" },
@@ -47,7 +47,7 @@ export default function StatusWindowModal({ isOpen, onClose }) {
     {
       name: "Ruler's Authority [Lv. 9]",
       type: "Telekinesis / Motion",
-      desc: "Controls DOM elements, Three.js shaders, and Framer Motion spring physics with invisible precision.",
+      desc: "Controls DOM elements, reactive state, and Framer Motion spring physics with clean, seamless precision.",
       mana: "120 MP",
       cooldown: "5s",
     },
