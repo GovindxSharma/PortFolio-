@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   User,
   Briefcase,
@@ -26,7 +26,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "../context/ThemeContext";
 import { soundFX } from "../utils/soundEffects";
 
-export const navItems = [
+const navItems = [
   { id: "about", icon: User, label: "Monarch Profile", floor: "REALM 01" },
   { id: "system-experience", icon: Building2, label: "System Logs", floor: "REALM 02" },
   { id: "projects", icon: Briefcase, label: "Dungeon Raids", floor: "REALM 03" },

@@ -5,7 +5,7 @@ import {
   ChevronRight,
   MoveHorizontal,
 } from "lucide-react";
-import Navbar, { navItems } from "../components/Navbar";
+import Navbar from "../components/Navbar";
 import About from "../components/About";
 import ProjectsExperience from "../components/ProjectsExperience";
 import ShadowArmy from "../components/ShadowArmy";
