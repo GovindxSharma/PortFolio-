@@ -19,6 +19,7 @@ import StatusWindowModal from "../components/StatusWindowModal";
 import QuestNotification from "../components/QuestNotification";
 import AwakeningIntro from "../components/AwakeningIntro";
 import HunterTerminal from "../components/HunterTerminal";
+import RealmMinimap from "../components/RealmMinimap";
 import { soundFX } from "../utils/soundEffects";
 
 const Homepage = () => {
@@ -428,6 +429,14 @@ const Homepage = () => {
           </div>
         ))}
       </motion.div>
+
+      {/* Floating Realm Minimap Teleport HUD */}
+      <RealmMinimap
+        sections={sections}
+        currentIndex={currentIndex}
+        onSelectSection={goToSection}
+        onOpenTerminal={handleOpenTerminal}
+      />
 
       {/* RAZOR-THIN LASER PROGRESS BAR (BOTTOM) */}
       <div className="fixed bottom-0 left-0 right-0 h-[2px] bg-slate-200 dark:bg-white/5 z-30 pointer-events-none">

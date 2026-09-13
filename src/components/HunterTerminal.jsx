@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Terminal, X, Minimize2, Maximize2, Sparkles, Send } from "lucide-react";
 import { soundFX } from "../utils/soundEffects";
 import { useTheme } from "../context/ThemeContext";
+import { PROFILE } from "../data/profile";
 
 export default function HunterTerminal({ isOpen, onClose, onOpenStatus }) {
   const [input, setInput] = useState("");
@@ -116,18 +117,16 @@ export default function HunterTerminal({ isOpen, onClose, onOpenStatus }) {
         newHistory.push({
           type: "output",
           text: `COMMUNICATION CHANNELS:
-  • Email: govindsharma2839@gmail.com
-  • Phone/WA: +91 9712935176
-  • GitHub: https://github.com/GovindxSharma
-  • LinkedIn: https://www.linkedin.com/in/govind-sharmax30/`,
+  • Email: ${PROFILE.email}
+  • Phone/WA: ${PROFILE.phoneFormatted}
+  • GitHub: ${PROFILE.socials.github}
+  • LinkedIn: ${PROFILE.socials.linkedin}
+  • LeetCode: ${PROFILE.socials.leetcode}`,
         });
         break;
 
       case "resume":
-        window.open(
-          "https://drive.google.com/file/d/1-DH9zTJ3Ft05GeR1M6ceR1umdA_1H0zQ/view?usp=drive_link",
-          "_blank"
-        );
+        window.open(PROFILE.resumeUrl, "_blank");
         newHistory.push({ type: "output", text: "Opening Govind's Resume in a new tab..." });
         break;
 

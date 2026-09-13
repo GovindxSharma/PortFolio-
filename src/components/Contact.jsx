@@ -13,9 +13,10 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import { Sparkles, MessageSquare, Send, CheckCircle2, Shield, FileText, ArrowUpRight } from "lucide-react";
 import { soundFX } from "../utils/soundEffects";
+import { PROFILE } from "../data/profile";
 
-const email = "govindsharma2839@gmail.com";
-const phone = "9712935176";
+const email = PROFILE.email;
+const phone = PROFILE.phone;
 
 export default function Contact() {
   const [toast, setToast] = useState("");
@@ -156,10 +157,10 @@ export default function Contact() {
           {/* Social Crystal Orbs */}
           <div className="grid grid-cols-4 gap-2.5 mt-5">
             {[
-              { name: "GitHub", icon: <FaGithub size={17} />, link: "https://github.com/GovindxSharma" },
-              { name: "LinkedIn", icon: <FaLinkedin size={17} />, link: "https://www.linkedin.com/in/govind-sharmax30/" },
-              { name: "WhatsApp", icon: <FaWhatsapp size={17} />, link: "https://wa.me/9712935176" },
-              { name: "Telegram", icon: <FaTelegram size={17} />, link: "https://t.me/9712935176" },
+              { name: "GitHub", icon: <FaGithub size={17} />, link: PROFILE.socials.github },
+              { name: "LinkedIn", icon: <FaLinkedin size={17} />, link: PROFILE.socials.linkedin },
+              { name: "WhatsApp", icon: <FaWhatsapp size={17} />, link: PROFILE.socials.whatsapp },
+              { name: "Telegram", icon: <FaTelegram size={17} />, link: PROFILE.socials.telegram },
             ].map((s, i) => (
               <motion.a
                 key={i}
@@ -188,7 +189,7 @@ export default function Contact() {
           {/* Official Dossier / Resume Link */}
           <div className="mt-4">
             <a
-              href="https://drive.google.com/file/d/1-DH9zTJ3Ft05GeR1M6ceR1umdA_1H0zQ/view?usp=drive_link"
+              href={PROFILE.resumeUrl}
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => soundFX.playClick()}

@@ -17,6 +17,7 @@ import {
   ArrowUpRight,
 } from "lucide-react";
 import { soundFX } from "../utils/soundEffects";
+import { PROFILE } from "../data/profile";
 
 export default function StatusWindowModal({ isOpen, onClose }) {
   const [activeTab, setActiveTab] = useState("stats");
@@ -348,7 +349,7 @@ export default function StatusWindowModal({ isOpen, onClose }) {
               </span>
               <div className="flex items-center gap-2">
                 <a
-                  href="https://drive.google.com/file/d/1-DH9zTJ3Ft05GeR1M6ceR1umdA_1H0zQ/view?usp=drive_link"
+                  href={PROFILE.resumeUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => soundFX.playClick()}

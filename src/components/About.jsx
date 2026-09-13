@@ -1,13 +1,15 @@
 import React, { useState } from "react";
-import { ArrowUpRight, Sparkles, Zap, Shield, Swords, Terminal, Download, UserCheck } from "lucide-react";
+import { ArrowUpRight, Sparkles, Zap, Shield, Swords, Terminal, Download, UserCheck, Brain } from "lucide-react";
 import { motion } from "framer-motion";
 import { soundFX } from "../utils/soundEffects";
+import { PROFILE } from "../data/profile";
+import DsaSpotlightModal from "./DsaSpotlightModal";
 
 const About = ({ onOpenStatus }) => {
   const [ariseActive, setAriseActive] = useState(false);
+  const [dsaModalOpen, setDsaModalOpen] = useState(false);
 
-  const resumeUrl =
-    "https://drive.google.com/file/d/1-DH9zTJ3Ft05GeR1M6ceR1umdA_1H0zQ/view?usp=drive_link";
+  const resumeUrl = PROFILE.resumeUrl;
 
   const techStack = [
     "React.js",
@@ -225,13 +227,27 @@ const About = ({ onOpenStatus }) => {
 
               {/* Quantified Production Impact Grid */}
               <div className="mt-3 sm:mt-4 grid grid-cols-2 gap-1.5 sm:gap-2 text-center font-mono">
-                <div className="rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-[#141720] p-2 hover:border-cyan-400/40 transition">
-                  <h3 className="text-base sm:text-lg font-black text-cyan-500 dark:text-cyan-300 font-['Rajdhani',sans-serif]">
-                    2,000+
-                  </h3>
-                  <p className="text-[9px] text-slate-500 dark:text-slate-400 uppercase font-semibold">
+                <div
+                  onClick={() => {
+                    soundFX.playClick();
+                    setDsaModalOpen(true);
+                  }}
+                  onMouseEnter={() => soundFX.playHover()}
+                  className="rounded-xl border border-cyan-500/40 dark:border-cyan-400/30 bg-cyan-500/5 dark:bg-[#141720] p-2 hover:border-cyan-400 dark:hover:border-cyan-400 hover:shadow-lg hover:shadow-cyan-500/20 transition cursor-pointer group"
+                  title="Click to view Algorithmic Mastery Breakdown"
+                >
+                  <div className="flex items-center justify-center gap-1">
+                    <h3 className="text-base sm:text-lg font-black text-cyan-600 dark:text-cyan-300 font-['Rajdhani',sans-serif]">
+                      2,000+
+                    </h3>
+                    <Brain className="w-3.5 h-3.5 text-cyan-500 group-hover:scale-125 transition-transform" />
+                  </div>
+                  <p className="text-[9px] text-slate-600 dark:text-slate-400 uppercase font-semibold">
                     DSA Solved (LeetCode)
                   </p>
+                  <span className="text-[8px] text-cyan-600 dark:text-cyan-400 font-bold block">
+                    [View Ledger &rarr;]
+                  </span>
                 </div>
 
                 <div className="rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-[#141720] p-2 hover:border-cyan-400/40 transition">
@@ -267,8 +283,15 @@ const About = ({ onOpenStatus }) => {
 
         </div>
       </div>
+
+      {/* Algorithmic Prowess Ledger Modal */}
+      <DsaSpotlightModal
+        isOpen={dsaModalOpen}
+        onClose={() => setDsaModalOpen(false)}
+      />
     </section>
   );
 };
+
 
 export default About;

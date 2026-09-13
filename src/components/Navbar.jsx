@@ -23,8 +23,9 @@ import {
   ArrowUpRight,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useTheme } from "../context/ThemeContext";
 import { soundFX } from "../utils/soundEffects";
+import { useTheme } from "../context/ThemeContext";
+import { PROFILE } from "../data/profile";
 
 const navItems = [
   { id: "about", icon: User, label: "Monarch Profile", floor: "REALM 01" },
@@ -292,7 +293,7 @@ export default function Navbar({
 
                 {/* Direct Resume Action */}
                 <a
-                  href="https://drive.google.com/file/d/1-DH9zTJ3Ft05GeR1M6ceR1umdA_1H0zQ/view?usp=drive_link"
+                  href={PROFILE.resumeUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => soundFX.playClick()}
