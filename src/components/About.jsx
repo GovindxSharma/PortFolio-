@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { ArrowUpRight, Sparkles, Zap, Shield, Swords, Terminal, Download } from "lucide-react";
+import { ArrowUpRight, Sparkles, Zap, Shield, Swords, Terminal, Download, UserCheck } from "lucide-react";
 import { motion } from "framer-motion";
-import Hero3DCore from "./Hero3DCore";
 import { soundFX } from "../utils/soundEffects";
 
 const About = ({ onOpenStatus }) => {
@@ -158,50 +157,73 @@ const About = ({ onOpenStatus }) => {
             </div>
           </motion.div>
 
-          {/* RIGHT 3D MANA CORE & PROFILE (5 cols) */}
+          {/* RIGHT HUNTER PROFILE CARD (Plain & Simple, Zero Dizzying 3D) */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.5, delay: 0.15 }}
             className="lg:col-span-5 relative flex flex-col items-center w-full max-w-sm mx-auto"
           >
-            {/* Outer Glow Halo */}
-            <div className="absolute -inset-4 rounded-3xl bg-gradient-to-r from-cyan-500/20 via-blue-500/20 to-violet-600/20 blur-3xl" />
+            {/* Subtle Static Ambient Glow */}
+            <div className="absolute -inset-3 rounded-3xl bg-gradient-to-r from-cyan-500/15 via-blue-500/10 to-violet-600/15 blur-2xl pointer-events-none" />
 
-            {/* Holographic Matte Black Container */}
-            <div className="relative w-full rounded-3xl border border-slate-200/80 dark:border-white/10 bg-white/80 dark:bg-[#101218]/90 p-3.5 sm:p-5 shadow-2xl backdrop-blur-2xl overflow-hidden">
+            {/* Clean Hunter Card */}
+            <div className="relative w-full rounded-3xl border border-slate-200/80 dark:border-white/10 bg-white/90 dark:bg-[#101218]/95 p-4 sm:p-5 shadow-2xl backdrop-blur-2xl overflow-hidden">
               {/* Header Label */}
-              <div className="flex items-center justify-between border-b border-slate-200 dark:border-white/10 pb-2 mb-2 sm:mb-3 font-mono text-[10px] sm:text-[11px] text-cyan-400">
-                <span className="flex items-center gap-1.5">
-                  <Terminal size={12} /> 3D MANA CORE MATRIX
+              <div className="flex items-center justify-between border-b border-slate-200 dark:border-white/10 pb-2.5 mb-3 font-mono text-[10px] sm:text-[11px] text-cyan-400">
+                <span className="flex items-center gap-1.5 font-bold tracking-wider">
+                  <Terminal size={12} /> HUNTER DOSSIER
                 </span>
-                <span className="animate-pulse font-bold text-emerald-400">LIVE SYNC</span>
+                <span className="flex items-center gap-1.5 font-bold text-emerald-400">
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  AVAILABLE
+                </span>
               </div>
 
-              {/* Interactive Three.js 3D Core Container */}
-              <div className="relative rounded-2xl bg-slate-100 dark:bg-[#0a0b10] border border-slate-200 dark:border-white/5 overflow-hidden">
-                <Hero3DCore />
-
-                {/* Overlay Badge */}
-                <div className="absolute bottom-2.5 left-2.5 right-2.5 flex items-center justify-between p-2 rounded-xl bg-black/80 backdrop-blur-md border border-white/10 text-white font-mono text-xs">
-                  <div className="flex items-center gap-2">
+              {/* Developer Profile Visual (Plain, Clean, Focused) */}
+              <div className="relative rounded-2xl bg-gradient-to-b from-slate-100 to-slate-200/70 dark:from-[#0d0f15] dark:to-[#090a0e] border border-slate-200 dark:border-white/5 p-5 flex flex-col items-center text-center">
+                {/* Profile Avatar */}
+                <div className="relative mb-3">
+                  <div className="h-24 w-24 sm:h-28 sm:w-28 rounded-2xl p-1 bg-gradient-to-tr from-cyan-500 via-blue-500 to-violet-600 shadow-[0_0_20px_rgba(6,182,212,0.25)]">
                     <img
                       src="/github.png"
-                      alt="Govind Sharma Profile"
-                      className="h-7 w-7 rounded-full border border-cyan-400 object-cover"
+                      alt="Govind Sharma"
+                      className="h-full w-full rounded-[14px] object-cover bg-[#0a0c10]"
                     />
-                    <div>
-                      <span className="font-bold block text-white text-[10px] sm:text-[11px]">Govind Sharma</span>
-                      <span className="text-[8px] sm:text-[9px] text-cyan-400">Class: Shadow Monarch</span>
-                    </div>
                   </div>
-                  <span className="text-[9px] sm:text-[10px] px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 font-bold border border-cyan-500/40">
+                  <div className="absolute -bottom-1 -right-1 px-2 py-0.5 rounded-full bg-cyan-500 text-black font-mono text-[9px] font-black tracking-wider shadow-md">
                     LV. 99
-                  </span>
+                  </div>
+                </div>
+
+                {/* Name & Title */}
+                <h3 className="text-xl font-bold font-['Rajdhani',sans-serif] text-slate-900 dark:text-white tracking-wide">
+                  Govind Sharma
+                </h3>
+                <p className="text-xs font-mono text-cyan-600 dark:text-cyan-400 font-bold mt-0.5">
+                  Full-Stack Developer & Software Architect
+                </p>
+
+                {/* Class Badge */}
+                <div className="mt-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-200/80 dark:bg-white/5 border border-slate-300/80 dark:border-white/10 text-[11px] font-mono font-medium text-slate-700 dark:text-slate-300">
+                  <Shield size={12} className="text-cyan-400" />
+                  <span>S-Rank · Shadow Monarch</span>
+                </div>
+
+                {/* Focus Badges */}
+                <div className="mt-3.5 flex flex-wrap justify-center gap-1.5">
+                  {["React & Vite", "Node & Express", "MongoDB", "AI APIs"].map((pill, idx) => (
+                    <span
+                      key={idx}
+                      className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-white dark:bg-[#141722] border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 font-semibold"
+                    >
+                      {pill}
+                    </span>
+                  ))}
                 </div>
               </div>
 
-              {/* Live Hunter Stats Grid (Matte Surfaces) */}
+              {/* Live Hunter Stats Grid (Plain & Simple) */}
               <div className="mt-3 sm:mt-4 grid grid-cols-3 gap-1.5 sm:gap-2 text-center font-mono">
                 <div className="rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-[#141720] p-2 sm:p-2.5 hover:border-cyan-400/40 transition">
                   <h3 className="text-base sm:text-lg font-black text-slate-900 dark:text-cyan-300 font-['Rajdhani',sans-serif]">
