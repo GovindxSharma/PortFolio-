@@ -50,7 +50,7 @@ const Experience = () => {
   return (
     <section
       id="system-experience"
-      className="relative px-2 sm:px-6 py-6 sm:py-14 bg-white/70 dark:bg-[#090a0f] overflow-hidden"
+      className="relative px-1 sm:px-4 py-3 sm:py-6 overflow-hidden"
     >
       {/* Glow Orbs */}
       <div className="absolute top-10 left-10 h-80 w-80 bg-cyan-500/10 blur-[160px] rounded-full pointer-events-none" />

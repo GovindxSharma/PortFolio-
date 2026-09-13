@@ -35,7 +35,7 @@ const About = ({ onOpenStatus }) => {
   return (
     <section
       id="about"
-      className="relative overflow-hidden pt-2 pb-12 sm:pt-8 sm:pb-20 px-2 sm:px-6 flex items-center"
+      className="relative overflow-hidden py-3 sm:py-6 px-1 sm:px-4 flex items-center"
     >
       {/* ARISE Screen Flash & Shadow Resonance Effect */}
       {ariseActive && (

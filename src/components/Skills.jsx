@@ -131,7 +131,7 @@ export default function Skills() {
   return (
     <section
       id="skills"
-      className="relative py-12 md:py-20 px-2 sm:px-6 bg-slate-50/70 dark:bg-[#090a0f] overflow-hidden"
+      className="relative py-3 sm:py-6 px-1 sm:px-4 overflow-hidden"
     >
       {/* Background Glows */}
       <div className="absolute top-1/4 right-0 w-[450px] h-[450px] bg-cyan-500/10 blur-[170px] rounded-full pointer-events-none" />

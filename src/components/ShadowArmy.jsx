@@ -67,7 +67,7 @@ export default function ShadowArmy() {
   };
 
   return (
-    <section className="relative py-12 md:py-20 px-2 sm:px-6 bg-slate-50/50 dark:bg-[#090a0f] overflow-hidden">
+    <section className="relative py-3 sm:py-6 px-1 sm:px-4 overflow-hidden">
       <div className="max-w-6xl mx-auto relative">
 
         {/* Section Header */}

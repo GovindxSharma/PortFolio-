@@ -25,7 +25,7 @@ const Homepage = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [statusOpen, setStatusOpen] = useState(false);
   const [terminalOpen, setTerminalOpen] = useState(false);
-  const [showIntro, setShowIntro] = useState(true);
+  const [showIntro, setShowIntro] = useState(false);
   const sectionRefs = useRef([]);
   const isScrollingRef = useRef(false);
 
@@ -300,10 +300,7 @@ const Homepage = () => {
       "
       style={{ overscrollBehavior: "none", touchAction: "pan-y pinch-zoom" }}
     >
-      {/* Cinematic Solo Leveling Awakening Intro Loader */}
-      {showIntro && <AwakeningIntro onComplete={() => setShowIntro(false)} />}
-
-      {/* Interactive Three.js 3D Background */}
+      {/* Interactive Ambient Background */}
       <ThreeBackground />
 
       {/* Holographic Hunter Reticle Cursor */}
@@ -380,7 +377,7 @@ const Homepage = () => {
           <div
             key={sec.id}
             ref={(el) => (sectionRefs.current[idx] = el)}
-            className="w-screen h-full shrink-0 relative overflow-y-auto overflow-x-hidden no-scrollbar select-text pt-20 sm:pt-24 pb-16 sm:pb-24 px-4 sm:px-10"
+            className="w-screen h-full shrink-0 relative overflow-y-auto overflow-x-hidden no-scrollbar select-text pt-16 sm:pt-20 pb-6 sm:pb-10 px-3 sm:px-8"
             style={{
               WebkitOverflowScrolling: "touch",
               overscrollBehaviorY: "none",
@@ -393,12 +390,12 @@ const Homepage = () => {
               </div>
 
               {/* End of Section Realm Transition Indicator & Direct Tap Buttons */}
-              <div className="mt-12 mb-4 pt-6 border-t border-slate-200 dark:border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 font-mono text-xs text-slate-500 dark:text-slate-400 text-center sm:text-left">
+              <div className="mt-6 mb-2 pt-3 border-t border-slate-200 dark:border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 font-mono text-xs text-slate-500 dark:text-slate-400 text-center sm:text-left">
                 <div>
                   {idx > 0 ? (
                     <button
                       onClick={prevSection}
-                      className="flex items-center gap-1.5 py-2 px-3 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-400 font-bold transition active:scale-95"
+                      className="flex items-center gap-1.5 py-2 px-3 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-600 dark:text-cyan-400 font-bold transition active:scale-95"
                     >
                       <ChevronLeft size={16} />
                       <span>Prev Realm: {sections[idx - 1].title}</span>
@@ -408,7 +405,7 @@ const Homepage = () => {
                   )}
                 </div>
 
-                <div className="flex items-center gap-1.5 text-cyan-400 text-[11px] sm:text-xs">
+                <div className="flex items-center gap-1.5 text-cyan-600 dark:text-cyan-400 text-[11px] sm:text-xs">
                   <MoveHorizontal size={14} className="animate-pulse" />
                   <span>Scroll or swipe to advance realm</span>
                 </div>
@@ -417,7 +414,7 @@ const Homepage = () => {
                   {idx < totalSections - 1 ? (
                     <button
                       onClick={nextSection}
-                      className="flex items-center gap-1.5 py-2 px-3 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-400 font-bold transition active:scale-95"
+                      className="flex items-center gap-1.5 py-2 px-3 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-600 dark:text-cyan-400 font-bold transition active:scale-95"
                     >
                       <span>Next Realm: {sections[idx + 1].title}</span>
                       <ChevronRight size={16} />
