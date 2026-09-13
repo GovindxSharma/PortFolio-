@@ -469,50 +469,55 @@ const Homepage = () => {
           <div
             key={sec.id}
             ref={(el) => (sectionRefs.current[idx] = el)}
-            className="w-screen h-full shrink-0 relative overflow-y-auto overflow-x-hidden no-scrollbar select-text pt-13 sm:pt-15 pb-16 sm:pb-18 px-2.5 sm:px-6 flex flex-col justify-center"
+            className="w-screen h-full shrink-0 relative overflow-y-auto overflow-x-hidden no-scrollbar select-text pt-16 sm:pt-20 pb-6 sm:pb-10 px-3 sm:px-8"
             style={{
               WebkitOverflowScrolling: "touch",
               overscrollBehaviorY: "none",
               overscrollBehavior: "none",
             }}
           >
-            <div className="w-full max-w-6xl mx-auto my-auto">
-              {sec.component}
+            <div className="w-full max-w-6xl mx-auto min-h-full flex flex-col justify-between">
+              <div>
+                {sec.component}
+              </div>
 
-              {/* Mobile-Only Quick Realm Advancement Footer */}
-              <div className="mt-4 pt-2 border-t border-slate-200/50 dark:border-white/5 flex md:hidden items-center justify-between gap-2 font-mono text-[10px] text-slate-500">
-                {idx > 0 ? (
-                  <button
-                    onClick={prevSection}
-                    className="flex items-center gap-1 py-1 px-2.5 rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-cyan-600 dark:text-cyan-400 font-bold"
-                  >
-                    <ChevronLeft size={13} />
-                    <span>Prev</span>
-                  </button>
-                ) : (
-                  <span>[ REALM 01 ]</span>
-                )}
-
-                <div className="flex items-center gap-1 text-cyan-600 dark:text-cyan-400">
-                  <MoveHorizontal size={12} className="animate-pulse" />
-                  <span>Swipe</span>
+              {/* End of Section Realm Transition Indicator & Direct Tap Buttons */}
+              <div className="mt-6 mb-2 pt-3 border-t border-slate-200 dark:border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 font-mono text-xs text-slate-500 dark:text-slate-400 text-center sm:text-left">
+                <div>
+                  {idx > 0 ? (
+                    <button
+                      onClick={prevSection}
+                      className="flex items-center gap-1.5 py-2 px-3 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-600 dark:text-cyan-400 font-bold transition active:scale-95"
+                    >
+                      <ChevronLeft size={16} />
+                      <span>Prev Realm: {sections[idx - 1].title}</span>
+                    </button>
+                  ) : (
+                    <span className="text-[11px] text-slate-500">[ REALM 01 START ]</span>
+                  )}
                 </div>
 
-                {idx < totalSections - 1 ? (
-                  <button
-                    onClick={nextSection}
-                    className="flex items-center gap-1 py-1 px-2.5 rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-cyan-600 dark:text-cyan-400 font-bold"
-                  >
-                    <span>Next</span>
-                    <ChevronRight size={13} />
-                  </button>
-                ) : (
-                  <span>[ END ]</span>
-                )}
+                <div className="flex items-center gap-1.5 text-cyan-600 dark:text-cyan-400 text-[11px] sm:text-xs">
+                  <MoveHorizontal size={14} className="animate-pulse" />
+                  <span>Scroll or swipe to advance realm</span>
+                </div>
+
+                <div>
+                  {idx < totalSections - 1 ? (
+                    <button
+                      onClick={nextSection}
+                      className="flex items-center gap-1.5 py-2 px-3 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-600 dark:text-cyan-400 font-bold transition active:scale-95"
+                    >
+                      <span>Next Realm: {sections[idx + 1].title}</span>
+                      <ChevronRight size={16} />
+                    </button>
+                  ) : (
+                    <span className="text-[11px] text-slate-500">[ FINAL REALM REACHED ]</span>
+                  )}
+                </div>
               </div>
             </div>
           </div>
-
         ))}
       </motion.div>
 
