@@ -162,6 +162,29 @@ export default function Navbar({
               <span>BRIEF</span>
             </button>
 
+            {/* Right: Quick Theme Switcher */}
+            <button
+              onClick={() => {
+                soundFX.playClick();
+                toggleTheme();
+              }}
+              onMouseEnter={() => soundFX.playHover()}
+              className="p-1.5 sm:p-2 rounded-full border border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-[#161922] text-slate-700 dark:text-slate-300 hover:text-amber-500 dark:hover:text-cyan-400 transition active:scale-90"
+              title={`Switch to ${darkMode ? "Light" : "Dark"} Mode`}
+            >
+              {darkMode ? <Sun size={13} className="text-amber-400" /> : <Moon size={13} className="text-indigo-600" />}
+            </button>
+
+            {/* Right: Quick Sound Toggle */}
+            <button
+              onClick={handleToggleMute}
+              onMouseEnter={() => soundFX.playHover()}
+              className="p-1.5 sm:p-2 rounded-full border border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-[#161922] text-slate-700 dark:text-slate-300 hover:text-cyan-500 dark:hover:text-cyan-400 transition active:scale-90"
+              title={isMuted ? "Unmute Sound Effects" : "Mute Sound Effects"}
+            >
+              {isMuted ? <VolumeX size={13} className="text-slate-400" /> : <Volume2 size={13} className="text-cyan-500 dark:text-cyan-400" />}
+            </button>
+
             {/* Right: Command Hub Toggle (✦) */}
             <button
               onClick={() => {

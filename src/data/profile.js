@@ -13,6 +13,7 @@ export const PROFILE = {
   
   // Single verified resume URL
   resumeUrl: "https://drive.google.com/file/d/1-DH9zTJ3Ft05GeR1M6ceR1umdA_1H0zQ/view?usp=drive_link",
+  localResumeUrl: "/resume.pdf",
   
   // Social & Developer Profiles
   socials: {
