@@ -67,30 +67,30 @@ export default function ShadowArmy() {
   };
 
   return (
-    <section className="relative py-3 sm:py-6 px-1 sm:px-4 overflow-hidden">
+    <section className="relative py-2 sm:py-3 px-1 sm:px-4 overflow-hidden">
       <div className="max-w-6xl mx-auto relative">
 
         {/* Section Header */}
-        <div className="text-center mb-10">
-          <div className="inline-flex items-center gap-2 rounded-full border border-violet-500/30 bg-white/70 dark:bg-[#12141c] px-3.5 py-1 text-xs font-mono text-violet-400 font-bold mb-3">
-            <Sparkles size={13} className="text-violet-400" />
+        <div className="text-center mb-3">
+          <div className="inline-flex items-center gap-2 rounded-full border border-violet-500/30 bg-white/70 dark:bg-[#12141c] px-3 py-0.5 text-xs font-mono text-violet-400 font-bold mb-1.5">
+            <Sparkles size={12} className="text-violet-400" />
             <span>[ SHADOW EXTRACTION STATION // ALLIED COMMANDERS ]</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black font-['Rajdhani',sans-serif] text-slate-900 dark:text-[#f8fafc]">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-black font-['Rajdhani',sans-serif] text-slate-900 dark:text-[#f8fafc] leading-tight">
             The Shadow Army of{" "}
             <span className="bg-gradient-to-r from-violet-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent">
               Engineering Disciplines
             </span>
           </h2>
 
-          <p className="mt-2 text-sm sm:text-base text-slate-600 dark:text-slate-400 font-mono">
+          <p className="mt-1 text-xs sm:text-sm text-slate-600 dark:text-slate-400 font-mono">
             Click to summon and inspect Govind's specialized shadow commanders commanding each technical domain.
           </p>
         </div>
 
         {/* COMMANDERS SELECTOR DOCK */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-2.5 mb-3">
           {shadowCommanders.map((c) => {
             const Icon = c.icon;
             const isSelected = activeCommander.id === c.id;
@@ -99,34 +99,34 @@ export default function ShadowArmy() {
               <motion.button
                 key={c.id}
                 onClick={() => handleSelect(c)}
-                whileHover={{ scale: 1.03, y: -2 }}
+                whileHover={{ scale: 1.02, y: -1 }}
                 whileTap={{ scale: 0.98 }}
                 className={`
-                  p-4 rounded-2xl border transition-all duration-300 text-left flex flex-col justify-between
+                  p-2.5 sm:p-3 rounded-xl border transition-all duration-200 text-left flex flex-col justify-between
                   bg-white/80 dark:bg-[#101218]/90 backdrop-blur-xl
                   ${
                     isSelected
-                      ? "border-cyan-400 shadow-[0_0_20px_rgba(6,182,212,0.3)]"
+                      ? "border-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.3)] ring-1 ring-cyan-400/50"
                       : "border-slate-200 dark:border-white/10 hover:border-violet-500/40"
                   }
                 `}
               >
-                <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center justify-between mb-1.5">
                   <div
-                    className={`h-10 w-10 rounded-xl flex items-center justify-center text-white bg-gradient-to-br ${c.color} shadow-lg`}
+                    className={`h-8 w-8 rounded-lg flex items-center justify-center text-white bg-gradient-to-br ${c.color} shadow-sm`}
                   >
-                    <Icon size={18} />
+                    <Icon size={15} />
                   </div>
-                  <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+                  <span className="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
                     {c.rank}
                   </span>
                 </div>
 
                 <div>
-                  <h4 className="text-sm font-bold font-['Rajdhani',sans-serif] text-slate-900 dark:text-white">
+                  <h4 className="text-xs sm:text-sm font-bold font-['Rajdhani',sans-serif] text-slate-900 dark:text-white leading-tight">
                     {c.name.split(" ")[0]}
                   </h4>
-                  <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 block truncate">
+                  <span className="text-[9.5px] font-mono text-slate-500 dark:text-slate-400 block truncate">
                     {c.role}
                   </span>
                 </div>
@@ -139,14 +139,14 @@ export default function ShadowArmy() {
         <AnimatePresence mode="wait">
           <motion.div
             key={activeCommander.id}
-            initial={{ opacity: 0, y: 15, scale: 0.98 }}
+            initial={{ opacity: 0, y: 10, scale: 0.99 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -15, scale: 0.98 }}
-            transition={{ duration: 0.3 }}
+            exit={{ opacity: 0, y: -10, scale: 0.99 }}
+            transition={{ duration: 0.25 }}
             className="
-              relative rounded-3xl border border-cyan-500/40
-              bg-white/90 dark:bg-[#101218]/95 backdrop-blur-2xl p-6 sm:p-8
-              shadow-[0_0_40px_rgba(0,0,0,0.6)] text-slate-900 dark:text-white overflow-hidden
+              relative rounded-2xl border border-cyan-500/40
+              bg-white/90 dark:bg-[#101218]/95 backdrop-blur-2xl p-3.5 sm:p-5
+              shadow-[0_0_30px_rgba(0,0,0,0.5)] text-slate-900 dark:text-white overflow-hidden
             "
           >
             {/* Ambient Background Aura */}
@@ -155,44 +155,45 @@ export default function ShadowArmy() {
               style={{ background: activeCommander.glow }}
             />
 
-            <div className="grid md:grid-cols-12 gap-8 items-center relative z-10">
+            <div className="grid md:grid-cols-12 gap-4 sm:gap-6 items-center relative z-10">
 
               {/* Left Info (7 cols) */}
-              <div className="md:col-span-7 space-y-4">
-                <div className="flex items-center gap-2 font-mono text-xs text-cyan-400">
-                  <span className="h-2 w-2 rounded-full bg-cyan-400 animate-ping" />
+              <div className="md:col-span-7 space-y-2">
+                <div className="flex items-center gap-2 font-mono text-[10px] text-cyan-400">
+                  <span className="h-1.5 w-1.5 rounded-full bg-cyan-400 animate-ping" />
                   <span>[ SHADOW COMMANDER EXTRACTED & READY ]</span>
                 </div>
 
-                <h3 className="text-2xl sm:text-3xl font-black font-['Rajdhani',sans-serif]">
-                  {activeCommander.name}
-                </h3>
-
-                <p className="text-sm font-semibold text-cyan-400 font-mono">
-                  {activeCommander.title}
-                </p>
+                <div className="flex flex-wrap items-baseline gap-2">
+                  <h3 className="text-lg sm:text-2xl font-black font-['Rajdhani',sans-serif]">
+                    {activeCommander.name}
+                  </h3>
+                  <span className="text-xs font-semibold text-cyan-400 font-mono">
+                    • {activeCommander.title}
+                  </span>
+                </div>
 
                 {/* Quote in voice bubble */}
-                <div className="p-3.5 rounded-2xl bg-slate-100 dark:bg-[#0c0d12] border border-slate-200 dark:border-white/5 text-xs sm:text-sm italic text-slate-700 dark:text-slate-300">
+                <div className="p-2 sm:p-2.5 rounded-xl bg-slate-100 dark:bg-[#0c0d12] border border-slate-200 dark:border-white/5 text-xs italic text-slate-700 dark:text-slate-300">
                   "{activeCommander.quote}"
                 </div>
 
                 {/* Applied Passive Buff */}
-                <div className="flex items-center gap-2 p-3 rounded-xl bg-gradient-to-r from-violet-500/15 to-cyan-500/15 border border-cyan-500/30 font-mono text-xs text-cyan-400 font-bold">
-                  <Sparkles size={14} className="text-cyan-400 animate-pulse" />
+                <div className="flex items-center gap-2 p-2 rounded-lg bg-gradient-to-r from-violet-500/15 to-cyan-500/15 border border-cyan-500/30 font-mono text-[11px] text-cyan-400 font-bold">
+                  <Sparkles size={13} className="text-cyan-400 animate-pulse shrink-0" />
                   <span>BUFF: {activeCommander.buff}</span>
                 </div>
               </div>
 
               {/* Right Combat Stats (5 cols) */}
-              <div className="md:col-span-5 space-y-3 font-mono text-xs">
-                <div className="p-4 rounded-2xl bg-slate-100 dark:bg-[#0c0d12] border border-slate-200 dark:border-white/5 space-y-2.5">
-                  <span className="text-[10px] text-cyan-400 font-bold uppercase block border-b border-slate-200 dark:border-white/5 pb-1">
+              <div className="md:col-span-5 space-y-2 font-mono text-xs">
+                <div className="p-3 rounded-xl bg-slate-100 dark:bg-[#0c0d12] border border-slate-200 dark:border-white/5 space-y-1.5">
+                  <span className="text-[9px] text-cyan-400 font-bold uppercase block border-b border-slate-200 dark:border-white/5 pb-1">
                     COMMANDER COMBAT METRICS
                   </span>
 
                   {Object.entries(activeCommander.stats).map(([k, v]) => (
-                    <div key={k} className="flex items-center justify-between">
+                    <div key={k} className="flex items-center justify-between text-[11px]">
                       <span className="text-slate-500 dark:text-slate-400">{k}:</span>
                       <span className="font-bold text-slate-900 dark:text-cyan-300">{v}</span>
                     </div>
@@ -201,7 +202,7 @@ export default function ShadowArmy() {
 
                 <button
                   onClick={() => soundFX.playArise()}
-                  className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-600 text-white font-bold font-mono text-xs shadow-lg hover:scale-105 transition"
+                  className="w-full py-2 px-3 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-600 text-white font-bold font-mono text-xs shadow-md hover:scale-[1.02] active:scale-[0.98] transition"
                 >
                   Summon Resonance ⚡
                 </button>
