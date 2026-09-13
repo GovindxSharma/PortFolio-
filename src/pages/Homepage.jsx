@@ -469,20 +469,20 @@ const Homepage = () => {
           <div
             key={sec.id}
             ref={(el) => (sectionRefs.current[idx] = el)}
-            className="w-screen h-full shrink-0 relative overflow-y-auto overflow-x-hidden no-scrollbar select-text pt-16 sm:pt-20 pb-6 sm:pb-10 px-3 sm:px-8"
+            className="w-screen h-full shrink-0 relative overflow-y-auto overflow-x-hidden select-text pt-13 sm:pt-16 pb-6 sm:pb-8 px-3 sm:px-8 flex flex-col justify-center"
             style={{
               WebkitOverflowScrolling: "touch",
               overscrollBehaviorY: "none",
               overscrollBehavior: "none",
             }}
           >
-            <div className="w-full max-w-6xl mx-auto min-h-full flex flex-col justify-between">
+            <div className="w-full max-w-6xl mx-auto my-auto flex flex-col justify-between">
               <div>
                 {sec.component}
               </div>
 
-              {/* End of Section Realm Transition Indicator & Direct Tap Buttons */}
-              <div className="mt-6 mb-2 pt-3 border-t border-slate-200 dark:border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 font-mono text-xs text-slate-500 dark:text-slate-400 text-center sm:text-left">
+              {/* End of Section Realm Transition Indicator & Direct Tap Buttons (Mobile/Tablet only; Desktop uses floating Realm Minimap HUD & Side Gates) */}
+              <div className="mt-6 mb-2 pt-3 border-t border-slate-200 dark:border-white/10 flex md:hidden flex-col sm:flex-row items-center justify-between gap-3 font-mono text-xs text-slate-500 dark:text-slate-400 text-center sm:text-left">
                 <div>
                   {idx > 0 ? (
                     <button

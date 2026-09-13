@@ -48,123 +48,144 @@ const educationData = [
 ];
 
 export default function Education() {
+  const currentFloor = educationData[0];
+  const clearedFloors = educationData.slice(1);
+
   return (
     <section
       id="education"
-      className="relative py-3 sm:py-6 px-1 sm:px-4 overflow-hidden"
+      className="relative py-2 sm:py-4 px-1 sm:px-4 overflow-hidden"
     >
       {/* Glow Orbs */}
       <div className="absolute top-0 left-0 w-[450px] h-[450px] bg-cyan-500/10 blur-[170px] rounded-full pointer-events-none" />
       <div className="absolute bottom-0 right-0 w-[450px] h-[450px] bg-violet-500/10 blur-[170px] rounded-full pointer-events-none" />
 
-      <div className="max-w-4xl mx-auto relative">
+      <div className="max-w-6xl mx-auto relative">
 
         {/* HEADER */}
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-white/70 dark:bg-[#12141c] px-3.5 py-1 text-xs font-mono text-cyan-400 font-bold mb-3">
+        <div className="text-center mb-6 sm:mb-8">
+          <div className="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-white/70 dark:bg-[#12141c] px-3.5 py-1 text-xs font-mono text-cyan-400 font-bold mb-2.5">
             <Award size={13} className="text-cyan-400" />
             <span>[ DUNGEON ASCENSION // KNOWLEDGE ARCHIVE ]</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 dark:text-[#f8fafc] font-['Rajdhani',sans-serif] tracking-tight">
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-black text-slate-900 dark:text-[#f8fafc] font-['Rajdhani',sans-serif] tracking-tight">
             Dungeon Floor{" "}
             <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-violet-500 bg-clip-text text-transparent">
               Clearance & Journey
             </span>
           </h2>
 
-          <p className="text-slate-600 dark:text-slate-400 mt-2 text-sm sm:text-base font-mono">
+          <p className="text-slate-600 dark:text-slate-400 mt-1.5 text-xs sm:text-sm font-mono max-w-2xl mx-auto">
             A structured evolution of computer science, algorithmic intellect, and engineering foundations.
           </p>
         </div>
 
-        {/* TIMELINE / ASCENSION PATH */}
-        <div className="relative">
+        {/* SMART 2-COLUMN DESKTOP GRID */}
+        <div className="grid lg:grid-cols-12 gap-5 sm:gap-6 items-stretch">
 
-          {/* Central / Left Line */}
-          <div className="absolute left-4 sm:left-6 top-4 bottom-4 w-[2px] bg-gradient-to-b from-cyan-400 via-blue-500 to-violet-600 opacity-50" />
+          {/* LEFT: CURRENT SUMMIT HERO CARD (5 cols) */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            onMouseEnter={() => soundFX.playHover()}
+            className="lg:col-span-5 h-full flex flex-col justify-between rounded-3xl border border-cyan-400/70 p-6 sm:p-7 bg-white/90 dark:bg-[#101218]/95 shadow-[0_0_30px_rgba(6,182,212,0.22)] backdrop-blur-2xl relative overflow-hidden group"
+          >
+            <div className="absolute top-0 right-0 w-48 h-48 bg-cyan-400/10 rounded-full blur-[70px] pointer-events-none" />
 
-          <div className="space-y-6 sm:space-y-8">
-            {educationData.map((edu, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                onMouseEnter={() => soundFX.playHover()}
-                className="relative pl-12 sm:pl-16 group"
-              >
-                {/* NODE BADGE ON LINE */}
-                <div className="absolute left-1.5 sm:left-3.5 top-3 -translate-x-1/2">
-                  <div
-                    className={`h-7 w-7 sm:h-8 sm:w-8 rounded-full flex items-center justify-center shadow-lg transition-transform group-hover:scale-125 ${
-                      edu.current
-                        ? "bg-gradient-to-r from-cyan-400 to-violet-600 text-white shadow-[0_0_15px_rgba(6,182,212,0.8)] animate-pulse"
-                        : "bg-slate-900 dark:bg-[#12141c] text-cyan-400 border border-cyan-500/40"
-                    }`}
-                  >
-                    <FaGraduationCap className="text-xs sm:text-sm" />
-                  </div>
+            <div>
+              <div className="flex items-center justify-between mb-4">
+                <span className="inline-flex items-center gap-1.5 text-xs font-mono font-black px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-400/50 shadow-[0_0_12px_rgba(6,182,212,0.4)]">
+                  <Sparkles size={13} className="animate-spin" style={{ animationDuration: "4s" }} />
+                  {currentFloor.floor}
+                </span>
 
-                  {edu.current && (
-                    <div className="absolute -inset-1 rounded-full bg-cyan-400/30 animate-ping pointer-events-none" />
-                  )}
+                <span className="text-xs font-mono text-cyan-400 font-bold">
+                  📅 {currentFloor.subtitle}
+                </span>
+              </div>
+
+              <div className="flex items-center gap-3.5 mb-3">
+                <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-cyan-400 to-violet-600 text-white flex items-center justify-center shadow-lg shadow-cyan-500/30 shrink-0">
+                  <FaGraduationCap size={22} />
                 </div>
+                <div>
+                  <h3 className="text-xl sm:text-2xl font-bold font-['Rajdhani',sans-serif] text-slate-900 dark:text-white leading-tight">
+                    {currentFloor.title}
+                  </h3>
+                </div>
+              </div>
 
-                {/* CONTENT CARD */}
-                <div
-                  className={`
-                    relative rounded-2xl sm:rounded-3xl
-                    border p-5 sm:p-6 transition-all duration-300
-                    bg-white/90 dark:bg-[#101218]/90 backdrop-blur-xl
-                    group-hover:-translate-y-1
-                    ${
-                      edu.current
-                        ? "border-cyan-400/60 shadow-[0_0_25px_rgba(6,182,212,0.2)] group-hover:shadow-[0_0_35px_rgba(6,182,212,0.35)]"
-                        : "border-slate-200 dark:border-white/10 group-hover:border-cyan-500/40"
-                    }
-                  `}
-                >
-                  {/* Floor Header */}
-                  <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
-                    <span
-                      className={`text-[10px] sm:text-[11px] font-mono font-bold px-2.5 py-0.5 rounded-full border ${
-                        edu.current
-                          ? "bg-cyan-500/20 text-cyan-400 border-cyan-400/50"
-                          : "bg-slate-100 dark:bg-[#151822] text-slate-700 dark:text-slate-300 border-slate-200 dark:border-white/5"
-                      }`}
-                    >
+              <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-sans mt-3">
+                {currentFloor.desc}
+              </p>
+            </div>
+
+            <div className="mt-5 pt-4 border-t border-slate-200 dark:border-white/10">
+              <span className="text-[10px] font-mono text-cyan-400 uppercase tracking-wider block mb-2 font-bold">
+                CORE AWAKENED SKILLS:
+              </span>
+              <div className="flex flex-wrap gap-1.5">
+                {currentFloor.skills.map((s, idx) => (
+                  <span
+                    key={idx}
+                    className="text-xs font-mono px-2.5 py-1 rounded-lg bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 font-semibold"
+                  >
+                    {s}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+
+          {/* RIGHT: 4 CLEARED FLOORS IN A 2x2 GRID (7 cols) */}
+          <div className="lg:col-span-7 grid sm:grid-cols-2 gap-3.5 sm:gap-4">
+            {clearedFloors.map((edu, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: idx * 0.08 }}
+                onMouseEnter={() => soundFX.playHover()}
+                className="
+                  rounded-2xl border border-slate-200 dark:border-white/10
+                  bg-white/85 dark:bg-[#101218]/90 backdrop-blur-xl p-4 sm:p-5
+                  hover:border-cyan-400/50 hover:shadow-[0_0_20px_rgba(6,182,212,0.12)]
+                  hover:-translate-y-1 transition-all duration-300
+                  flex flex-col justify-between group
+                "
+              >
+                <div>
+                  <div className="flex items-center justify-between gap-2 mb-2">
+                    <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-slate-100 dark:bg-[#151822] text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-white/5">
                       {edu.floor}
                     </span>
-
-                    <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
-                      📅 {edu.subtitle}
+                    <span className="text-[11px] font-mono text-slate-400">
+                      {edu.subtitle}
                     </span>
                   </div>
 
-                  {/* Institution Title */}
-                  <h3 className="text-lg sm:text-xl font-bold font-['Rajdhani',sans-serif] text-slate-900 dark:text-white group-hover:text-cyan-400 transition-colors">
+                  <h4 className="text-base sm:text-lg font-bold font-['Rajdhani',sans-serif] text-slate-900 dark:text-white group-hover:text-cyan-400 transition-colors leading-tight">
                     {edu.title}
-                  </h3>
+                  </h4>
 
-                  {/* Description */}
-                  <p className="mt-2 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                  <p className="mt-1.5 text-xs text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-3">
                     {edu.desc}
                   </p>
+                </div>
 
-                  {/* Awakened Skills Pills */}
-                  <div className="flex flex-wrap gap-1.5 sm:gap-2 mt-4 pt-3 border-t border-slate-100 dark:border-white/5">
-                    {edu.skills.map((s, idx) => (
-                      <span
-                        key={idx}
-                        className="text-[11px] font-mono px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-[#141720] text-slate-800 dark:text-slate-300 border border-slate-200 dark:border-white/5 group-hover:border-cyan-400/40 transition"
-                      >
-                        {s}
-                      </span>
-                    ))}
-                  </div>
-
+                <div className="mt-3 pt-2.5 border-t border-slate-100 dark:border-white/5 flex flex-wrap gap-1">
+                  {edu.skills.map((skill, sIdx) => (
+                    <span
+                      key={sIdx}
+                      className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-slate-100 dark:bg-[#141720] text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-white/5"
+                    >
+                      {skill}
+                    </span>
+                  ))}
                 </div>
               </motion.div>
             ))}
