@@ -211,47 +211,19 @@ const Homepage = () => {
     architectureOpen,
   ]);
 
-  // BULLETPROOF MOBILE TOUCH BOUNDARY ENGINE + PULL-TO-REFRESH PREVENTION
+  // BULLETPROOF MOBILE TOUCH ENGINE (Smooth native vertical scroll + horizontal realm swipe)
   useEffect(() => {
     const el = sectionRefs.current[currentIndex];
     if (!el) return;
 
     let touchStartY = 0;
     let touchStartX = 0;
-    let touchStartScrollTop = 0;
     let isTouching = false;
 
     const onTouchStart = (e) => {
       touchStartY = e.touches[0].clientY;
       touchStartX = e.touches[0].clientX;
-      touchStartScrollTop = el.scrollTop;
       isTouching = true;
-    };
-
-    const onTouchMove = (e) => {
-      if (!isTouching) return;
-      const currentY = e.touches[0].clientY;
-      const currentX = e.touches[0].clientX;
-      const deltaY = touchStartY - currentY; // Positive = Dragging UP (scrolling DOWN), Negative = Dragging DOWN (scrolling UP)
-      const deltaX = touchStartX - currentX;
-
-      const isAtTop = el.scrollTop <= 2;
-      const isAtBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 5;
-
-      // PREVENT BROWSER PULL-TO-REFRESH:
-      // When at top of page and dragging finger down (scrolling up), cancel native refresh gesture!
-      if (isAtTop && deltaY < 0 && Math.abs(deltaY) > Math.abs(deltaX)) {
-        if (e.cancelable) {
-          e.preventDefault();
-        }
-      }
-
-      // Prevent bottom rubber-band lock when scrolling down past bottom
-      if (isAtBottom && deltaY > 0 && Math.abs(deltaY) > Math.abs(deltaX)) {
-        if (e.cancelable) {
-          e.preventDefault();
-        }
-      }
     };
 
     const onTouchEnd = (e) => {
@@ -270,48 +242,24 @@ const Homepage = () => {
 
       const touchEndY = e.changedTouches[0].clientY;
       const touchEndX = e.changedTouches[0].clientX;
-      const deltaY = touchStartY - touchEndY; // Positive = Swiping UP (scrolling DOWN), Negative = Swiping DOWN (scrolling UP)
+      const deltaY = touchStartY - touchEndY;
       const deltaX = touchStartX - touchEndX;
 
-      // 1. Horizontal Swipe (Swipe Left -> Next, Swipe Right -> Prev)
-      if (Math.abs(deltaX) > 40 && Math.abs(deltaX) > Math.abs(deltaY) * 1.1) {
+      // Horizontal Realm Navigation: Clean deliberate horizontal swipe
+      if (Math.abs(deltaX) > 45 && Math.abs(deltaX) > Math.abs(deltaY) * 1.3) {
         if (deltaX > 0) {
           nextSection();
         } else {
-          prevSection();
-        }
-        return;
-      }
-
-      // 2. Vertical Boundary Auto-Scroll:
-      const { scrollTop, scrollHeight, clientHeight } = el;
-      const isScrollable = scrollHeight > clientHeight + 10;
-      const isAtBottom = scrollTop + clientHeight >= scrollHeight - 20;
-      const isAtTop = scrollTop <= 15;
-
-      // Swiping UP (Scrolling DOWN) -> Reached bottom of section -> Go to NEXT realm!
-      if (deltaY > 30) {
-        const wasNearBottom = touchStartScrollTop + clientHeight >= scrollHeight - 40;
-        if (!isScrollable || isAtBottom || wasNearBottom) {
-          nextSection();
-        }
-      }
-      // Swiping DOWN (Scrolling UP) -> Reached top of section -> Go to PREVIOUS realm (NO RELOAD)!
-      else if (deltaY < -30) {
-        const wasNearTop = touchStartScrollTop <= 25;
-        if (!isScrollable || isAtTop || wasNearTop) {
           prevSection();
         }
       }
     };
 
     el.addEventListener("touchstart", onTouchStart, { passive: true });
-    el.addEventListener("touchmove", onTouchMove, { passive: false }); // Non-passive allows e.preventDefault()
     el.addEventListener("touchend", onTouchEnd, { passive: true });
 
     return () => {
       el.removeEventListener("touchstart", onTouchStart);
-      el.removeEventListener("touchmove", onTouchMove);
       el.removeEventListener("touchend", onTouchEnd);
     };
   }, [
@@ -469,14 +417,13 @@ const Homepage = () => {
           <div
             key={sec.id}
             ref={(el) => (sectionRefs.current[idx] = el)}
-            className="w-screen h-full shrink-0 relative overflow-y-auto overflow-x-hidden select-text pt-20 sm:pt-24 pb-22 sm:pb-26 px-3 sm:px-8 flex flex-col justify-center"
+            className="w-screen h-full shrink-0 relative overflow-y-auto overflow-x-hidden select-text pt-18 sm:pt-22 md:pt-24 pb-24 sm:pb-26 px-3 sm:px-8 flex flex-col justify-start md:justify-center"
             style={{
               WebkitOverflowScrolling: "touch",
-              overscrollBehaviorY: "none",
-              overscrollBehavior: "none",
+              overscrollBehavior: "contain",
             }}
           >
-            <div className="w-full max-w-6xl mx-auto my-auto flex flex-col justify-between">
+            <div className="w-full max-w-6xl mx-auto my-0 md:my-auto flex flex-col justify-between">
               <div>
                 {sec.component}
               </div>
