@@ -5,11 +5,18 @@ import { soundFX } from "../utils/soundEffects";
 import { useTheme } from "../context/ThemeContext";
 import { PROFILE } from "../data/profile";
 
-export default function HunterTerminal({ isOpen, onClose, onOpenStatus }) {
+export default function HunterTerminal({
+  isOpen,
+  onClose,
+  onOpenStatus,
+  onOpenSimulator,
+  onOpenRecruiterBrief,
+  onOpenArchitecture,
+}) {
   const [input, setInput] = useState("");
   const [history, setHistory] = useState([
     { type: "system", text: "SYSTEM CLI v2.0 // SHADOW MONARCH CONSOLE INITIALIZED" },
-    { type: "system", text: "Type 'help' to view commands or 'status' to open hunter attributes." },
+    { type: "system", text: "Type 'help' for commands, 'brief' for recruiter pitch, 'sim' for architecture lab." },
   ]);
   const bottomRef = useRef(null);
   const inputRef = useRef(null);
@@ -50,6 +57,9 @@ export default function HunterTerminal({ isOpen, onClose, onOpenStatus }) {
           type: "output",
           text: `AVAILABLE COMMANDS:
   • help             - Show this instruction manual
+  • brief            - Open Recruiter 30-Sec Executive Brief
+  • sim / simulator  - Launch Production System Architecture Simulator
+  • arch / blueprint - Open System Architecture Blueprints
   • status           - Open S-Rank Hunter Status Window
   • arise            - Unleash the Shadow Monarch summoning resonance
   • projects         - List top featured projects and live URLs
@@ -61,6 +71,25 @@ export default function HunterTerminal({ isOpen, onClose, onOpenStatus }) {
   • clear            - Clear terminal screen history
   • exit             - Close terminal window`,
         });
+        break;
+
+      case "brief":
+      case "recruiter":
+        newHistory.push({ type: "output", text: "✨ [BRIEF]: Opening Recruiter Executive Brief..." });
+        if (onOpenRecruiterBrief) onOpenRecruiterBrief();
+        break;
+
+      case "sim":
+      case "simulator":
+        newHistory.push({ type: "output", text: "⚙️ [SIMULATOR]: Launching Architecture Simulator Lab..." });
+        if (onOpenSimulator) onOpenSimulator();
+        break;
+
+      case "arch":
+      case "blueprint":
+      case "blueprints":
+        newHistory.push({ type: "output", text: "📐 [BLUEPRINTS]: Opening System Architecture Blueprints..." });
+        if (onOpenArchitecture) onOpenArchitecture();
         break;
 
       case "status":
@@ -292,7 +321,7 @@ export default function HunterTerminal({ isOpen, onClose, onOpenStatus }) {
             {/* Quick Command Pills Dock */}
             <div className="flex items-center gap-1.5 px-4 py-2 border-t border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-[#0c0d12] overflow-x-auto no-scrollbar text-[10px] font-mono">
               <span className="text-slate-400 font-bold shrink-0">QUICK CMDS:</span>
-              {["help", "projects", "skills", "exp", "status", "hire", "clear"].map((cmd) => (
+              {["help", "brief", "sim", "arch", "projects", "skills", "exp", "status", "hire", "clear"].map((cmd) => (
                 <button
                   key={cmd}
                   type="button"

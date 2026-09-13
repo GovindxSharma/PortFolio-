@@ -21,6 +21,8 @@ import {
   Compass,
   FileText,
   ArrowUpRight,
+  FileCheck2,
+  Cpu,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { soundFX } from "../utils/soundEffects";
@@ -42,6 +44,9 @@ export default function Navbar({
   onSelectSection,
   onOpenStatus,
   onOpenTerminal,
+  onOpenSimulator,
+  onOpenRecruiterBrief,
+  onOpenArchitecture,
   onReplayIntro,
 }) {
   const [hudOpen, setHudOpen] = useState(false);
@@ -141,6 +146,20 @@ export default function Navbar({
             >
               <Zap size={12} className="text-cyan-500 dark:text-cyan-400 animate-pulse" />
               <span>STATUS</span>
+            </button>
+
+            {/* Right: Recruiter Brief Action */}
+            <button
+              onClick={() => {
+                soundFX.playLevelUp();
+                if (onOpenRecruiterBrief) onOpenRecruiterBrief();
+              }}
+              onMouseEnter={() => soundFX.playHover()}
+              className="hidden sm:flex items-center gap-1 px-2.5 sm:px-3 py-1 rounded-full bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-[10px] sm:text-xs font-mono font-bold text-emerald-600 dark:text-emerald-400 transition active:scale-95"
+              title="Recruiter Executive Summary (30-Sec Pitch)"
+            >
+              <FileCheck2 size={12} className="text-emerald-500" />
+              <span>BRIEF</span>
             </button>
 
             {/* Right: Command Hub Toggle (✦) */}
@@ -291,13 +310,52 @@ export default function Navbar({
                   })}
                 </div>
 
+                {/* Proof-of-Work Quick Actions Grid */}
+                <div className="grid grid-cols-2 gap-2 mt-3 font-mono text-xs font-bold">
+                  <button
+                    onClick={() => {
+                      soundFX.playLevelUp();
+                      setHudOpen(false);
+                      if (onOpenRecruiterBrief) onOpenRecruiterBrief();
+                    }}
+                    className="p-2.5 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 flex items-center justify-center gap-1.5 transition active:scale-95"
+                  >
+                    <FileCheck2 size={13} />
+                    <span>Recruiter Brief</span>
+                  </button>
+
+                  <button
+                    onClick={() => {
+                      soundFX.playClick();
+                      setHudOpen(false);
+                      if (onOpenSimulator) onOpenSimulator();
+                    }}
+                    className="p-2.5 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-600 dark:text-cyan-400 flex items-center justify-center gap-1.5 transition active:scale-95"
+                  >
+                    <Cpu size={13} />
+                    <span>Live Simulator</span>
+                  </button>
+                </div>
+
+                <button
+                  onClick={() => {
+                    soundFX.playClick();
+                    setHudOpen(false);
+                    if (onOpenArchitecture) onOpenArchitecture();
+                  }}
+                  className="w-full mt-2 py-2 rounded-xl bg-violet-500/10 hover:bg-violet-500/20 border border-violet-500/30 text-violet-600 dark:text-violet-400 font-mono text-xs font-bold flex items-center justify-center gap-2 transition active:scale-95"
+                >
+                  <Layers size={13} />
+                  <span>System Architecture Blueprints</span>
+                </button>
+
                 {/* Direct Resume Action */}
                 <a
                   href={PROFILE.resumeUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => soundFX.playClick()}
-                  className="w-full mt-3 py-2.5 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 hover:border-cyan-400 text-cyan-600 dark:text-cyan-300 hover:text-cyan-700 dark:hover:text-white font-mono text-xs font-bold flex items-center justify-center gap-2 transition"
+                  className="w-full mt-2 py-2.5 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 hover:border-cyan-400 text-cyan-600 dark:text-cyan-300 hover:text-cyan-700 dark:hover:text-white font-mono text-xs font-bold flex items-center justify-center gap-2 transition"
                 >
                   <FileText size={13} />
                   <span>View Hunter Resume (PDF)</span>

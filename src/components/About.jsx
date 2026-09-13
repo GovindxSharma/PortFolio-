@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { ArrowUpRight, Sparkles, Zap, Shield, Swords, Terminal, Download, UserCheck, Brain } from "lucide-react";
+import { ArrowUpRight, Sparkles, Zap, Shield, Swords, Terminal, Download, UserCheck, Brain, FileCheck2, Cpu, Layers } from "lucide-react";
 import { motion } from "framer-motion";
 import { soundFX } from "../utils/soundEffects";
 import { PROFILE } from "../data/profile";
 import DsaSpotlightModal from "./DsaSpotlightModal";
 
-const About = ({ onOpenStatus }) => {
+const About = ({ onOpenStatus, onOpenRecruiterBrief, onOpenSimulator, onOpenArchitecture }) => {
   const [ariseActive, setAriseActive] = useState(false);
   const [dsaModalOpen, setDsaModalOpen] = useState(false);
 
@@ -117,15 +117,41 @@ const About = ({ onOpenStatus }) => {
               ))}
             </div>
 
+            {/* Proof-of-Work Interactive Badges */}
+            <div className="mt-4 flex flex-wrap items-center justify-center lg:justify-start gap-2">
+              <button
+                onClick={() => {
+                  soundFX.playClick();
+                  if (onOpenSimulator) onOpenSimulator();
+                }}
+                onMouseEnter={() => soundFX.playHover()}
+                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-bold bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-600 dark:text-cyan-400 border border-cyan-500/30 transition active:scale-95 shadow-sm"
+              >
+                <Cpu size={12} className="text-cyan-500" />
+                <span>Architecture Lab Simulator &rarr;</span>
+              </button>
+              <button
+                onClick={() => {
+                  soundFX.playClick();
+                  if (onOpenArchitecture) onOpenArchitecture();
+                }}
+                onMouseEnter={() => soundFX.playHover()}
+                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-bold bg-violet-500/10 hover:bg-violet-500/20 text-violet-600 dark:text-violet-400 border border-violet-500/30 transition active:scale-95 shadow-sm"
+              >
+                <Layers size={12} className="text-violet-500" />
+                <span>System Blueprints &rarr;</span>
+              </button>
+            </div>
+
             {/* Primary Action Buttons */}
-            <div className="mt-6 sm:mt-8 flex flex-wrap items-center justify-center lg:justify-start gap-2.5 sm:gap-3.5">
+            <div className="mt-5 sm:mt-6 flex flex-wrap items-center justify-center lg:justify-start gap-2.5 sm:gap-3">
               {/* ARISE (일어서라) Button */}
               <button
                 onClick={handleArise}
                 onMouseEnter={() => soundFX.playHover()}
                 className="w-full sm:w-auto group relative inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-violet-600 via-indigo-600 to-cyan-500 p-[2px] font-mono font-bold shadow-[0_0_25px_rgba(147,51,234,0.4)] hover:shadow-[0_0_35px_rgba(0,240,255,0.7)] transition hover:scale-105 active:scale-95"
               >
-                <span className="w-full flex items-center justify-center gap-2 rounded-[10px] bg-[#0c0d12] px-5 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base text-white transition group-hover:bg-opacity-80">
+                <span className="w-full flex items-center justify-center gap-2 rounded-[10px] bg-[#0c0d12] px-4 sm:px-5 py-2.5 sm:py-3 text-sm sm:text-base text-white transition group-hover:bg-opacity-80">
                   <Swords className="h-4 w-4 text-cyan-400 animate-pulse" />
                   <span>ARISE (일어서라)</span>
                 </span>
@@ -138,11 +164,24 @@ const About = ({ onOpenStatus }) => {
                 rel="noopener noreferrer"
                 onClick={() => soundFX.playClick()}
                 onMouseEnter={() => soundFX.playHover()}
-                className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-cyan-500 via-blue-600 to-violet-600 px-5 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base font-bold text-white shadow-lg hover:shadow-[0_0_20px_rgba(6,182,212,0.4)] hover:scale-105 transition"
+                className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 rounded-xl bg-gradient-to-r from-cyan-500 via-blue-600 to-violet-600 px-4 sm:px-5 py-2.5 sm:py-3 text-sm font-bold text-white shadow-lg hover:shadow-[0_0_20px_rgba(6,182,212,0.4)] hover:scale-105 transition"
               >
                 <span>View Resume</span>
                 <ArrowUpRight className="h-4 w-4" />
               </a>
+
+              {/* 1-Click Recruiter Executive Brief */}
+              <button
+                onClick={() => {
+                  soundFX.playLevelUp();
+                  if (onOpenRecruiterBrief) onOpenRecruiterBrief();
+                }}
+                onMouseEnter={() => soundFX.playHover()}
+                className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 px-4 sm:px-5 py-2.5 sm:py-3 text-sm font-mono font-bold transition hover:scale-105 active:scale-95 shadow-sm"
+              >
+                <FileCheck2 className="h-4 w-4 text-emerald-500" />
+                <span>Recruiter Brief</span>
+              </button>
 
               {/* Status Window Open */}
               <button
@@ -151,12 +190,13 @@ const About = ({ onOpenStatus }) => {
                   if (onOpenStatus) onOpenStatus();
                 }}
                 onMouseEnter={() => soundFX.playHover()}
-                className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 dark:border-white/10 bg-white/60 dark:bg-[#12141c]/80 px-4 sm:px-5 py-2.5 sm:py-3 text-sm sm:text-base font-mono font-bold text-slate-800 dark:text-cyan-300 hover:border-cyan-400 transition"
+                className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 rounded-xl border border-slate-300 dark:border-white/10 bg-white/60 dark:bg-[#12141c]/80 px-4 sm:px-5 py-2.5 sm:py-3 text-sm font-mono font-bold text-slate-800 dark:text-cyan-300 hover:border-cyan-400 transition hover:scale-105"
               >
                 <Zap className="h-4 w-4 text-cyan-400" />
                 <span>Hunter Status</span>
               </button>
             </div>
+
           </motion.div>
 
           {/* RIGHT HUNTER PROFILE CARD (Plain & Simple, Zero Dizzying 3D) */}

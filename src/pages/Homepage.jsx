@@ -20,18 +20,61 @@ import QuestNotification from "../components/QuestNotification";
 import AwakeningIntro from "../components/AwakeningIntro";
 import HunterTerminal from "../components/HunterTerminal";
 import RealmMinimap from "../components/RealmMinimap";
+import ArchitectureSimulatorModal from "../components/ArchitectureSimulatorModal";
+import RecruiterExecutiveBriefModal from "../components/RecruiterExecutiveBriefModal";
+import SystemArchitectureModal from "../components/SystemArchitectureModal";
 import { soundFX } from "../utils/soundEffects";
 
 const Homepage = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [statusOpen, setStatusOpen] = useState(false);
   const [terminalOpen, setTerminalOpen] = useState(false);
+  const [simulatorOpen, setSimulatorOpen] = useState(false);
+  const [recruiterBriefOpen, setRecruiterBriefOpen] = useState(false);
+  const [architectureOpen, setArchitectureOpen] = useState(false);
   const [showIntro, setShowIntro] = useState(false);
   const sectionRefs = useRef([]);
   const isScrollingRef = useRef(false);
 
+  const handleOpenStatus = () => {
+    soundFX.playSystemAlert();
+    setStatusOpen(true);
+  };
+
+  const handleOpenTerminal = () => {
+    soundFX.playClick();
+    setTerminalOpen(true);
+  };
+
+  const handleOpenSimulator = () => {
+    soundFX.playClick();
+    setSimulatorOpen(true);
+  };
+
+  const handleOpenRecruiterBrief = () => {
+    soundFX.playLevelUp();
+    setRecruiterBriefOpen(true);
+  };
+
+  const handleOpenArchitecture = () => {
+    soundFX.playClick();
+    setArchitectureOpen(true);
+  };
+
   const sections = [
-    { id: "about", title: "Monarch Profile", floor: "REALM 01", component: <About onOpenStatus={() => handleOpenStatus()} /> },
+    {
+      id: "about",
+      title: "Monarch Profile",
+      floor: "REALM 01",
+      component: (
+        <About
+          onOpenStatus={handleOpenStatus}
+          onOpenRecruiterBrief={handleOpenRecruiterBrief}
+          onOpenSimulator={handleOpenSimulator}
+          onOpenArchitecture={handleOpenArchitecture}
+        />
+      ),
+    },
     { id: "system-experience", title: "System Logs", floor: "REALM 02", component: <Experience /> },
     { id: "projects", title: "Dungeon Raids", floor: "REALM 03", component: <ProjectsExperience /> },
     { id: "shadow-army", title: "Shadow Army", floor: "REALM 04", component: <ShadowArmy /> },
@@ -77,16 +120,6 @@ const Homepage = () => {
     }
   };
 
-  const handleOpenStatus = () => {
-    soundFX.playSystemAlert();
-    setStatusOpen(true);
-  };
-
-  const handleOpenTerminal = () => {
-    soundFX.playClick();
-    setTerminalOpen(true);
-  };
-
   const handleReplayIntro = () => {
     sessionStorage.removeItem("has_seen_awakening_intro");
     setShowIntro(false);
@@ -96,7 +129,15 @@ const Homepage = () => {
   // DESKTOP MOUSEWHEEL NESTED BOUNDARY SCROLL ENGINE
   useEffect(() => {
     const handleWheel = (e) => {
-      if (statusOpen || terminalOpen) return;
+      if (
+        statusOpen ||
+        terminalOpen ||
+        simulatorOpen ||
+        recruiterBriefOpen ||
+        architectureOpen
+      ) {
+        return;
+      }
 
       const activeEl = sectionRefs.current[currentIndex];
       if (!activeEl) return;
@@ -160,7 +201,15 @@ const Homepage = () => {
 
     window.addEventListener("wheel", handleWheel, { passive: false });
     return () => window.removeEventListener("wheel", handleWheel);
-  }, [currentIndex, totalSections, statusOpen, terminalOpen]);
+  }, [
+    currentIndex,
+    totalSections,
+    statusOpen,
+    terminalOpen,
+    simulatorOpen,
+    recruiterBriefOpen,
+    architectureOpen,
+  ]);
 
   // BULLETPROOF MOBILE TOUCH BOUNDARY ENGINE + PULL-TO-REFRESH PREVENTION
   useEffect(() => {
@@ -206,7 +255,17 @@ const Homepage = () => {
     };
 
     const onTouchEnd = (e) => {
-      if (!isTouching || statusOpen || terminalOpen || isScrollingRef.current) return;
+      if (
+        !isTouching ||
+        statusOpen ||
+        terminalOpen ||
+        simulatorOpen ||
+        recruiterBriefOpen ||
+        architectureOpen ||
+        isScrollingRef.current
+      ) {
+        return;
+      }
       isTouching = false;
 
       const touchEndY = e.changedTouches[0].clientY;
@@ -255,7 +314,15 @@ const Homepage = () => {
       el.removeEventListener("touchmove", onTouchMove);
       el.removeEventListener("touchend", onTouchEnd);
     };
-  }, [currentIndex, totalSections, statusOpen, terminalOpen]);
+  }, [
+    currentIndex,
+    totalSections,
+    statusOpen,
+    terminalOpen,
+    simulatorOpen,
+    recruiterBriefOpen,
+    architectureOpen,
+  ]);
 
   // Keyboard Navigation
   useEffect(() => {
@@ -313,11 +380,32 @@ const Homepage = () => {
         onClose={() => setStatusOpen(false)}
       />
 
+      {/* Live System Architecture Simulator Modal */}
+      <ArchitectureSimulatorModal
+        isOpen={simulatorOpen}
+        onClose={() => setSimulatorOpen(false)}
+      />
+
+      {/* Recruiter 1-Click Executive Brief Modal */}
+      <RecruiterExecutiveBriefModal
+        isOpen={recruiterBriefOpen}
+        onClose={() => setRecruiterBriefOpen(false)}
+      />
+
+      {/* System Architecture Blueprints Modal */}
+      <SystemArchitectureModal
+        isOpen={architectureOpen}
+        onClose={() => setArchitectureOpen(false)}
+      />
+
       {/* Interactive Hunter System CLI Terminal */}
       <HunterTerminal
         isOpen={terminalOpen}
         onClose={() => setTerminalOpen(false)}
         onOpenStatus={handleOpenStatus}
+        onOpenSimulator={handleOpenSimulator}
+        onOpenRecruiterBrief={handleOpenRecruiterBrief}
+        onOpenArchitecture={handleOpenArchitecture}
       />
 
       {/* Floating Quest Notification HUD (Desktop only) */}
@@ -331,6 +419,9 @@ const Homepage = () => {
         onSelectSection={goToSection}
         onOpenStatus={handleOpenStatus}
         onOpenTerminal={handleOpenTerminal}
+        onOpenSimulator={handleOpenSimulator}
+        onOpenRecruiterBrief={handleOpenRecruiterBrief}
+        onOpenArchitecture={handleOpenArchitecture}
         onReplayIntro={handleReplayIntro}
       />
 
