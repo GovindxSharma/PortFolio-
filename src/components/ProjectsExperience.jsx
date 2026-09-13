@@ -98,7 +98,11 @@ export default function ProjectsExperience() {
       list = list.filter(
         (p) =>
           p.title.toLowerCase().includes(q) ||
-          p.desc.toLowerCase().includes(q)
+          p.desc.toLowerCase().includes(q) ||
+          (Array.isArray(p.tech) && p.tech.some((t) => t.toLowerCase().includes(q))) ||
+          (p.problem && p.problem.toLowerCase().includes(q)) ||
+          (p.solution && p.solution.toLowerCase().includes(q)) ||
+          (p.impact && p.impact.toLowerCase().includes(q))
       );
     }
 
@@ -141,6 +145,16 @@ export default function ProjectsExperience() {
     };
   }, [viewMode]);
 
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape" && activeModalProject) {
+        setActiveModalProject(null);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [activeModalProject]);
+
   const handleScroll = (dir) => {
     soundFX.playClick();
     const el = scrollContainerRef.current;
@@ -158,12 +172,16 @@ export default function ProjectsExperience() {
     return (
       <div
         key={p.title}
+        onClick={() => {
+          soundFX.playClick();
+          setActiveModalProject(p);
+        }}
         className={`
           relative h-full flex flex-col justify-between
           rounded-2xl sm:rounded-3xl p-5 sm:p-6
           border transition-all duration-300
           bg-white/90 dark:bg-[#101218]/95 backdrop-blur-xl
-          hover:-translate-y-2
+          hover:-translate-y-2 cursor-pointer group
           ${
             isRankS
               ? "border-cyan-400/70 shadow-[0_0_25px_rgba(6,182,212,0.18)] hover:shadow-[0_0_35px_rgba(6,182,212,0.35)]"
@@ -247,7 +265,10 @@ export default function ProjectsExperience() {
                 href={p.live}
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={() => soundFX.playClick()}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  soundFX.playClick();
+                }}
                 onMouseEnter={() => soundFX.playHover()}
                 className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-xs font-mono font-bold hover:scale-105 transition shadow-[0_0_12px_rgba(6,182,212,0.3)]"
               >
@@ -265,7 +286,10 @@ export default function ProjectsExperience() {
                 href={p.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={() => soundFX.playClick()}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  soundFX.playClick();
+                }}
                 onMouseEnter={() => soundFX.playHover()}
                 className="flex items-center gap-1.5 px-3 py-2 rounded-xl border border-slate-300 dark:border-white/10 hover:border-cyan-400 text-slate-700 dark:text-cyan-300 text-xs font-mono transition"
                 title="View Source on GitHub"
@@ -277,15 +301,17 @@ export default function ProjectsExperience() {
           </div>
 
           <button
-            onClick={() => {
+            onClick={(e) => {
+              e.stopPropagation();
               soundFX.playClick();
               setActiveModalProject(p);
             }}
             onMouseEnter={() => soundFX.playHover()}
-            className="p-2 rounded-xl text-slate-400 hover:text-cyan-400 hover:bg-cyan-500/10 transition"
-            title="Quick Inspect"
+            className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl text-slate-500 dark:text-slate-400 hover:text-cyan-500 dark:hover:text-cyan-400 hover:bg-cyan-500/10 text-xs font-mono font-bold transition"
+            title="Inspect Architecture"
           >
-            <FaEye size={14} />
+            <FaEye size={13} />
+            <span className="hidden sm:inline">Inspect</span>
           </button>
         </div>
       </div>
@@ -411,24 +437,31 @@ export default function ProjectsExperience() {
             })}
           </div>
 
-          {/* Instant Search Input */}
-          <div className="relative min-w-[220px] sm:max-w-xs w-full sm:w-auto">
-            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search projects or tech..."
-              className="w-full pl-9 pr-8 py-1.5 rounded-xl bg-white/80 dark:bg-[#12141c] border border-slate-200 dark:border-white/10 text-xs font-mono text-slate-800 dark:text-slate-200 placeholder-slate-400 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition"
-            />
-            {searchQuery && (
-              <button
-                onClick={() => setSearchQuery("")}
-                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white"
-              >
-                <X size={13} />
-              </button>
-            )}
+          {/* Instant Search Input & Count Badge */}
+          <div className="flex items-center gap-2 w-full sm:w-auto">
+            <div className="hidden xs:inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-slate-100 dark:bg-[#141722] border border-slate-200 dark:border-white/10 text-[10px] font-mono text-cyan-600 dark:text-cyan-400 font-bold shrink-0">
+              <span>{filtered.length} of {projects.length} Systems</span>
+            </div>
+
+            <div className="relative flex-1 sm:min-w-[220px] sm:max-w-xs">
+              <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search tech, stack, or problem..."
+                className="w-full pl-9 pr-8 py-1.5 rounded-xl bg-white/80 dark:bg-[#12141c] border border-slate-200 dark:border-white/10 text-xs font-mono text-slate-800 dark:text-slate-200 placeholder-slate-400 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition"
+              />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery("")}
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white"
+                  title="Clear search"
+                >
+                  <X size={13} />
+                </button>
+              )}
+            </div>
           </div>
         </div>
 
@@ -510,25 +543,25 @@ export default function ProjectsExperience() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setActiveModalProject(null)}
-              className="fixed inset-0 bg-black/80 backdrop-blur-md"
+              className="fixed inset-0 bg-black/60 dark:bg-black/80 backdrop-blur-md"
             />
 
             <motion.div
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="relative w-full max-w-lg rounded-3xl border border-cyan-500/50 bg-[#101218] p-6 text-white shadow-[0_0_50px_rgba(0,0,0,0.8)] backdrop-blur-2xl z-10"
+              className="relative w-full max-w-xl max-h-[85vh] overflow-y-auto rounded-3xl border border-slate-200 dark:border-cyan-500/50 bg-white dark:bg-[#101218] p-5 sm:p-7 text-slate-900 dark:text-white shadow-2xl backdrop-blur-2xl z-10 custom-scrollbar"
             >
-              <div className="flex items-center justify-between border-b border-white/10 pb-3 mb-4">
+              <div className="flex items-center justify-between border-b border-slate-200 dark:border-white/10 pb-3 mb-4">
                 <div className="flex items-center gap-3">
-                  <div className="p-2.5 rounded-xl bg-cyan-500/20 text-cyan-300 text-xl border border-cyan-500/30">
+                  <div className="p-2.5 rounded-xl bg-cyan-500/10 text-cyan-600 dark:text-cyan-300 text-xl border border-cyan-500/30">
                     {activeModalProject.icon}
                   </div>
                   <div>
-                    <span className="text-[10px] font-mono text-cyan-400 uppercase font-bold">
-                      [ ARTIFACT INSPECTION ]
+                    <span className="text-[10px] font-mono text-cyan-600 dark:text-cyan-400 uppercase font-bold">
+                      [ ARTIFACT INSPECTION // SYSTEM BLUEPRINT ]
                     </span>
-                    <h3 className="text-xl font-bold font-['Rajdhani',sans-serif]">
+                    <h3 className="text-xl sm:text-2xl font-bold font-['Rajdhani',sans-serif]">
                       {activeModalProject.title}
                     </h3>
                   </div>
@@ -536,26 +569,27 @@ export default function ProjectsExperience() {
 
                 <button
                   onClick={() => setActiveModalProject(null)}
-                  className="rounded-full p-2 text-slate-400 hover:text-white transition"
+                  className="rounded-full p-2 text-slate-400 hover:text-slate-700 dark:hover:text-white transition"
+                  aria-label="Close modal"
                 >
                   <FaTimes size={16} />
                 </button>
               </div>
 
               {/* Brief Overview */}
-              <p className="text-sm text-slate-300 leading-relaxed mb-4">
+              <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed mb-4">
                 {activeModalProject.desc}
               </p>
 
               {/* Architectural Breakdown Grid */}
-              <div className="space-y-2.5 mb-5 font-mono text-xs">
+              <div className="space-y-3 mb-5 font-mono text-xs">
                 {/* 1. Problem Statement */}
                 {activeModalProject.problem && (
-                  <div className="p-3 rounded-2xl bg-amber-500/10 border border-amber-500/25">
-                    <span className="text-[10px] uppercase font-bold text-amber-400 flex items-center gap-1.5 mb-1">
-                      <Target size={12} /> Problem Addressed
+                  <div className="p-3.5 rounded-2xl bg-amber-500/10 border border-amber-500/25">
+                    <span className="text-[10px] uppercase font-bold text-amber-600 dark:text-amber-400 flex items-center gap-1.5 mb-1.5">
+                      <Target size={13} /> Problem Addressed
                     </span>
-                    <p className="text-xs text-slate-200 leading-relaxed font-sans">
+                    <p className="text-xs text-slate-800 dark:text-slate-200 leading-relaxed font-sans">
                       {activeModalProject.problem}
                     </p>
                   </div>
@@ -563,11 +597,11 @@ export default function ProjectsExperience() {
 
                 {/* 2. Architecture & Decision (How & Why) */}
                 {activeModalProject.solution && (
-                  <div className="p-3 rounded-2xl bg-violet-500/10 border border-violet-500/25">
-                    <span className="text-[10px] uppercase font-bold text-violet-400 flex items-center gap-1.5 mb-1">
-                      <Cpu size={12} /> Engineering Architecture (How & Why)
+                  <div className="p-3.5 rounded-2xl bg-violet-500/10 border border-violet-500/25">
+                    <span className="text-[10px] uppercase font-bold text-violet-600 dark:text-violet-400 flex items-center gap-1.5 mb-1.5">
+                      <Cpu size={13} /> Engineering Architecture (How & Why)
                     </span>
-                    <p className="text-xs text-slate-200 leading-relaxed font-sans">
+                    <p className="text-xs text-slate-800 dark:text-slate-200 leading-relaxed font-sans">
                       {activeModalProject.solution}
                     </p>
                   </div>
@@ -575,11 +609,11 @@ export default function ProjectsExperience() {
 
                 {/* 3. Measured Impact */}
                 {activeModalProject.impact && (
-                  <div className="p-3 rounded-2xl bg-cyan-500/10 border border-cyan-500/30">
-                    <span className="text-[10px] uppercase font-bold text-cyan-400 flex items-center gap-1.5 mb-1">
-                      <Zap size={12} /> Measured Production Impact
+                  <div className="p-3.5 rounded-2xl bg-cyan-500/10 border border-cyan-500/30">
+                    <span className="text-[10px] uppercase font-bold text-cyan-600 dark:text-cyan-400 flex items-center gap-1.5 mb-1.5">
+                      <Zap size={13} /> Measured Production Impact
                     </span>
-                    <p className="text-xs text-cyan-300 font-bold leading-relaxed font-sans">
+                    <p className="text-xs text-cyan-700 dark:text-cyan-300 font-bold leading-relaxed font-sans">
                       {activeModalProject.impact}
                     </p>
                   </div>
@@ -589,14 +623,14 @@ export default function ProjectsExperience() {
               {/* Full Tech Stack Pills */}
               {activeModalProject.tech && (
                 <div className="mb-5">
-                  <span className="text-[10px] font-mono uppercase text-slate-400 font-bold block mb-1.5">
+                  <span className="text-[10px] font-mono uppercase text-slate-500 dark:text-slate-400 font-bold block mb-1.5">
                     Technologies & Frameworks
                   </span>
                   <div className="flex flex-wrap gap-1.5">
                     {activeModalProject.tech.map((t, idx) => (
                       <span
                         key={idx}
-                        className="text-[10px] font-mono px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-cyan-300"
+                        className="text-[10px] font-mono px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-800 dark:text-cyan-300 font-medium"
                       >
                         {t}
                       </span>
@@ -613,9 +647,9 @@ export default function ProjectsExperience() {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => soundFX.playClick()}
-                    className="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-cyan-500 to-violet-600 text-white font-mono font-bold text-xs text-center shadow-lg hover:scale-[1.02] transition"
+                    className="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-mono font-bold text-xs text-center shadow-lg hover:scale-[1.02] transition"
                   >
-                    Launch System 🚀
+                    Launch Live System 🚀
                   </a>
                 )}
                 {activeModalProject.github && (
@@ -624,9 +658,9 @@ export default function ProjectsExperience() {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => soundFX.playClick()}
-                    className="flex-1 py-3 px-4 rounded-xl border border-white/10 text-cyan-300 font-mono font-bold text-xs text-center hover:bg-cyan-500/10 transition"
+                    className="flex-1 py-3 px-4 rounded-xl border border-slate-300 dark:border-white/10 text-slate-800 dark:text-cyan-300 font-mono font-bold text-xs text-center hover:bg-slate-100 dark:hover:bg-cyan-500/10 transition"
                   >
-                    GitHub Source Code
+                    GitHub Repository
                   </a>
                 )}
               </div>

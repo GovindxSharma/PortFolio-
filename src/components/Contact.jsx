@@ -280,9 +280,46 @@ export default function Contact() {
                 </div>
 
                 <div>
-                  <label className="block text-slate-700 dark:text-slate-300 font-bold mb-1.5 uppercase text-[11px]">
-                    Quest Transmission Message:
-                  </label>
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 mb-1.5">
+                    <label className="block text-slate-700 dark:text-slate-300 font-bold uppercase text-[11px]">
+                      Quest Transmission Message:
+                    </label>
+                    <span className="text-[10px] text-slate-500 font-mono">
+                      Click a template or write custom:
+                    </span>
+                  </div>
+
+                  {/* 1-Click Preset Template Chips */}
+                  <div className="flex flex-wrap gap-1.5 mb-2">
+                    {[
+                      {
+                        label: "💼 Full-Time Role",
+                        text: "Hi Govind, we reviewed your production platforms and 2,000+ LeetCode DSA background. We'd love to speak with you regarding a Software Engineer role at our organization.",
+                      },
+                      {
+                        label: "⚡ Production Project",
+                        text: "Hi Govind, we have an ambitious web platform project and would like your full-stack expertise to architect and build the system.",
+                      },
+                      {
+                        label: "☕ Architecture Chat",
+                        text: "Hi Govind, loved your database optimization and full-stack work. Would like to connect for an engineering chat!",
+                      },
+                    ].map((preset, idx) => (
+                      <button
+                        key={idx}
+                        type="button"
+                        onClick={() => {
+                          soundFX.playClick();
+                          setMessage(preset.text);
+                        }}
+                        onMouseEnter={() => soundFX.playHover()}
+                        className="text-[10px] font-mono px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-[#141722] hover:bg-cyan-500/15 border border-slate-200 dark:border-white/10 hover:border-cyan-400 text-slate-700 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-300 transition"
+                      >
+                        {preset.label}
+                      </button>
+                    ))}
+                  </div>
+
                   <textarea
                     rows={4}
                     required

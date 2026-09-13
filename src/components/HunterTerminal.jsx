@@ -25,13 +25,19 @@ export default function HunterTerminal({ isOpen, onClose, onOpenStatus }) {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [history]);
 
-  const handleCommand = (e) => {
-    e.preventDefault();
-    const cmd = input.trim().toLowerCase();
-    if (!cmd) return;
+  const [cmdStack, setCmdStack] = useState([]);
+  const [historyIndex, setHistoryIndex] = useState(-1);
+
+  const executeCommand = (rawCmd) => {
+    const trimmed = (rawCmd || "").trim();
+    if (!trimmed) return;
+    const cmd = trimmed.toLowerCase();
 
     soundFX.playClick();
-    const newHistory = [...history, { type: "user", text: `> ${input}` }];
+    setCmdStack((prev) => [...prev, trimmed]);
+    setHistoryIndex(-1);
+
+    const newHistory = [...history, { type: "user", text: `> ${trimmed}` }];
 
     const parts = cmd.split(" ");
     const mainCmd = parts[0];
@@ -168,6 +174,32 @@ export default function HunterTerminal({ isOpen, onClose, onOpenStatus }) {
     setInput("");
   };
 
+  const handleCommand = (e) => {
+    e.preventDefault();
+    executeCommand(input);
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "ArrowUp") {
+      e.preventDefault();
+      if (cmdStack.length === 0) return;
+      const nextIndex = historyIndex === -1 ? cmdStack.length - 1 : Math.max(0, historyIndex - 1);
+      setHistoryIndex(nextIndex);
+      setInput(cmdStack[nextIndex] || "");
+    } else if (e.key === "ArrowDown") {
+      e.preventDefault();
+      if (cmdStack.length === 0 || historyIndex === -1) return;
+      const nextIndex = historyIndex + 1;
+      if (nextIndex >= cmdStack.length) {
+        setHistoryIndex(-1);
+        setInput("");
+      } else {
+        setHistoryIndex(nextIndex);
+        setInput(cmdStack[nextIndex] || "");
+      }
+    }
+  };
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -178,7 +210,7 @@ export default function HunterTerminal({ isOpen, onClose, onOpenStatus }) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/75 backdrop-blur-md"
+            className="fixed inset-0 bg-black/60 dark:bg-black/75 backdrop-blur-md"
           />
 
           {/* Terminal Window */}
@@ -187,11 +219,11 @@ export default function HunterTerminal({ isOpen, onClose, onOpenStatus }) {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 25 }}
             className="
-              relative w-full max-w-2xl h-[460px]
+              relative w-full max-w-2xl h-[480px]
               rounded-2xl sm:rounded-3xl
-              border border-cyan-500/50
-              bg-[#101218]/95 text-white
-              shadow-[0_0_40px_rgba(0,0,0,0.8)]
+              border border-slate-300 dark:border-cyan-500/50
+              bg-white dark:bg-[#101218]/95 text-slate-900 dark:text-white
+              shadow-2xl
               backdrop-blur-2xl
               flex flex-col
               overflow-hidden
@@ -199,7 +231,7 @@ export default function HunterTerminal({ isOpen, onClose, onOpenStatus }) {
             "
           >
             {/* Header */}
-            <div className="flex items-center justify-between px-4 py-3 border-b border-white/10 bg-[#0c0d12] text-xs font-mono text-cyan-400">
+            <div className="flex items-center justify-between px-4 py-3 border-b border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-[#0c0d12] text-xs font-mono text-cyan-600 dark:text-cyan-400">
               <div className="flex items-center gap-2">
                 <div className="flex gap-1.5">
                   <span className="h-2.5 w-2.5 rounded-full bg-rose-500/80" />
@@ -242,23 +274,43 @@ export default function HunterTerminal({ isOpen, onClose, onOpenStatus }) {
               <div ref={bottomRef} />
             </div>
 
+            {/* Quick Command Pills Dock */}
+            <div className="flex items-center gap-1.5 px-4 py-2 border-t border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-[#0c0d12] overflow-x-auto no-scrollbar text-[10px] font-mono">
+              <span className="text-slate-400 font-bold shrink-0">QUICK CMDS:</span>
+              {["help", "projects", "skills", "exp", "status", "hire", "clear"].map((cmd) => (
+                <button
+                  key={cmd}
+                  type="button"
+                  onClick={() => {
+                    soundFX.playClick();
+                    executeCommand(cmd);
+                  }}
+                  onMouseEnter={() => soundFX.playHover()}
+                  className="px-2 py-0.5 rounded-md bg-white dark:bg-[#161a24] hover:bg-cyan-500/20 text-slate-700 dark:text-cyan-300 border border-slate-300 dark:border-white/10 hover:border-cyan-400 transition shrink-0"
+                >
+                  {cmd}
+                </button>
+              ))}
+            </div>
+
             {/* Input Line */}
             <form
               onSubmit={handleCommand}
-              className="flex items-center gap-2 px-4 py-3 border-t border-white/10 bg-[#0c0d12]"
+              className="flex items-center gap-2 px-4 py-3 border-t border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-[#090a0f]"
             >
-              <span className="text-cyan-400 font-mono font-bold text-sm select-none">&gt;</span>
+              <span className="text-cyan-600 dark:text-cyan-400 font-mono font-bold text-sm select-none">&gt;</span>
               <input
                 ref={inputRef}
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
+                onKeyDown={handleKeyDown}
                 placeholder="Type 'help', 'arise', 'projects', 'status'..."
-                className="flex-1 bg-transparent text-white font-mono text-xs focus:outline-none placeholder:text-slate-600"
+                className="flex-1 bg-transparent text-slate-900 dark:text-white font-mono text-xs focus:outline-none placeholder:text-slate-400 dark:placeholder:text-slate-600"
               />
               <button
                 type="submit"
-                className="p-1.5 rounded-lg bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 hover:bg-cyan-500/30 transition"
+                className="p-1.5 rounded-lg bg-cyan-500/20 text-cyan-600 dark:text-cyan-300 border border-cyan-500/40 hover:bg-cyan-500/30 transition"
               >
                 <Send size={13} />
               </button>
