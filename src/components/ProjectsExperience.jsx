@@ -537,20 +537,23 @@ export default function ProjectsExperience() {
       {/* QUICK INSPECT MODAL */}
       <AnimatePresence>
         {activeModalProject && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto no-scrollbar">
+          <div
+            onClick={() => setActiveModalProject(null)}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto no-scrollbar cursor-pointer"
+          >
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              onClick={() => setActiveModalProject(null)}
               className="fixed inset-0 bg-black/60 dark:bg-black/80 backdrop-blur-md"
             />
 
             <motion.div
+              onClick={(e) => e.stopPropagation()}
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="relative w-full max-w-xl max-h-[85vh] overflow-y-auto rounded-3xl border border-slate-200 dark:border-cyan-500/50 bg-white dark:bg-[#101218] p-5 sm:p-7 text-slate-900 dark:text-white shadow-2xl backdrop-blur-2xl z-10 custom-scrollbar"
+              className="relative w-full max-w-xl max-h-[85vh] overflow-y-auto rounded-3xl border border-slate-200 dark:border-cyan-500/50 bg-white dark:bg-[#101218] p-5 sm:p-7 text-slate-900 dark:text-white shadow-2xl backdrop-blur-2xl z-10 custom-scrollbar cursor-default"
             >
               <div className="flex items-center justify-between border-b border-slate-200 dark:border-white/10 pb-3 mb-4">
                 <div className="flex items-center gap-3">

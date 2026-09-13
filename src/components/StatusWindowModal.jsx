@@ -69,24 +69,39 @@ export default function StatusWindowModal({ isOpen, onClose }) {
     "Frontend Performance: Consistent 95+ Lighthouse Scores",
   ];
 
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        soundFX.playClick();
+        onClose();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen, onClose]);
+
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-4 md:p-6 overflow-y-auto no-scrollbar">
+        <div
+          onClick={() => {
+            soundFX.playClick();
+            onClose();
+          }}
+          className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-4 md:p-6 overflow-y-auto no-scrollbar cursor-pointer"
+        >
           {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => {
-              soundFX.playClick();
-              onClose();
-            }}
             className="fixed inset-0 bg-black/85 backdrop-blur-md"
           />
 
           {/* Holographic Matte Black Window */}
           <motion.div
+            onClick={(e) => e.stopPropagation()}
             initial={{ opacity: 0, scale: 0.85, y: 25 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.85, y: 25 }}
@@ -103,6 +118,7 @@ export default function StatusWindowModal({ isOpen, onClose }) {
               overflow-hidden
               z-10
               my-auto
+              cursor-default
             "
           >
             {/* System Scanlines Effect */}

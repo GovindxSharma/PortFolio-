@@ -200,21 +200,36 @@ export default function HunterTerminal({ isOpen, onClose, onOpenStatus }) {
     }
   };
 
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleGlobalEscape = (e) => {
+      if (e.key === "Escape") {
+        soundFX.playClick();
+        onClose();
+      }
+    };
+    window.addEventListener("keydown", handleGlobalEscape);
+    return () => window.removeEventListener("keydown", handleGlobalEscape);
+  }, [isOpen, onClose]);
+
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-[80] flex items-center justify-center p-3 sm:p-4 md:p-6">
+        <div
+          onClick={onClose}
+          className="fixed inset-0 z-[80] flex items-center justify-center p-3 sm:p-4 md:p-6 cursor-pointer"
+        >
           {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={onClose}
             className="fixed inset-0 bg-black/60 dark:bg-black/75 backdrop-blur-md"
           />
 
           {/* Terminal Window */}
           <motion.div
+            onClick={(e) => e.stopPropagation()}
             initial={{ opacity: 0, scale: 0.9, y: 25 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 25 }}
@@ -228,6 +243,7 @@ export default function HunterTerminal({ isOpen, onClose, onOpenStatus }) {
               flex flex-col
               overflow-hidden
               z-10
+              cursor-default
             "
           >
             {/* Header */}

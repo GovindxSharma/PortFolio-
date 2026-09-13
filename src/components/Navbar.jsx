@@ -61,6 +61,17 @@ export default function Navbar({
     setHudOpen(false);
   };
 
+  useEffect(() => {
+    if (!hudOpen) return;
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        setHudOpen(false);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [hudOpen]);
+
   return (
     <>
       {/* ================= QUANTUM MONARCH CAPSULE (Dynamic Floating Command Island) ================= */}
@@ -153,20 +164,27 @@ export default function Navbar({
           {/* ================= COMMAND DECK POPUP MODAL ================= */}
           <AnimatePresence>
             {hudOpen && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95, y: -8 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95, y: -8 }}
-                transition={{ duration: 0.2, ease: "easeOut" }}
-                className="
-                  absolute top-full mt-2 left-1/2 -translate-x-1/2
-                  w-[92vw] max-w-lg
-                  rounded-3xl border border-slate-200 dark:border-white/10
-                  bg-white/95 dark:bg-[#101218]/95 p-4 sm:p-5
-                  text-slate-900 dark:text-white shadow-[0_15px_40px_rgba(0,0,0,0.12)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.8)]
-                  backdrop-blur-3xl z-50
-                "
-              >
+              <>
+                {/* Full-screen backdrop to close Command Deck on outside click */}
+                <div
+                  onClick={() => setHudOpen(false)}
+                  className="fixed inset-0 z-40 bg-black/25 dark:bg-black/50 backdrop-blur-[2px] cursor-pointer"
+                />
+
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95, y: -8 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.95, y: -8 }}
+                  transition={{ duration: 0.2, ease: "easeOut" }}
+                  className="
+                    absolute top-full mt-2 left-1/2 -translate-x-1/2
+                    w-[92vw] max-w-lg
+                    rounded-3xl border border-slate-200 dark:border-white/10
+                    bg-white/95 dark:bg-[#101218]/95 p-4 sm:p-5
+                    text-slate-900 dark:text-white shadow-[0_15px_40px_rgba(0,0,0,0.12)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.8)]
+                    backdrop-blur-3xl z-50
+                  "
+                >
                 {/* Header Strip */}
                 <div className="flex items-center justify-between border-b border-slate-200 dark:border-white/10 pb-2.5 mb-3 font-mono text-[10px] text-cyan-600 dark:text-cyan-400">
                   <span className="flex items-center gap-1.5 font-bold">
@@ -300,8 +318,9 @@ export default function Navbar({
                 )}
 
               </motion.div>
-            )}
-          </AnimatePresence>
+            </>
+          )}
+        </AnimatePresence>
 
         </nav>
       </header>
