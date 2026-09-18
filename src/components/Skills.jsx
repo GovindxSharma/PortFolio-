@@ -13,6 +13,7 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import { soundFX } from "../utils/soundEffects";
+import UiUxMotionLab from "./UiUxMotionLab";
 
 const skillGroups = [
   {
@@ -429,6 +430,9 @@ export default function Skills() {
             );
           })}
         </div>
+
+        {/* Live UI/UX Motion & System Architecture Interactive Lab */}
+        <UiUxMotionLab />
 
       </div>
     </section>

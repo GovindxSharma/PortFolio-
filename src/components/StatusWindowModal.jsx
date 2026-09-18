@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import confetti from "canvas-confetti";
 import {
   Shield,
   Zap,
@@ -362,6 +363,12 @@ export default function StatusWindowModal({ isOpen, onClose }) {
                 <button
                   onClick={() => {
                     soundFX.playLevelUp();
+                    confetti({
+                      particleCount: 80,
+                      spread: 70,
+                      origin: { y: 0.6 },
+                      colors: ["#00f0ff", "#a855f7", "#3b82f6", "#10b981", "#fbbf24"],
+                    });
                   }}
                   className="text-xs px-3 py-1.5 rounded-lg bg-gradient-to-r from-cyan-500 to-violet-600 text-white font-bold hover:scale-105 active:scale-95 transition shadow-[0_0_15px_rgba(6,182,212,0.3)] flex items-center gap-1.5"
                 >

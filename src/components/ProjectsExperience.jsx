@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import Tilt from "react-parallax-tilt";
 import {
   FaGithub,
   FaExternalLinkAlt,
@@ -158,12 +159,21 @@ export default function ProjectsExperience() {
     const isRankS = p.highlight;
 
     return (
-      <div
-        key={p.title}
-        onClick={() => {
-          soundFX.playClick();
-          setActiveModalProject(p);
-        }}
+      <Tilt
+        tiltMaxAngleX={6}
+        tiltMaxAngleY={6}
+        perspective={1000}
+        scale={1.02}
+        transitionSpeed={1000}
+        gyroscope={false}
+        className="h-full"
+      >
+        <div
+          key={p.title}
+          onClick={() => {
+            soundFX.playClick();
+            setActiveModalProject(p);
+          }}
         className={`
           relative h-full flex flex-col justify-between
           rounded-2xl sm:rounded-3xl p-4 sm:p-5
@@ -319,6 +329,7 @@ export default function ProjectsExperience() {
           </button>
         </div>
       </div>
+      </Tilt>
     );
   };
 

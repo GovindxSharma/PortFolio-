@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { ArrowUpRight, Sparkles, Zap, Shield, Swords, Terminal, Download, UserCheck, Brain, FileCheck2, Cpu, Layers } from "lucide-react";
 import { motion } from "framer-motion";
+import confetti from "canvas-confetti";
 import { soundFX } from "../utils/soundEffects";
 import { PROFILE } from "../data/profile";
 import DsaSpotlightModal from "./DsaSpotlightModal";
@@ -29,6 +30,12 @@ const About = ({ onOpenStatus, onOpenRecruiterBrief, onOpenSimulator, onOpenArch
   const handleArise = () => {
     soundFX.playArise();
     setAriseActive(true);
+    confetti({
+      particleCount: 100,
+      spread: 90,
+      origin: { y: 0.5 },
+      colors: ["#00f0ff", "#a855f7", "#3b82f6", "#ffffff", "#ef4444"],
+    });
     setTimeout(() => {
       setAriseActive(false);
     }, 1800);
