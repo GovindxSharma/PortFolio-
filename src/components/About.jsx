@@ -100,16 +100,16 @@ const About = ({ onOpenStatus, onOpenRecruiterBrief, onOpenSimulator, onOpenArch
             className="lg:col-span-7 text-center lg:text-left"
           >
             {/* Solo Leveling Dynamic Rotating Badge */}
-            <div className="inline-flex items-center gap-2 rounded-full border border-cyan-500/40 bg-white/80 dark:bg-[#12141c]/90 px-4 py-1.5 shadow-[0_0_20px_rgba(6,182,212,0.15)] backdrop-blur-xl">
+            <div className="inline-flex items-center gap-2 rounded-full border border-indigo-500/30 dark:border-cyan-500/30 bg-white/90 dark:bg-[#0c0e17]/90 px-4 py-1.5 shadow-[0_4px_20px_rgba(0,0,0,0.15)] backdrop-blur-2xl">
               <span className="flex h-2 w-2 rounded-full bg-cyan-400 animate-ping" />
               <AnimatePresence mode="wait">
                 <motion.span
                   key={roleIndex}
-                  initial={{ opacity: 0, y: 8 }}
+                  initial={{ opacity: 0, y: 6 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -8 }}
-                  transition={{ duration: 0.3 }}
-                  className="text-[10px] sm:text-xs font-mono font-bold tracking-wider text-cyan-600 dark:text-cyan-300 uppercase"
+                  exit={{ opacity: 0, y: -6 }}
+                  transition={{ duration: 0.25 }}
+                  className="text-xs font-mono font-bold tracking-wider text-slate-800 dark:text-cyan-300 uppercase"
                 >
                   [ {ROLES[roleIndex]} // AWAKENED ]
                 </motion.span>
@@ -117,32 +117,32 @@ const About = ({ onOpenStatus, onOpenRecruiterBrief, onOpenSimulator, onOpenArch
             </div>
 
             {/* Main Headline */}
-            <h2 className="mt-2.5 sm:mt-3.5 text-2xl sm:text-4xl md:text-5xl lg:text-[54px] font-black leading-[1.12] text-slate-950 dark:text-[#f8fafc] font-['Rajdhani',sans-serif] tracking-tight">
+            <h1 className="mt-3 sm:mt-4 text-3xl sm:text-5xl md:text-6xl font-black leading-[1.08] text-slate-950 dark:text-white font-['Rajdhani',sans-serif] tracking-tight">
               Architecting{" "}
-              <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-violet-500 bg-clip-text text-transparent drop-shadow-[0_0_25px_rgba(6,182,212,0.4)]">
+              <span className="bg-gradient-to-r from-cyan-400 via-indigo-400 to-violet-400 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(56,189,248,0.3)]">
                 Scalable Digital
               </span>
               <br />
               Kingdoms with Code
-            </h2>
+            </h1>
 
             {/* Intro paragraph */}
-            <p className="mt-2.5 sm:mt-3 text-xs sm:text-sm md:text-base text-slate-700 dark:text-slate-300 leading-relaxed max-w-xl mx-auto lg:mx-0">
-              I'm <span className="text-cyan-500 dark:text-cyan-400 font-bold">Govind Sharma</span>, a Full-Stack Engineer with production experience building real-time systems, scalable REST/WebSocket APIs, and secure payment workflows. Proven track record of shipping 6+ production platforms with deep algorithmic problem-solving and database optimization.
+            <p className="mt-3 sm:mt-4 text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed max-w-xl mx-auto lg:mx-0">
+              I'm <span className="text-cyan-500 dark:text-cyan-400 font-bold">Govind Sharma</span>, a Full-Stack Software Engineer specializing in high-concurrency Node/Express architectures, real-time WebSocket communication, and sub-second database indexing.
             </p>
 
             {/* Sub-text */}
-            <p className="mt-1.5 text-xs sm:text-sm text-slate-600 dark:text-slate-400 font-mono">
-              Specialized in high-concurrency Node/Express architectures, 60 FPS React interfaces, and low-latency MongoDB indexing.
+            <p className="mt-2 text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-mono">
+              Shipped 6+ production platforms • 2,000+ Algorithmic LeetCode Solutions Solved
             </p>
 
             {/* Awakened Runes / Tech Stack Chips */}
-            <div className="mt-3.5 flex flex-wrap justify-center lg:justify-start gap-1.5 max-w-xl">
+            <div className="mt-4 flex flex-wrap justify-center lg:justify-start gap-1.5 max-w-xl">
               {techStack.map((tech) => (
                 <span
                   key={tech}
                   onMouseEnter={() => soundFX.playHover()}
-                  className="rounded-lg border border-slate-300/80 dark:border-white/10 bg-white/70 dark:bg-[#12141c]/80 px-2.5 py-0.5 text-[11px] sm:text-xs font-mono font-medium text-slate-800 dark:text-slate-200 hover:border-cyan-400 hover:text-cyan-400 hover:shadow-[0_0_12px_rgba(6,182,212,0.3)] transition cursor-default backdrop-blur-md"
+                  className="rounded-lg border border-slate-200 dark:border-white/10 bg-slate-100/80 dark:bg-[#111320]/80 px-3 py-1 text-xs font-mono font-medium text-slate-700 dark:text-slate-300 hover:border-cyan-400 hover:text-cyan-400 hover:shadow-[0_0_12px_rgba(56,189,248,0.25)] transition cursor-default backdrop-blur-md"
                 >
                   {tech}
                 </span>
@@ -150,16 +150,16 @@ const About = ({ onOpenStatus, onOpenRecruiterBrief, onOpenSimulator, onOpenArch
             </div>
 
             {/* Proof-of-Work Interactive Badges */}
-            <div className="mt-3.5 flex flex-wrap items-center justify-center lg:justify-start gap-2">
+            <div className="mt-4 flex flex-wrap items-center justify-center lg:justify-start gap-2">
               <button
                 onClick={() => {
                   soundFX.playClick();
                   if (onOpenSimulator) onOpenSimulator();
                 }}
                 onMouseEnter={() => soundFX.playHover()}
-                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-[11px] font-mono font-bold bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-600 dark:text-cyan-400 border border-cyan-500/30 hover:border-cyan-400 transition active:scale-95 shadow-sm"
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-mono font-bold bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-600 dark:text-cyan-300 border border-cyan-500/30 hover:border-cyan-400 transition active:scale-95 shadow-sm"
               >
-                <Cpu size={13} className="text-cyan-500" />
+                <Cpu size={13} className="text-cyan-400" />
                 <span>Architecture Lab Simulator &rarr;</span>
               </button>
               <button
@@ -168,23 +168,23 @@ const About = ({ onOpenStatus, onOpenRecruiterBrief, onOpenSimulator, onOpenArch
                   if (onOpenArchitecture) onOpenArchitecture();
                 }}
                 onMouseEnter={() => soundFX.playHover()}
-                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-[11px] font-mono font-bold bg-violet-500/10 hover:bg-violet-500/20 text-violet-600 dark:text-violet-400 border border-violet-500/30 hover:border-violet-400 transition active:scale-95 shadow-sm"
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-mono font-bold bg-violet-500/10 hover:bg-violet-500/20 text-violet-600 dark:text-violet-300 border border-violet-500/30 hover:border-violet-400 transition active:scale-95 shadow-sm"
               >
-                <Layers size={13} className="text-violet-500" />
+                <Layers size={13} className="text-violet-400" />
                 <span>System Blueprints &rarr;</span>
               </button>
             </div>
 
             {/* Primary Action Buttons */}
-            <div className="mt-4 sm:mt-5 flex flex-wrap items-center justify-center lg:justify-start gap-2 sm:gap-2.5">
+            <div className="mt-5 flex flex-wrap items-center justify-center lg:justify-start gap-2.5">
               {/* ARISE (일어서라) Button */}
               <button
                 onClick={handleArise}
                 onMouseEnter={() => soundFX.playHover()}
-                className="w-full sm:w-auto group relative inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-violet-600 via-indigo-600 to-cyan-500 p-[2px] font-mono font-bold shadow-[0_0_20px_rgba(147,51,234,0.35)] hover:shadow-[0_0_30px_rgba(0,240,255,0.6)] transition hover:scale-105 active:scale-95"
+                className="w-full sm:w-auto group relative inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-violet-600 via-indigo-600 to-cyan-500 p-[2px] font-mono font-bold shadow-[0_0_20px_rgba(147,51,234,0.35)] hover:shadow-[0_0_30px_rgba(56,189,248,0.5)] transition hover:scale-105 active:scale-95"
               >
-                <span className="w-full flex items-center justify-center gap-2 rounded-[10px] bg-[#0c0d12] px-3.5 sm:px-4 py-2 text-xs sm:text-sm text-white transition group-hover:bg-opacity-80">
-                  <Swords className="h-3.5 w-3.5 text-cyan-400 animate-pulse" />
+                <span className="w-full flex items-center justify-center gap-2 rounded-[10px] bg-[#0c0e18] px-4 py-2.5 text-xs sm:text-sm text-white transition group-hover:bg-opacity-80">
+                  <Swords className="h-4 w-4 text-cyan-400 animate-pulse" />
                   <span>ARISE (일어서라)</span>
                 </span>
               </button>
@@ -196,10 +196,10 @@ const About = ({ onOpenStatus, onOpenRecruiterBrief, onOpenSimulator, onOpenArch
                 rel="noopener noreferrer"
                 onClick={() => soundFX.playClick()}
                 onMouseEnter={() => soundFX.playHover()}
-                className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 rounded-xl bg-gradient-to-r from-cyan-500 via-blue-600 to-violet-600 px-3.5 sm:px-4 py-2 text-xs sm:text-sm font-bold text-white shadow-md hover:shadow-[0_0_20px_rgba(6,182,212,0.4)] hover:scale-105 transition"
+                className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 rounded-xl bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 px-4 py-2.5 text-xs sm:text-sm font-bold text-white shadow-md hover:shadow-[0_0_20px_rgba(6,182,212,0.4)] hover:scale-105 transition"
               >
                 <span>View Resume</span>
-                <ArrowUpRight className="h-3.5 w-3.5" />
+                <ArrowUpRight className="h-4 w-4" />
               </a>
 
               {/* 1-Click Recruiter Executive Brief */}
@@ -209,9 +209,9 @@ const About = ({ onOpenStatus, onOpenRecruiterBrief, onOpenSimulator, onOpenArch
                   if (onOpenRecruiterBrief) onOpenRecruiterBrief();
                 }}
                 onMouseEnter={() => soundFX.playHover()}
-                className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 px-3 sm:px-3.5 py-2 text-xs font-mono font-bold transition hover:scale-105 active:scale-95 shadow-sm"
+                className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 px-3.5 py-2.5 text-xs font-mono font-bold transition hover:scale-105 active:scale-95 shadow-sm"
               >
-                <FileCheck2 className="h-3.5 w-3.5 text-emerald-500" />
+                <FileCheck2 className="h-4 w-4 text-emerald-400" />
                 <span>Recruiter Brief</span>
               </button>
 
@@ -222,9 +222,9 @@ const About = ({ onOpenStatus, onOpenRecruiterBrief, onOpenSimulator, onOpenArch
                   if (onOpenStatus) onOpenStatus();
                 }}
                 onMouseEnter={() => soundFX.playHover()}
-                className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 rounded-xl border border-slate-300 dark:border-white/10 bg-white/60 dark:bg-[#12141c]/80 px-3 sm:px-3.5 py-2 text-xs font-mono font-bold text-slate-800 dark:text-cyan-300 hover:border-cyan-400 transition hover:scale-105"
+                className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 rounded-xl border border-slate-200 dark:border-white/10 bg-white/80 dark:bg-[#111320]/80 px-3.5 py-2.5 text-xs font-mono font-bold text-slate-800 dark:text-cyan-300 hover:border-cyan-400 transition hover:scale-105"
               >
-                <Zap className="h-3.5 w-3.5 text-cyan-400" />
+                <Zap className="h-4 w-4 text-cyan-400" />
                 <span>Hunter Status</span>
               </button>
             </div>
