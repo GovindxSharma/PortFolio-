@@ -135,7 +135,7 @@ export default function RealmMinimap({
       <div className="hidden xl:flex items-center gap-1 pl-1 pr-2 text-[10px] font-mono text-slate-600 dark:text-slate-400">
         <span className="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 font-bold">←</span>
         <span className="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 font-bold">→</span>
-        <span>to slide</span>
+        <span>to jump</span>
       </div>
     </aside>
   );

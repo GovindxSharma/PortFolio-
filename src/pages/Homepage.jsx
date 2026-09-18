@@ -1,10 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import {
-  ChevronLeft,
-  ChevronRight,
-  MoveHorizontal,
-} from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import Navbar from "../components/Navbar";
 import About from "../components/About";
 import ProjectsExperience from "../components/ProjectsExperience";
@@ -27,6 +22,7 @@ import { soundFX } from "../utils/soundEffects";
 
 const Homepage = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [scrollPercent, setScrollPercent] = useState(0);
   const [statusOpen, setStatusOpen] = useState(false);
   const [terminalOpen, setTerminalOpen] = useState(false);
   const [simulatorOpen, setSimulatorOpen] = useState(false);
@@ -34,7 +30,6 @@ const Homepage = () => {
   const [architectureOpen, setArchitectureOpen] = useState(false);
   const [showIntro, setShowIntro] = useState(false);
   const sectionRefs = useRef([]);
-  const isScrollingRef = useRef(false);
 
   const handleOpenStatus = () => {
     soundFX.playSystemAlert();
@@ -85,38 +80,31 @@ const Homepage = () => {
 
   const totalSections = sections.length;
 
-  // ALWAYS RESET SCROLL TO TOP WHEN ENTERING ANY SECTION (Forward OR Backward!)
-  useEffect(() => {
-    if (sectionRefs.current[currentIndex]) {
-      sectionRefs.current[currentIndex].scrollTop = 0;
-    }
-  }, [currentIndex]);
-
   const goToSection = (index) => {
-    if (index === currentIndex || index < 0 || index >= totalSections) return;
+    if (index < 0 || index >= totalSections) return;
     soundFX.playClick();
     setCurrentIndex(index);
+    const target = sectionRefs.current[index];
+    if (target) {
+      const navOffset = 80;
+      const elementPosition = target.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - navOffset;
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
+    }
   };
 
   const nextSection = () => {
-    if (currentIndex < totalSections - 1 && !isScrollingRef.current) {
-      isScrollingRef.current = true;
-      soundFX.playClick();
-      setCurrentIndex((prev) => prev + 1);
-      setTimeout(() => {
-        isScrollingRef.current = false;
-      }, 1000);
+    if (currentIndex < totalSections - 1) {
+      goToSection(currentIndex + 1);
     }
   };
 
   const prevSection = () => {
-    if (currentIndex > 0 && !isScrollingRef.current) {
-      isScrollingRef.current = true;
-      soundFX.playClick();
-      setCurrentIndex((prev) => prev - 1);
-      setTimeout(() => {
-        isScrollingRef.current = false;
-      }, 1000);
+    if (currentIndex > 0) {
+      goToSection(currentIndex - 1);
     }
   };
 
@@ -126,151 +114,38 @@ const Homepage = () => {
     setTimeout(() => setShowIntro(true), 50);
   };
 
-  // DESKTOP MOUSEWHEEL NESTED BOUNDARY SCROLL ENGINE
+  // Passive, high-performance scroll spy for real-time realm & progress tracking
   useEffect(() => {
-    const handleWheel = (e) => {
-      if (
-        statusOpen ||
-        terminalOpen ||
-        simulatorOpen ||
-        recruiterBriefOpen ||
-        architectureOpen
-      ) {
-        return;
-      }
+    let ticking = false;
 
-      const activeEl = sectionRefs.current[currentIndex];
-      if (!activeEl) return;
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const winScroll = window.scrollY || document.documentElement.scrollTop;
+          const height = document.documentElement.scrollHeight - window.innerHeight;
+          if (height > 0) {
+            setScrollPercent(Math.min(100, Math.max(0, (winScroll / height) * 100)));
+          }
 
-      const { scrollTop, scrollHeight, clientHeight } = activeEl;
-      const isScrollable = scrollHeight > clientHeight + 10;
-      const isAtTop = scrollTop <= 10;
-      const isAtBottom = scrollTop + clientHeight >= scrollHeight - 10;
-
-      const delta = e.deltaY;
-
-      // Scrolling Down
-      if (delta > 0) {
-        if (isScrollable && !isAtBottom) {
-          return;
-        }
-
-        e.preventDefault();
-        if (isScrollingRef.current) return;
-
-        if (currentIndex < totalSections - 1) {
-          isScrollingRef.current = true;
-          soundFX.playClick();
-          setCurrentIndex((prev) => {
-            const nextIdx = prev + 1;
-            setTimeout(() => {
-              if (sectionRefs.current[nextIdx]) {
-                sectionRefs.current[nextIdx].scrollTop = 0;
-              }
-              isScrollingRef.current = false;
-            }, 1200);
-            return nextIdx;
+          // Active section detection
+          const scrollPos = winScroll + 220;
+          let activeIdx = 0;
+          sectionRefs.current.forEach((el, idx) => {
+            if (el && el.offsetTop <= scrollPos) {
+              activeIdx = idx;
+            }
           });
-        }
-      }
-      // Scrolling Up
-      else if (delta < 0) {
-        if (isScrollable && !isAtTop) {
-          return;
-        }
-
-        e.preventDefault();
-        if (isScrollingRef.current) return;
-
-        if (currentIndex > 0) {
-          isScrollingRef.current = true;
-          soundFX.playClick();
-          setCurrentIndex((prev) => {
-            const prevIdx = prev - 1;
-            setTimeout(() => {
-              if (sectionRefs.current[prevIdx]) {
-                sectionRefs.current[prevIdx].scrollTop = 0;
-              }
-              isScrollingRef.current = false;
-            }, 1200);
-            return prevIdx;
-          });
-        }
+          setCurrentIndex(activeIdx);
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 
-    window.addEventListener("wheel", handleWheel, { passive: false });
-    return () => window.removeEventListener("wheel", handleWheel);
-  }, [
-    currentIndex,
-    totalSections,
-    statusOpen,
-    terminalOpen,
-    simulatorOpen,
-    recruiterBriefOpen,
-    architectureOpen,
-  ]);
-
-  // BULLETPROOF MOBILE TOUCH ENGINE (Smooth native vertical scroll + horizontal realm swipe)
-  useEffect(() => {
-    const el = sectionRefs.current[currentIndex];
-    if (!el) return;
-
-    let touchStartY = 0;
-    let touchStartX = 0;
-    let isTouching = false;
-
-    const onTouchStart = (e) => {
-      touchStartY = e.touches[0].clientY;
-      touchStartX = e.touches[0].clientX;
-      isTouching = true;
-    };
-
-    const onTouchEnd = (e) => {
-      if (
-        !isTouching ||
-        statusOpen ||
-        terminalOpen ||
-        simulatorOpen ||
-        recruiterBriefOpen ||
-        architectureOpen ||
-        isScrollingRef.current
-      ) {
-        return;
-      }
-      isTouching = false;
-
-      const touchEndY = e.changedTouches[0].clientY;
-      const touchEndX = e.changedTouches[0].clientX;
-      const deltaY = touchStartY - touchEndY;
-      const deltaX = touchStartX - touchEndX;
-
-      // Horizontal Realm Navigation: Clean deliberate horizontal swipe
-      if (Math.abs(deltaX) > 45 && Math.abs(deltaX) > Math.abs(deltaY) * 1.3) {
-        if (deltaX > 0) {
-          nextSection();
-        } else {
-          prevSection();
-        }
-      }
-    };
-
-    el.addEventListener("touchstart", onTouchStart, { passive: true });
-    el.addEventListener("touchend", onTouchEnd, { passive: true });
-
-    return () => {
-      el.removeEventListener("touchstart", onTouchStart);
-      el.removeEventListener("touchend", onTouchEnd);
-    };
-  }, [
-    currentIndex,
-    totalSections,
-    statusOpen,
-    terminalOpen,
-    simulatorOpen,
-    recruiterBriefOpen,
-    architectureOpen,
-  ]);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Keyboard Navigation
   useEffect(() => {
@@ -282,10 +157,10 @@ const Homepage = () => {
         return;
       }
 
-      if (e.key === "ArrowRight" || e.key === "PageDown") {
+      if (e.key === "PageDown") {
         e.preventDefault();
         nextSection();
-      } else if (e.key === "ArrowLeft" || e.key === "PageUp") {
+      } else if (e.key === "PageUp") {
         e.preventDefault();
         prevSection();
       } else if (e.key === "`" || e.key === "~") {
@@ -299,23 +174,7 @@ const Homepage = () => {
   }, [currentIndex]);
 
   return (
-    <div
-      className="
-        relative
-        w-screen
-        h-screen
-        overflow-hidden
-        bg-slate-100
-        text-slate-900
-        dark:bg-[#090a0f]
-        dark:text-[#f8fafc]
-        transition-colors
-        duration-500
-        select-none
-        no-scrollbar
-      "
-      style={{ overscrollBehavior: "none", touchAction: "pan-y pinch-zoom" }}
-    >
+    <div className="relative min-h-screen w-full bg-slate-100 text-slate-900 dark:bg-[#090a0f] dark:text-[#f8fafc] transition-colors duration-500 overflow-x-hidden">
       {/* Interactive Ambient Background */}
       <ThreeBackground />
 
@@ -361,6 +220,9 @@ const Homepage = () => {
         <QuestNotification onOpenStatus={handleOpenStatus} />
       </div>
 
+      {/* Awakening Intro (if replayed) */}
+      {showIntro && <AwakeningIntro onComplete={() => setShowIntro(false)} />}
+
       {/* Quantum Monarch Dynamic Capsule Header */}
       <Navbar
         currentSectionIndex={currentIndex}
@@ -375,98 +237,46 @@ const Homepage = () => {
 
       {/* DESKTOP SIDE GATES */}
       {currentIndex > 0 && (
-        <motion.button
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: -20 }}
+        <button
           onClick={prevSection}
           onMouseEnter={() => soundFX.playHover()}
-          className="hidden md:flex fixed left-4 top-1/2 -translate-y-1/2 z-30 p-3.5 rounded-2xl border border-white/10 bg-white/85 dark:bg-[#101218]/90 text-cyan-400 shadow-[0_0_25px_rgba(0,0,0,0.5)] backdrop-blur-xl hover:border-cyan-400 hover:scale-110 active:scale-95 transition group pointer-events-auto"
+          className="hidden xl:flex fixed left-4 top-1/2 -translate-y-1/2 z-30 p-3.5 rounded-2xl border border-slate-200 dark:border-white/10 bg-white/85 dark:bg-[#101218]/90 text-cyan-500 shadow-xl backdrop-blur-xl hover:border-cyan-400 hover:scale-110 active:scale-95 transition group pointer-events-auto"
           title={`Previous: ${sections[currentIndex - 1]?.title}`}
         >
           <ChevronLeft size={22} className="group-hover:-translate-x-1 transition-transform" />
           <span className="sr-only">Previous Realm</span>
-        </motion.button>
+        </button>
       )}
 
       {currentIndex < totalSections - 1 && (
-        <motion.button
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: 20 }}
+        <button
           onClick={nextSection}
           onMouseEnter={() => soundFX.playHover()}
-          className="hidden md:flex fixed right-4 top-1/2 -translate-y-1/2 z-30 p-3.5 rounded-2xl border border-white/10 bg-white/85 dark:bg-[#101218]/90 text-cyan-400 shadow-[0_0_25px_rgba(0,0,0,0.5)] backdrop-blur-xl hover:border-cyan-400 hover:scale-110 active:scale-95 transition group pointer-events-auto"
+          className="hidden xl:flex fixed right-4 top-1/2 -translate-y-1/2 z-30 p-3.5 rounded-2xl border border-slate-200 dark:border-white/10 bg-white/85 dark:bg-[#101218]/90 text-cyan-500 shadow-xl backdrop-blur-xl hover:border-cyan-400 hover:scale-110 active:scale-95 transition group pointer-events-auto"
           title={`Next: ${sections[currentIndex + 1]?.title}`}
         >
           <ChevronRight size={22} className="group-hover:translate-x-1 transition-transform" />
           <span className="sr-only">Next Realm</span>
-        </motion.button>
+        </button>
       )}
 
-      {/* ================= CINEMATIC MATTE BLACK 3D HORIZONTAL TRACK ================= */}
-      <motion.div
-        animate={{ x: `-${currentIndex * 100}vw` }}
-        transition={{
-          duration: 1.15,
-          ease: [0.16, 1, 0.3, 1],
-        }}
-        className="flex flex-row w-[700vw] h-full"
-      >
+      {/* ================= VERTICAL SEAMLESS REALMS ================= */}
+      <main className="relative z-10 w-full flex flex-col">
         {sections.map((sec, idx) => (
-          <div
+          <section
             key={sec.id}
+            id={sec.id}
             ref={(el) => (sectionRefs.current[idx] = el)}
-            className="w-screen h-full shrink-0 relative overflow-y-auto overflow-x-hidden select-text pt-24 sm:pt-28 pb-24 sm:pb-28 px-3 sm:px-8 flex flex-col justify-start"
-            style={{
-              WebkitOverflowScrolling: "touch",
-              overscrollBehavior: "contain",
-            }}
+            className={`w-full max-w-6xl mx-auto px-3 sm:px-6 md:px-8 scroll-mt-24 ${
+              idx === 0
+                ? "pt-24 sm:pt-28 pb-12 sm:pb-16 min-h-[90vh] flex flex-col justify-center"
+                : "py-10 sm:py-16 md:py-20"
+            }`}
           >
-            <div className="w-full max-w-6xl mx-auto my-0 flex flex-col justify-between">
-              <div>
-                {sec.component}
-              </div>
-
-              {/* End of Section Realm Transition Indicator & Direct Tap Buttons (Mobile/Tablet only; Desktop uses floating Realm Minimap HUD & Side Gates) */}
-              <div className="mt-6 mb-2 pt-3 border-t border-slate-200 dark:border-white/10 flex md:hidden flex-col sm:flex-row items-center justify-between gap-3 font-mono text-xs text-slate-500 dark:text-slate-400 text-center sm:text-left">
-                <div>
-                  {idx > 0 ? (
-                    <button
-                      onClick={prevSection}
-                      className="flex items-center gap-1.5 py-2 px-3 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-600 dark:text-cyan-400 font-bold transition active:scale-95"
-                    >
-                      <ChevronLeft size={16} />
-                      <span>Prev Realm: {sections[idx - 1].title}</span>
-                    </button>
-                  ) : (
-                    <span className="text-[11px] text-slate-500">[ REALM 01 START ]</span>
-                  )}
-                </div>
-
-                <div className="flex items-center gap-1.5 text-cyan-600 dark:text-cyan-400 text-[11px] sm:text-xs">
-                  <MoveHorizontal size={14} className="animate-pulse" />
-                  <span>Scroll or swipe to advance realm</span>
-                </div>
-
-                <div>
-                  {idx < totalSections - 1 ? (
-                    <button
-                      onClick={nextSection}
-                      className="flex items-center gap-1.5 py-2 px-3 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-600 dark:text-cyan-400 font-bold transition active:scale-95"
-                    >
-                      <span>Next Realm: {sections[idx + 1].title}</span>
-                      <ChevronRight size={16} />
-                    </button>
-                  ) : (
-                    <span className="text-[11px] text-slate-500">[ FINAL REALM REACHED ]</span>
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
+            {sec.component}
+          </section>
         ))}
-      </motion.div>
+      </main>
 
       {/* Floating Realm Minimap Teleport HUD */}
       <RealmMinimap
@@ -478,13 +288,11 @@ const Homepage = () => {
 
       {/* RAZOR-THIN LASER PROGRESS BAR (BOTTOM) */}
       <div className="fixed bottom-0 left-0 right-0 h-[2px] bg-slate-200 dark:bg-white/5 z-30 pointer-events-none">
-        <motion.div
-          animate={{ width: `${((currentIndex + 1) / totalSections) * 100}%` }}
-          transition={{ duration: 1.15, ease: [0.16, 1, 0.3, 1] }}
-          className="h-full bg-gradient-to-r from-cyan-400 via-violet-500 to-amber-400 shadow-[0_0_10px_#00f0ff]"
+        <div
+          style={{ width: `${scrollPercent}%` }}
+          className="h-full bg-gradient-to-r from-cyan-400 via-violet-500 to-amber-400 shadow-[0_0_10px_#00f0ff] transition-all duration-75"
         />
       </div>
-
     </div>
   );
 };

@@ -34,7 +34,7 @@ import { soundFX } from "../utils/soundEffects";
 export default function ProjectsExperience() {
   const [selectedFilter, setSelectedFilter] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
-  const [viewMode, setViewMode] = useState("carousel"); // 'carousel' | 'grid'
+  const [viewMode, setViewMode] = useState("grid"); // 'grid' | 'carousel'
   const [activeModalProject, setActiveModalProject] = useState(null);
   const [scrollProgress, setScrollProgress] = useState(0);
   const scrollContainerRef = useRef(null);
@@ -117,19 +117,6 @@ export default function ProjectsExperience() {
     const el = scrollContainerRef.current;
     if (!el || viewMode !== "carousel") return;
 
-    const handleWheel = (e) => {
-      if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-        if (
-          (e.deltaY > 0 && el.scrollLeft < el.scrollWidth - el.clientWidth - 5) ||
-          (e.deltaY < 0 && el.scrollLeft > 5)
-        ) {
-          e.preventDefault();
-          el.scrollLeft += e.deltaY * 1.5;
-        }
-      }
-      updateScrollProgress();
-    };
-
     const updateScrollProgress = () => {
       if (!el) return;
       const max = el.scrollWidth - el.clientWidth;
@@ -138,11 +125,10 @@ export default function ProjectsExperience() {
       }
     };
 
-    el.addEventListener("wheel", handleWheel, { passive: false });
-    el.addEventListener("scroll", updateScrollProgress);
+    el.addEventListener("scroll", updateScrollProgress, { passive: true });
+    updateScrollProgress();
 
     return () => {
-      el.removeEventListener("wheel", handleWheel);
       el.removeEventListener("scroll", updateScrollProgress);
     };
   }, [viewMode]);
