@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronLeft, ChevronRight, Sparkles } from "lucide-react";
 import Navbar from "../components/Navbar";
 import About from "../components/About";
 import ProjectsExperience from "../components/ProjectsExperience";
@@ -235,46 +236,118 @@ const Homepage = () => {
         onReplayIntro={handleReplayIntro}
       />
 
-      {/* DESKTOP SIDE GATES */}
-      {currentIndex > 0 && (
-        <button
-          onClick={prevSection}
-          onMouseEnter={() => soundFX.playHover()}
-          className="hidden xl:flex fixed left-4 top-1/2 -translate-y-1/2 z-30 p-3.5 rounded-2xl border border-slate-200 dark:border-white/10 bg-white/85 dark:bg-[#101218]/90 text-cyan-500 shadow-xl backdrop-blur-xl hover:border-cyan-400 hover:scale-110 active:scale-95 transition group pointer-events-auto"
-          title={`Previous: ${sections[currentIndex - 1]?.title}`}
-        >
-          <ChevronLeft size={22} className="group-hover:-translate-x-1 transition-transform" />
-          <span className="sr-only">Previous Realm</span>
-        </button>
-      )}
+      {/* ================= HOLOGRAPHIC REALM SIDE GATES (DESKTOP) ================= */}
+      <AnimatePresence>
+        {currentIndex > 0 && (
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -30 }}
+            transition={{ duration: 0.3 }}
+            className="hidden xl:flex fixed left-5 top-1/2 -translate-y-1/2 z-30 pointer-events-auto"
+          >
+            <button
+              onClick={prevSection}
+              onMouseEnter={() => soundFX.playHover()}
+              className="group relative flex items-center gap-2 p-2 rounded-2xl border border-slate-200/90 dark:border-cyan-500/30 bg-white/95 dark:bg-[#0e1017]/95 text-slate-800 dark:text-cyan-300 shadow-[0_10px_35px_rgba(0,0,0,0.2)] backdrop-blur-2xl hover:border-cyan-400 hover:shadow-[0_0_25px_rgba(6,182,212,0.4)] transition-all duration-300 active:scale-95"
+              title={`Ascend to: ${sections[currentIndex - 1]?.title}`}
+            >
+              {/* Outer pulsing glow halo on hover */}
+              <div className="absolute -inset-1 rounded-2xl bg-cyan-400/20 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-      {currentIndex < totalSections - 1 && (
-        <button
-          onClick={nextSection}
-          onMouseEnter={() => soundFX.playHover()}
-          className="hidden xl:flex fixed right-4 top-1/2 -translate-y-1/2 z-30 p-3.5 rounded-2xl border border-slate-200 dark:border-white/10 bg-white/85 dark:bg-[#101218]/90 text-cyan-500 shadow-xl backdrop-blur-xl hover:border-cyan-400 hover:scale-110 active:scale-95 transition group pointer-events-auto"
-          title={`Next: ${sections[currentIndex + 1]?.title}`}
-        >
-          <ChevronRight size={22} className="group-hover:translate-x-1 transition-transform" />
-          <span className="sr-only">Next Realm</span>
-        </button>
-      )}
+              {/* Icon Capsule */}
+              <div className="relative h-10 w-10 rounded-xl bg-gradient-to-br from-cyan-500/20 to-violet-600/20 border border-cyan-500/40 flex items-center justify-center text-cyan-500 dark:text-cyan-400 group-hover:scale-110 transition-transform">
+                <ChevronLeft size={20} className="group-hover:-translate-x-0.5 transition-transform" />
+              </div>
+
+              {/* Slide-out Preview Label on Hover */}
+              <div className="relative max-w-0 overflow-hidden whitespace-nowrap opacity-0 group-hover:max-w-xs group-hover:opacity-100 group-hover:pr-2.5 transition-all duration-300 text-left font-mono">
+                <div className="flex items-center gap-1.5 text-[9px] text-cyan-600 dark:text-cyan-400 font-bold uppercase tracking-wider">
+                  <span>[ ASCEND REALM ]</span>
+                  <span className="text-[8px] px-1 py-0.2 rounded bg-cyan-500/20">PgUp</span>
+                </div>
+                <div className="text-xs font-bold text-slate-900 dark:text-white font-['Rajdhani',sans-serif] truncate max-w-[140px]">
+                  {sections[currentIndex - 1]?.title}
+                </div>
+              </div>
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {currentIndex < totalSections - 1 && (
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 30 }}
+            transition={{ duration: 0.3 }}
+            className="hidden xl:flex fixed right-5 top-1/2 -translate-y-1/2 z-30 pointer-events-auto"
+          >
+            <button
+              onClick={nextSection}
+              onMouseEnter={() => soundFX.playHover()}
+              className="group relative flex items-center gap-2 p-2 rounded-2xl border border-slate-200/90 dark:border-cyan-500/30 bg-white/95 dark:bg-[#0e1017]/95 text-slate-800 dark:text-cyan-300 shadow-[0_10px_35px_rgba(0,0,0,0.2)] backdrop-blur-2xl hover:border-cyan-400 hover:shadow-[0_0_25px_rgba(6,182,212,0.4)] transition-all duration-300 active:scale-95"
+              title={`Descend to: ${sections[currentIndex + 1]?.title}`}
+            >
+              {/* Outer pulsing glow halo on hover */}
+              <div className="absolute -inset-1 rounded-2xl bg-cyan-400/20 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+              {/* Slide-out Preview Label on Hover */}
+              <div className="relative max-w-0 overflow-hidden whitespace-nowrap opacity-0 group-hover:max-w-xs group-hover:opacity-100 group-hover:pl-2.5 transition-all duration-300 text-right font-mono">
+                <div className="flex items-center justify-end gap-1.5 text-[9px] text-cyan-600 dark:text-cyan-400 font-bold uppercase tracking-wider">
+                  <span className="text-[8px] px-1 py-0.2 rounded bg-cyan-500/20">PgDn</span>
+                  <span>[ DESCEND REALM ]</span>
+                </div>
+                <div className="text-xs font-bold text-slate-900 dark:text-white font-['Rajdhani',sans-serif] truncate max-w-[140px]">
+                  {sections[currentIndex + 1]?.title}
+                </div>
+              </div>
+
+              {/* Icon Capsule */}
+              <div className="relative h-10 w-10 rounded-xl bg-gradient-to-br from-cyan-500/20 to-violet-600/20 border border-cyan-500/40 flex items-center justify-center text-cyan-500 dark:text-cyan-400 group-hover:scale-110 transition-transform">
+                <ChevronRight size={20} className="group-hover:translate-x-0.5 transition-transform" />
+              </div>
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* ================= VERTICAL SEAMLESS REALMS ================= */}
       <main className="relative z-10 w-full flex flex-col">
         {sections.map((sec, idx) => (
-          <section
-            key={sec.id}
-            id={sec.id}
-            ref={(el) => (sectionRefs.current[idx] = el)}
-            className={`w-full max-w-6xl mx-auto px-3 sm:px-6 md:px-8 scroll-mt-24 ${
-              idx === 0
-                ? "pt-24 sm:pt-28 pb-12 sm:pb-16 min-h-[90vh] flex flex-col justify-center"
-                : "py-10 sm:py-16 md:py-20"
-            }`}
-          >
-            {sec.component}
-          </section>
+          <React.Fragment key={sec.id}>
+            {/* Holographic Realm Horizon Divider between sections */}
+            {idx > 0 && (
+              <div className="w-full max-w-5xl mx-auto px-6 my-4 flex items-center gap-4 opacity-50 hover:opacity-100 transition-opacity select-none">
+                <div className="flex-1 h-[1px] bg-gradient-to-r from-transparent via-cyan-500/40 to-transparent" />
+                <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full border border-slate-200 dark:border-cyan-500/30 bg-white/80 dark:bg-slate-900/80 text-[10px] font-mono font-bold text-cyan-600 dark:text-cyan-400 tracking-wider shadow-sm">
+                  <Sparkles size={11} className="text-cyan-500 animate-spin" style={{ animationDuration: "6s" }} />
+                  <span>{sec.floor} // {sec.title.toUpperCase()}</span>
+                </div>
+                <div className="flex-1 h-[1px] bg-gradient-to-r from-transparent via-violet-500/40 to-transparent" />
+              </div>
+            )}
+
+            <section
+              id={sec.id}
+              ref={(el) => (sectionRefs.current[idx] = el)}
+              className={`w-full max-w-6xl mx-auto px-3 sm:px-6 md:px-8 scroll-mt-24 ${
+                idx === 0
+                  ? "pt-24 sm:pt-28 pb-12 sm:pb-16 min-h-[90vh] flex flex-col justify-center"
+                  : "py-10 sm:py-16 md:py-20"
+              }`}
+            >
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-70px" }}
+                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              >
+                {sec.component}
+              </motion.div>
+            </section>
+          </React.Fragment>
         ))}
       </main>
 
