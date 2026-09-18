@@ -319,7 +319,7 @@ const Homepage = () => {
           <React.Fragment key={sec.id}>
             {/* Holographic Monarch Realm Divider */}
             {idx > 0 && (
-              <div className="w-full max-w-5xl mx-auto px-6 my-8 sm:my-12 flex items-center gap-4 select-none">
+              <div className="w-full max-w-5xl mx-auto px-6 my-6 sm:my-10 flex items-center gap-4 select-none">
                 <div className="flex-1 h-[1px] bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent" />
                 <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cyan-500/40 dark:border-violet-500/40 bg-white/90 dark:bg-[#0c0e18]/90 text-xs font-mono font-bold text-cyan-600 dark:text-cyan-300 tracking-wider shadow-[0_0_20px_rgba(6,182,212,0.2)] backdrop-blur-xl">
                   <span className="h-2 w-2 rounded-full bg-cyan-400 animate-ping" />
@@ -332,17 +332,18 @@ const Homepage = () => {
             <div
               id={sec.id}
               ref={(el) => (sectionRefs.current[idx] = el)}
-              className={`w-full max-w-6xl mx-auto px-4 sm:px-6 md:px-8 scroll-mt-24 ${
+              className={`w-full max-w-6xl mx-auto px-4 sm:px-6 md:px-8 scroll-mt-20 ${
                 idx === 0
-                  ? "pt-24 sm:pt-32 pb-14 sm:pb-20 min-h-[92vh] flex flex-col justify-center"
-                  : "py-8 sm:py-14"
+                  ? "min-h-screen flex flex-col justify-center items-center pt-16 sm:pt-12 pb-8 sm:pb-10"
+                  : "py-10 sm:py-16"
               }`}
             >
               <motion.div
-                initial={{ opacity: 0, y: 35 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                className="w-full"
               >
                 {sec.component}
               </motion.div>

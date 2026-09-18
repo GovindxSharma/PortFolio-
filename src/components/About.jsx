@@ -58,10 +58,7 @@ const About = ({ onOpenStatus, onOpenRecruiterBrief, onOpenSimulator, onOpenArch
   };
 
   return (
-    <section
-      id="about"
-      className="relative overflow-hidden py-3 sm:py-6 px-1 sm:px-4"
-    >
+    <div className="relative w-full">
       {/* ARISE Screen Flash & Shadow Resonance Effect */}
       {ariseActive && (
         <div className="fixed inset-0 z-50 pointer-events-none flex items-center justify-center">
@@ -386,7 +383,7 @@ const About = ({ onOpenStatus, onOpenRecruiterBrief, onOpenSimulator, onOpenArch
         isOpen={dsaModalOpen}
         onClose={() => setDsaModalOpen(false)}
       />
-    </section>
+    </div>
   );
 };
 
