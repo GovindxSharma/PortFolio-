@@ -6,9 +6,6 @@
     scroll-behavior: smooth;
     font-family: 'Plus Jakarta Sans', sans-serif;
     background-color: #090a0f;
-    overscroll-behavior: none !important;
-    overscroll-behavior-y: none !important;
-    overscroll-behavior-x: none !important;
     -webkit-overflow-scrolling: touch;
   }
 
@@ -16,31 +13,23 @@
     overflow-x: hidden;
     background-color: #090a0f;
     color: #f8fafc;
-    overscroll-behavior: none !important;
-    overscroll-behavior-y: none !important;
-    overscroll-behavior-x: none !important;
     -webkit-overflow-scrolling: touch;
-    touch-action: pan-y pinch-zoom;
   }
 
-  #root {
-    overscroll-behavior: none !important;
-    overscroll-behavior-y: none !important;
-  }
-
-  /* Completely remove/hide visible scrollbars across ALL browsers while preserving full scrolling */
-  *,
-  *::before,
-  *::after {
-    -ms-overflow-style: none !important; /* IE and Edge */
-    scrollbar-width: none !important; /* Firefox */
-  }
-
+  /* Sleek Thin Scrollbar */
   ::-webkit-scrollbar {
-    display: none !important;
-    width: 0px !important;
-    height: 0px !important;
-    background: transparent !important;
+    width: 5px;
+    height: 5px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(6, 182, 212, 0.25);
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(6, 182, 212, 0.5);
   }
 }
 
@@ -71,19 +60,6 @@
     }
     50% {
       transform: translateY(-8px) rotate(1deg);
-    }
-  }
-
-  @keyframes arise-shockwave {
-    0% {
-      opacity: 0.9;
-      transform: scale(0.6);
-      filter: blur(0px);
-    }
-    100% {
-      opacity: 0;
-      transform: scale(2.2);
-      filter: blur(20px);
     }
   }
 
@@ -144,18 +120,14 @@
   }
 
   /* Zero Scrollbar Utilities */
-  .no-scrollbar::-webkit-scrollbar,
-  .custom-scrollbar::-webkit-scrollbar {
+  .no-scrollbar::-webkit-scrollbar {
     display: none !important;
     width: 0px !important;
     height: 0px !important;
   }
 
-  .no-scrollbar,
-  .custom-scrollbar {
+  .no-scrollbar {
     -ms-overflow-style: none !important;
     scrollbar-width: none !important;
-    overscroll-behavior: none !important;
-    overscroll-behavior-y: none !important;
   }
 }

@@ -353,6 +353,26 @@ export default function Contact() {
         </motion.div>
 
       </div>
+
+      {/* Footer Signature */}
+      <footer className="mt-16 pt-8 border-t border-slate-200 dark:border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-slate-500 dark:text-slate-400 text-center sm:text-left">
+        <div className="flex items-center gap-2">
+          <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+          <span>© {new Date().getFullYear()} Govind Sharma • Built with React & Tailwind</span>
+        </div>
+
+        <div className="flex items-center gap-4">
+          <button
+            onClick={() => {
+              soundFX.playClick();
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+            className="text-cyan-600 dark:text-cyan-400 hover:underline font-bold"
+          >
+            [ Back to Top ↑ ]
+          </button>
+        </div>
+      </footer>
     </section>
   );
 }
