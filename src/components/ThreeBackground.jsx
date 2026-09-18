@@ -135,8 +135,8 @@ export default function ThreeBackground() {
 
   return (
     <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden transition-colors duration-700">
-      {/* Deep Obsidian Gradient Surface */}
-      <div className="absolute inset-0 bg-[#06070a] dark:bg-[#040508]" />
+      {/* Dynamic Base Background Surface */}
+      <div className="absolute inset-0 bg-[#f8fafc] dark:bg-[#040508] transition-colors duration-700" />
 
       {/* Atmospheric Luminescent Glow Pods */}
       {isRedGate ? (
@@ -144,19 +144,25 @@ export default function ThreeBackground() {
           <div className="absolute -top-[10%] left-[15%] w-[55vw] h-[55vw] max-w-[700px] max-h-[700px] rounded-full bg-red-600/18 blur-[160px]" />
           <div className="absolute -bottom-[10%] right-[10%] w-[50vw] h-[50vw] max-w-[650px] max-h-[650px] rounded-full bg-amber-600/14 blur-[160px]" />
         </>
+      ) : darkMode ? (
+        <>
+          <div className="absolute -top-[15%] -left-[10%] w-[60vw] h-[60vw] max-w-[750px] max-h-[750px] rounded-full bg-cyan-500/16 blur-[180px]" />
+          <div className="absolute -bottom-[15%] -right-[10%] w-[65vw] h-[65vw] max-w-[800px] max-h-[800px] rounded-full bg-purple-600/20 blur-[190px]" />
+          <div className="absolute top-[40%] left-[30%] w-[40vw] h-[40vw] max-w-[500px] max-h-[500px] rounded-full bg-indigo-600/12 blur-[160px]" />
+        </>
       ) : (
         <>
-          <div className="absolute -top-[15%] -left-[10%] w-[60vw] h-[60vw] max-w-[750px] max-h-[750px] rounded-full bg-cyan-500/12 dark:bg-cyan-500/16 blur-[180px]" />
-          <div className="absolute -bottom-[15%] -right-[10%] w-[65vw] h-[65vw] max-w-[800px] max-h-[800px] rounded-full bg-violet-600/16 dark:bg-purple-600/20 blur-[190px]" />
-          <div className="absolute top-[40%] left-[30%] w-[40vw] h-[40vw] max-w-[500px] max-h-[500px] rounded-full bg-blue-600/8 dark:bg-indigo-600/12 blur-[160px]" />
+          <div className="absolute -top-[15%] -left-[10%] w-[55vw] h-[55vw] max-w-[700px] max-h-[700px] rounded-full bg-sky-400/15 blur-[160px]" />
+          <div className="absolute -bottom-[15%] -right-[10%] w-[60vw] h-[60vw] max-w-[750px] max-h-[750px] rounded-full bg-indigo-400/12 blur-[170px]" />
+          <div className="absolute top-[40%] left-[30%] w-[40vw] h-[40vw] max-w-[500px] max-h-[500px] rounded-full bg-blue-300/10 blur-[140px]" />
         </>
       )}
 
       {/* Interactive Physics Canvas */}
-      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
+      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full opacity-90 dark:opacity-100" />
 
       {/* Vignette Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#040508]/40 via-transparent to-[#040508]/60 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-white/30 via-transparent to-white/50 dark:from-[#040508]/40 dark:via-transparent dark:to-[#040508]/60 pointer-events-none transition-colors duration-700" />
     </div>
   );
 }

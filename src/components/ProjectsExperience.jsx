@@ -177,12 +177,12 @@ export default function ProjectsExperience() {
           className={`
           relative h-full rounded-2xl sm:rounded-3xl p-5 sm:p-6
           border transition-all duration-300
-          bg-[#0e101a]/90 dark:bg-[#0c0d16]/95 backdrop-blur-2xl
+          bg-white/95 dark:bg-[#0c0d16]/95 backdrop-blur-2xl
           hover:-translate-y-1.5 cursor-pointer group
           ${
             isRankS
-              ? "border-cyan-400/60 shadow-[0_0_30px_rgba(6,182,212,0.22)] hover:border-cyan-300 hover:shadow-[0_0_45px_rgba(0,240,255,0.45)]"
-              : "border-slate-800 dark:border-white/10 hover:border-violet-500/50 hover:shadow-[0_0_30px_rgba(147,51,234,0.25)]"
+              ? "border-cyan-500/50 dark:border-cyan-400/60 shadow-[0_10px_30px_rgba(6,182,212,0.12)] dark:shadow-[0_0_30px_rgba(6,182,212,0.22)] hover:border-cyan-400 dark:hover:border-cyan-300 hover:shadow-[0_15px_40px_rgba(6,182,212,0.2)] dark:hover:shadow-[0_0_45px_rgba(0,240,255,0.45)]"
+              : "border-slate-200 dark:border-white/10 hover:border-violet-500/40 dark:hover:border-violet-500/50 hover:shadow-lg dark:hover:shadow-[0_0_30px_rgba(147,51,234,0.25)]"
           }
         `}
         >
@@ -194,42 +194,42 @@ export default function ProjectsExperience() {
                 className={`flex h-11 w-11 items-center justify-center rounded-xl text-lg ${
                   isRankS
                     ? "bg-gradient-to-br from-cyan-400 via-blue-500 to-violet-600 text-white shadow-[0_0_20px_rgba(6,182,212,0.5)] group-hover:scale-110 transition-transform"
-                    : "bg-slate-800/80 dark:bg-[#151822] text-cyan-400 border border-slate-700 dark:border-white/10"
+                    : "bg-slate-100 dark:bg-[#151822] text-cyan-600 dark:text-cyan-400 border border-slate-200 dark:border-white/10"
                 }`}
               >
                 {p.icon}
               </div>
-              <span className="text-xs font-mono text-slate-400 font-bold">
+              <span className="text-xs font-mono text-slate-400 dark:text-slate-500 font-bold">
                 #{String(i + 1).padStart(2, "0")}
               </span>
             </div>
 
             {/* Rank Badge */}
             {isRankS ? (
-              <span className="inline-flex items-center gap-1.5 text-[11px] font-mono font-black px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-400/60 shadow-[0_0_15px_rgba(6,182,212,0.4)]">
-                <Sparkles size={11} className="text-cyan-300 animate-spin" style={{ animationDuration: "5s" }} /> RANK S
+              <span className="inline-flex items-center gap-1.5 text-[11px] font-mono font-black px-3 py-1 rounded-full bg-cyan-500/15 dark:bg-cyan-500/20 text-cyan-600 dark:text-cyan-300 border border-cyan-500/30 dark:border-cyan-400/60 shadow-[0_0_15px_rgba(6,182,212,0.25)]">
+                <Sparkles size={11} className="text-cyan-500 dark:text-cyan-300 animate-spin" style={{ animationDuration: "5s" }} /> RANK S
               </span>
             ) : (
-              <span className="text-[10px] font-mono px-2.5 py-1 rounded-full bg-slate-800 dark:bg-[#161922] text-slate-300 border border-slate-700 dark:border-white/10 font-bold">
+              <span className="text-[10px] font-mono px-2.5 py-1 rounded-full bg-slate-100 dark:bg-[#161922] text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-white/10 font-bold">
                 RANK A
               </span>
             )}
           </div>
 
           {/* Project Title */}
-          <h3 className="text-xl sm:text-2xl font-bold font-['Rajdhani',sans-serif] text-white group-hover:text-cyan-400 transition-colors tracking-wide">
+          <h3 className="text-xl sm:text-2xl font-bold font-['Rajdhani',sans-serif] text-slate-900 dark:text-white group-hover:text-cyan-500 dark:group-hover:text-cyan-400 transition-colors tracking-wide">
             {p.title}
           </h3>
 
           {/* Description */}
-          <p className="mt-2 text-xs sm:text-sm text-slate-300 leading-relaxed line-clamp-2">
+          <p className="mt-2 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed line-clamp-2">
             {p.desc}
           </p>
 
           {/* Key Measured Impact */}
           {p.impact && (
-            <div className="mt-3 flex items-start gap-1.5 p-2.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 font-mono text-[11px] shadow-sm">
-              <Zap size={13} className="text-cyan-400 shrink-0 mt-0.5 animate-pulse" />
+            <div className="mt-3 flex items-start gap-1.5 p-2.5 rounded-xl bg-cyan-500/10 border border-cyan-500/25 dark:border-cyan-500/30 text-cyan-700 dark:text-cyan-300 font-mono text-[11px] shadow-sm">
+              <Zap size={13} className="text-cyan-500 dark:text-cyan-400 shrink-0 mt-0.5 animate-pulse" />
               <span className="font-semibold leading-tight">{p.impact}</span>
             </div>
           )}
@@ -240,13 +240,13 @@ export default function ProjectsExperience() {
               {p.tech.slice(0, 3).map((t, idx) => (
                 <span
                   key={idx}
-                  className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-slate-800/90 dark:bg-[#151822] text-slate-200 border border-slate-700/60 dark:border-white/10 font-medium"
+                  className="text-[10px] font-mono px-2.5 py-0.5 rounded-md bg-slate-100 dark:bg-[#151822] text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-white/10 font-medium"
                 >
                   {t}
                 </span>
               ))}
               {p.tech.length > 3 && (
-                <span className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-violet-500/15 text-violet-300 border border-violet-500/30 font-bold">
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-violet-500/10 dark:bg-violet-500/15 text-violet-600 dark:text-violet-300 border border-violet-500/25 dark:border-violet-500/30 font-bold">
                   +{p.tech.length - 3}
                 </span>
               )}

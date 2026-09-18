@@ -5,31 +5,42 @@
   html {
     scroll-behavior: smooth;
     font-family: 'Plus Jakarta Sans', sans-serif;
-    background-color: #090a0f;
     -webkit-overflow-scrolling: touch;
   }
 
   body {
     overflow-x: hidden;
-    background-color: #090a0f;
-    color: #f8fafc;
+    background-color: #f8fafc;
+    color: #0f172a;
     -webkit-overflow-scrolling: touch;
+    transition: background-color 0.4s ease, color 0.4s ease;
+  }
+
+  html.dark body {
+    background-color: #040508;
+    color: #f8fafc;
   }
 
   /* Sleek Thin Scrollbar */
   ::-webkit-scrollbar {
-    width: 5px;
-    height: 5px;
+    width: 6px;
+    height: 6px;
   }
   ::-webkit-scrollbar-track {
     background: transparent;
   }
   ::-webkit-scrollbar-thumb {
-    background: rgba(6, 182, 212, 0.25);
+    background: rgba(14, 165, 233, 0.3);
     border-radius: 9999px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: rgba(6, 182, 212, 0.5);
+    background: rgba(14, 165, 233, 0.6);
+  }
+  html.dark ::-webkit-scrollbar-thumb {
+    background: rgba(6, 182, 212, 0.3);
+  }
+  html.dark ::-webkit-scrollbar-thumb:hover {
+    background: rgba(6, 182, 212, 0.6);
   }
 }
 
