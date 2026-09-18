@@ -2,43 +2,53 @@ import React from "react";
 import { useTheme } from "../context/ThemeContext";
 
 /**
- * Clean & Simple Ambient Background
- * Replaces heavy, spinning 3D particle animations with a calm, elegant,
- * and distraction-free ambient backdrop that is easy on the eyes.
+ * Cinematic Solo Leveling Void Atmosphere
+ * Deep cosmic void with rich violet, electric cyan, and indigo mana nebulae.
  */
 export default function ThreeBackground() {
   const { darkMode, isRedGate } = useTheme();
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden transition-colors duration-500">
-      {/* Calm Ambient Color Glows (Stationary, Non-Dizzying) */}
+    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden transition-colors duration-700">
+      {/* Deep Void Base Background */}
+      <div className="absolute inset-0 bg-[#06070c] dark:bg-[#040509]" />
+
+      {/* Luminous Mana Glowing Nebulae (Rich Cinematic Depth) */}
       {isRedGate ? (
         <>
-          <div className="absolute top-[-10%] left-[15%] w-[55vw] h-[55vw] max-w-[650px] max-h-[650px] rounded-full bg-red-600/12 blur-[140px]" />
-          <div className="absolute bottom-[-10%] right-[10%] w-[50vw] h-[50vw] max-w-[600px] max-h-[600px] rounded-full bg-orange-600/10 blur-[150px]" />
-        </>
-      ) : darkMode ? (
-        <>
-          <div className="absolute top-[-15%] left-[10%] w-[55vw] h-[55vw] max-w-[700px] max-h-[700px] rounded-full bg-cyan-500/8 blur-[160px]" />
-          <div className="absolute bottom-[-15%] right-[5%] w-[55vw] h-[55vw] max-w-[650px] max-h-[650px] rounded-full bg-violet-600/8 blur-[160px]" />
-          <div className="absolute top-[45%] right-[25%] w-[35vw] h-[35vw] max-w-[450px] max-h-[450px] rounded-full bg-blue-600/6 blur-[140px]" />
+          <div className="absolute -top-[15%] left-[10%] w-[65vw] h-[65vw] max-w-[800px] max-h-[800px] rounded-full bg-red-600/20 blur-[160px] animate-pulse" style={{ animationDuration: "6s" }} />
+          <div className="absolute -bottom-[15%] right-[5%] w-[60vw] h-[60vw] max-w-[750px] max-h-[750px] rounded-full bg-rose-600/18 blur-[180px]" />
+          <div className="absolute top-[40%] right-[20%] w-[45vw] h-[45vw] max-w-[550px] max-h-[550px] rounded-full bg-amber-600/12 blur-[150px]" />
         </>
       ) : (
         <>
-          <div className="absolute top-[-15%] left-[15%] w-[50vw] h-[50vw] max-w-[600px] max-h-[600px] rounded-full bg-sky-400/15 blur-[140px]" />
-          <div className="absolute bottom-[-10%] right-[10%] w-[50vw] h-[50vw] max-w-[600px] max-h-[600px] rounded-full bg-indigo-400/12 blur-[140px]" />
+          {/* Cyan Mana Flare (Top Left) */}
+          <div className="absolute -top-[15%] -left-[10%] w-[65vw] h-[65vw] max-w-[850px] max-h-[850px] rounded-full bg-cyan-500/15 dark:bg-cyan-500/20 blur-[180px]" />
+
+          {/* Shadow Monarch Violet Domain (Bottom Right) */}
+          <div className="absolute -bottom-[15%] -right-[10%] w-[70vw] h-[70vw] max-w-[900px] max-h-[900px] rounded-full bg-violet-600/20 dark:bg-purple-600/25 blur-[200px]" />
+
+          {/* Deep Royal Indigo Central Core */}
+          <div className="absolute top-[35%] left-[25%] w-[50vw] h-[50vw] max-w-[650px] max-h-[650px] rounded-full bg-blue-600/12 dark:bg-indigo-600/16 blur-[170px]" />
+
+          {/* Electric Blue Monarch Resonance Pulse */}
+          <div className="absolute top-[70%] left-[10%] w-[40vw] h-[40vw] max-w-[500px] max-h-[500px] rounded-full bg-cyan-400/10 blur-[160px]" />
         </>
       )}
 
-      {/* Subtle, Static Plain & Simple Cyber Dot Grid (Zero Motion, Zero Eye Strain) */}
+      {/* Cyber Hunter Rune Grid with Soft Radial Vignette */}
       <div
-        className={`absolute inset-0 opacity-40 transition-opacity duration-500 ${
-          darkMode
-            ? "bg-[radial-gradient(rgba(255,255,255,0.08)_1px,transparent_1px)]"
-            : "bg-[radial-gradient(rgba(0,0,0,0.06)_1px,transparent_1px)]"
-        }`}
-        style={{ backgroundSize: "28px 28px" }}
+        className="absolute inset-0 opacity-[0.22] dark:opacity-[0.35]"
+        style={{
+          backgroundImage: "radial-gradient(rgba(0, 240, 255, 0.25) 1px, transparent 1px)",
+          backgroundSize: "32px 32px",
+          maskImage: "radial-gradient(circle at center, black 40%, transparent 95%)",
+          WebkitMaskImage: "radial-gradient(circle at center, black 40%, transparent 95%)",
+        }}
       />
+
+      {/* Ambient Vignette Gradient */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#040509]/60 via-transparent to-[#040509]/80 pointer-events-none" />
     </div>
   );
 }

@@ -174,19 +174,18 @@ export default function ProjectsExperience() {
             soundFX.playClick();
             setActiveModalProject(p);
           }}
-        className={`
-          relative h-full flex flex-col justify-between
-          rounded-2xl sm:rounded-3xl p-4 sm:p-5
+          className={`
+          relative h-full rounded-2xl sm:rounded-3xl p-5 sm:p-6
           border transition-all duration-300
-          bg-white/90 dark:bg-[#101218]/95 backdrop-blur-xl
+          bg-[#0e101a]/90 dark:bg-[#0c0d16]/95 backdrop-blur-2xl
           hover:-translate-y-1.5 cursor-pointer group
           ${
             isRankS
-              ? "border-cyan-400/70 shadow-[0_0_25px_rgba(6,182,212,0.18)] hover:shadow-[0_0_35px_rgba(6,182,212,0.35)]"
-              : "border-slate-200 dark:border-white/10 hover:border-cyan-400/50"
+              ? "border-cyan-400/60 shadow-[0_0_30px_rgba(6,182,212,0.22)] hover:border-cyan-300 hover:shadow-[0_0_45px_rgba(0,240,255,0.45)]"
+              : "border-slate-800 dark:border-white/10 hover:border-violet-500/50 hover:shadow-[0_0_30px_rgba(147,51,234,0.25)]"
           }
         `}
-      >
+        >
         <div>
           {/* Top Bar */}
           <div className="flex items-center justify-between mb-4">
@@ -194,8 +193,8 @@ export default function ProjectsExperience() {
               <div
                 className={`flex h-11 w-11 items-center justify-center rounded-xl text-lg ${
                   isRankS
-                    ? "bg-gradient-to-br from-cyan-400 to-violet-600 text-white shadow-[0_0_15px_rgba(6,182,212,0.4)]"
-                    : "bg-slate-100 dark:bg-[#151822] text-cyan-400 border border-slate-200 dark:border-white/5"
+                    ? "bg-gradient-to-br from-cyan-400 via-blue-500 to-violet-600 text-white shadow-[0_0_20px_rgba(6,182,212,0.5)] group-hover:scale-110 transition-transform"
+                    : "bg-slate-800/80 dark:bg-[#151822] text-cyan-400 border border-slate-700 dark:border-white/10"
                 }`}
               >
                 {p.icon}
@@ -207,29 +206,29 @@ export default function ProjectsExperience() {
 
             {/* Rank Badge */}
             {isRankS ? (
-              <span className="inline-flex items-center gap-1 text-[11px] font-mono font-black px-2.5 py-1 rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-400/50 shadow-[0_0_10px_rgba(6,182,212,0.3)]">
-                <Sparkles size={11} /> RANK S
+              <span className="inline-flex items-center gap-1.5 text-[11px] font-mono font-black px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-400/60 shadow-[0_0_15px_rgba(6,182,212,0.4)]">
+                <Sparkles size={11} className="text-cyan-300 animate-spin" style={{ animationDuration: "5s" }} /> RANK S
               </span>
             ) : (
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-200 dark:bg-[#161922] text-slate-700 dark:text-slate-300 border border-transparent dark:border-white/5">
+              <span className="text-[10px] font-mono px-2.5 py-1 rounded-full bg-slate-800 dark:bg-[#161922] text-slate-300 border border-slate-700 dark:border-white/10 font-bold">
                 RANK A
               </span>
             )}
           </div>
 
           {/* Project Title */}
-          <h3 className="text-xl sm:text-2xl font-bold font-['Rajdhani',sans-serif] text-slate-900 dark:text-white group-hover:text-cyan-400 transition-colors">
+          <h3 className="text-xl sm:text-2xl font-bold font-['Rajdhani',sans-serif] text-white group-hover:text-cyan-400 transition-colors tracking-wide">
             {p.title}
           </h3>
 
           {/* Description */}
-          <p className="mt-2 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed line-clamp-2">
+          <p className="mt-2 text-xs sm:text-sm text-slate-300 leading-relaxed line-clamp-2">
             {p.desc}
           </p>
 
           {/* Key Measured Impact */}
           {p.impact && (
-            <div className="mt-3 flex items-start gap-1.5 p-2 rounded-xl bg-cyan-500/10 border border-cyan-500/25 text-cyan-600 dark:text-cyan-300 font-mono text-[11px]">
+            <div className="mt-3 flex items-start gap-1.5 p-2.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 font-mono text-[11px] shadow-sm">
               <Zap size={13} className="text-cyan-400 shrink-0 mt-0.5 animate-pulse" />
               <span className="font-semibold leading-tight">{p.impact}</span>
             </div>
@@ -237,17 +236,17 @@ export default function ProjectsExperience() {
 
           {/* Core Tech Stack Pills */}
           {p.tech && (
-            <div className="mt-3 flex flex-wrap gap-1">
+            <div className="mt-3 flex flex-wrap gap-1.5">
               {p.tech.slice(0, 3).map((t, idx) => (
                 <span
                   key={idx}
-                  className="text-[9px] font-mono px-2 py-0.5 rounded-md bg-slate-100 dark:bg-[#151822] text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-white/5 font-medium"
+                  className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-slate-800/90 dark:bg-[#151822] text-slate-200 border border-slate-700/60 dark:border-white/10 font-medium"
                 >
                   {t}
                 </span>
               ))}
               {p.tech.length > 3 && (
-                <span className="text-[9px] font-mono px-1.5 py-0.5 rounded text-cyan-400 font-bold">
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-violet-500/15 text-violet-300 border border-violet-500/30 font-bold">
                   +{p.tech.length - 3}
                 </span>
               )}

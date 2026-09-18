@@ -317,36 +317,36 @@ const Homepage = () => {
       <main className="relative z-10 w-full flex flex-col">
         {sections.map((sec, idx) => (
           <React.Fragment key={sec.id}>
-            {/* Holographic Realm Horizon Divider between sections */}
+            {/* Holographic Monarch Realm Divider */}
             {idx > 0 && (
-              <div className="w-full max-w-5xl mx-auto px-6 my-4 flex items-center gap-4 opacity-50 hover:opacity-100 transition-opacity select-none">
-                <div className="flex-1 h-[1px] bg-gradient-to-r from-transparent via-cyan-500/40 to-transparent" />
-                <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full border border-slate-200 dark:border-cyan-500/30 bg-white/80 dark:bg-slate-900/80 text-[10px] font-mono font-bold text-cyan-600 dark:text-cyan-400 tracking-wider shadow-sm">
-                  <Sparkles size={11} className="text-cyan-500 animate-spin" style={{ animationDuration: "6s" }} />
+              <div className="w-full max-w-5xl mx-auto px-6 my-8 sm:my-12 flex items-center gap-4 select-none">
+                <div className="flex-1 h-[1px] bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent" />
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cyan-500/40 dark:border-violet-500/40 bg-white/90 dark:bg-[#0c0e18]/90 text-xs font-mono font-bold text-cyan-600 dark:text-cyan-300 tracking-wider shadow-[0_0_20px_rgba(6,182,212,0.2)] backdrop-blur-xl">
+                  <span className="h-2 w-2 rounded-full bg-cyan-400 animate-ping" />
                   <span>{sec.floor} // {sec.title.toUpperCase()}</span>
                 </div>
-                <div className="flex-1 h-[1px] bg-gradient-to-r from-transparent via-violet-500/40 to-transparent" />
+                <div className="flex-1 h-[1px] bg-gradient-to-r from-transparent via-violet-500/50 to-transparent" />
               </div>
             )}
 
-            <section
+            <div
               id={sec.id}
               ref={(el) => (sectionRefs.current[idx] = el)}
-              className={`w-full max-w-6xl mx-auto px-3 sm:px-6 md:px-8 scroll-mt-24 ${
+              className={`w-full max-w-6xl mx-auto px-4 sm:px-6 md:px-8 scroll-mt-24 ${
                 idx === 0
-                  ? "pt-24 sm:pt-28 pb-12 sm:pb-16 min-h-[90vh] flex flex-col justify-center"
-                  : "py-10 sm:py-16 md:py-20"
+                  ? "pt-24 sm:pt-32 pb-14 sm:pb-20 min-h-[92vh] flex flex-col justify-center"
+                  : "py-8 sm:py-14"
               }`}
             >
               <motion.div
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 35 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-70px" }}
-                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
               >
                 {sec.component}
               </motion.div>
-            </section>
+            </div>
           </React.Fragment>
         ))}
       </main>
