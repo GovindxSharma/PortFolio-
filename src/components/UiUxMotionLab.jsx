@@ -164,19 +164,19 @@ export default function UiUxMotionLab() {
   };
 
   return (
-    <div className="mt-8 rounded-3xl border border-cyan-500/30 bg-slate-900/60 dark:bg-[#0b0d13]/90 backdrop-blur-2xl p-4 sm:p-7 shadow-[0_10px_40px_rgba(0,0,0,0.4)]">
+    <div className="mt-8 rounded-3xl border border-slate-200 dark:border-cyan-500/30 bg-white/95 dark:bg-[#0c0d16]/95 backdrop-blur-2xl p-4 sm:p-7 shadow-[0_10px_40px_rgba(0,0,0,0.06)] dark:shadow-[0_10px_40px_rgba(0,0,0,0.5)] text-slate-900 dark:text-white">
       {/* Top Banner */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-slate-200/20 dark:border-white/10 pb-4 mb-5">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-slate-200 dark:border-white/10 pb-4 mb-5">
         <div className="flex items-center gap-3">
-          <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-cyan-500 to-violet-600 flex items-center justify-center text-white shadow-lg shadow-cyan-500/30">
+          <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-cyan-500 to-violet-600 flex items-center justify-center text-white shadow-lg shadow-cyan-500/30 shrink-0">
             <Activity className="h-5 w-5 animate-pulse" />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-[10px] font-mono font-bold tracking-widest text-cyan-400 uppercase">
+              <span className="text-[10px] font-mono font-bold tracking-widest text-cyan-600 dark:text-cyan-400 uppercase">
                 [ INTERACTIVE ENGINEERING LAB // LIVE SANDBOX ]
               </span>
-              <span className="px-2 py-0.2 rounded-full text-[9px] font-mono font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+              <span className="px-2 py-0.2 rounded-full text-[9px] font-mono font-bold bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
                 {fps} FPS ACTIVE
               </span>
             </div>
@@ -187,7 +187,7 @@ export default function UiUxMotionLab() {
         </div>
 
         {/* Tab Selection Chips */}
-        <div className="flex flex-wrap items-center gap-1.5 p-1 rounded-xl bg-slate-800/60 dark:bg-black/40 border border-white/5">
+        <div className="flex flex-wrap items-center gap-1.5 p-1 rounded-xl bg-slate-100 dark:bg-black/40 border border-slate-200 dark:border-white/5">
           {[
             { id: "physics", label: "Spring Motion", icon: Move },
             { id: "glass", label: "Token Shader", icon: Sliders },
@@ -207,7 +207,7 @@ export default function UiUxMotionLab() {
                 className={`flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition ${
                   isActive
                     ? "bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-md"
-                    : "text-slate-400 hover:text-white hover:bg-white/5"
+                    : "text-slate-600 dark:text-slate-400 hover:text-cyan-600 dark:hover:text-white hover:bg-white/5"
                 }`}
               >
                 <Icon size={12} />

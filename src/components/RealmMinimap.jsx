@@ -34,7 +34,7 @@ export default function RealmMinimap({
   return (
     <aside
       aria-label="Realm Navigation Minimap"
-      className="fixed bottom-4 left-1/2 -translate-x-1/2 z-40 flex items-center gap-1.5 p-1.5 sm:p-2 rounded-2xl bg-white/90 dark:bg-[#0c0e14]/90 border border-slate-200 dark:border-white/10 shadow-2xl backdrop-blur-xl pointer-events-auto select-none"
+      className="fixed bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 z-40 flex items-center gap-1 sm:gap-1.5 p-1 sm:p-2 max-w-[calc(100vw-16px)] sm:max-w-none overflow-x-auto no-scrollbar rounded-2xl bg-white/95 dark:bg-[#0c0e14]/95 border border-slate-200 dark:border-white/10 shadow-2xl backdrop-blur-xl pointer-events-auto select-none"
     >
       {/* Quick Terminal Trigger Pill */}
       <button
