@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Swords, Shield, Zap, Sparkles, Flame, Snowflake, Crown, CheckCircle2 } from "lucide-react";
+import Tilt from "react-parallax-tilt";
+import { Swords, Shield, Zap, Sparkles, Flame, Snowflake, Crown, CheckCircle2, Award, Gauge } from "lucide-react";
 import { soundFX } from "../utils/soundEffects";
 
 const shadowCommanders = [
@@ -15,7 +16,12 @@ const shadowCommanders = [
     glow: "rgba(239, 68, 68, 0.4)",
     quote: "My blade strikes with O(1) optimal time complexity.",
     buff: "+100% Algorithmic Precision & Code Architecture",
-    stats: { Atk: "98/100", Def: "95/100", Speed: "99/100", Mana: "3,500 MP" },
+    stats: [
+      { label: "Attack (Logic)", val: 98, text: "98/100" },
+      { label: "Defense (Fault Tol.)", val: 95, text: "95/100" },
+      { label: "Speed (Execution)", val: 99, text: "99/100" },
+      { label: "Mana Capacity", val: 92, text: "3,500 MP" },
+    ],
   },
   {
     id: "beru",
@@ -28,7 +34,12 @@ const shadowCommanders = [
     glow: "rgba(6, 182, 212, 0.5)",
     quote: "My King! I shall consume all server latency and crash bugs!",
     buff: "+200% High-Concurrency Backend Throughput",
-    stats: { Atk: "100/100", Def: "92/100", Speed: "100/100", Mana: "5,000 MP" },
+    stats: [
+      { label: "Attack (Throughput)", val: 100, text: "100/100" },
+      { label: "Defense (Resilience)", val: 92, text: "92/100" },
+      { label: "Speed (Low Latency)", val: 100, text: "100/100" },
+      { label: "Mana Capacity", val: 100, text: "5,000 MP" },
+    ],
   },
   {
     id: "iron",
@@ -41,7 +52,12 @@ const shadowCommanders = [
     glow: "rgba(245, 158, 11, 0.4)",
     quote: "No DDoS or deployment outage shall pierce my shield.",
     buff: "+150% Server Uptime & Zero Downtime Deploys",
-    stats: { Atk: "90/100", Def: "100/100", Speed: "85/100", Mana: "2,800 MP" },
+    stats: [
+      { label: "Attack (DevOps Ops)", val: 90, text: "90/100" },
+      { label: "Defense (99.9% SLA)", val: 100, text: "100/100" },
+      { label: "Speed (CI/CD Pipeline)", val: 85, text: "85/100" },
+      { label: "Mana Capacity", val: 88, text: "2,800 MP" },
+    ],
   },
   {
     id: "tank",
@@ -54,7 +70,12 @@ const shadowCommanders = [
     glow: "rgba(147, 51, 234, 0.5)",
     quote: "Eliminating dropped frames into silky smooth 60 FPS across all devices.",
     buff: "+120% Visual Fluidity, Responsiveness & Accessible UX",
-    stats: { Atk: "92/100", Def: "96/100", Speed: "94/100", Mana: "3,200 MP" },
+    stats: [
+      { label: "Attack (Render Perf)", val: 94, text: "94/100" },
+      { label: "Defense (Cross-Device)", val: 96, text: "96/100" },
+      { label: "Speed (60-120 FPS)", val: 98, text: "98/100" },
+      { label: "Mana Capacity", val: 90, text: "3,200 MP" },
+    ],
   },
 ];
 
@@ -72,7 +93,7 @@ export default function ShadowArmy() {
 
         {/* Section Header */}
         <div className="text-center mb-5 sm:mb-6">
-          <div className="inline-flex items-center gap-2 rounded-full border border-violet-500/30 bg-white/70 dark:bg-[#12141c] px-3.5 py-1 text-xs font-mono text-violet-400 font-bold mb-2.5">
+          <div className="inline-flex items-center gap-2 rounded-full border border-violet-500/30 bg-white/70 dark:bg-[#12141c] px-3.5 py-1 text-xs font-mono text-violet-400 font-bold mb-2.5 shadow-sm">
             <Sparkles size={13} className="text-violet-400" />
             <span>[ SHADOW EXTRACTION STATION // ALLIED COMMANDERS ]</span>
           </div>
@@ -96,41 +117,49 @@ export default function ShadowArmy() {
             const isSelected = activeCommander.id === c.id;
 
             return (
-              <motion.button
+              <Tilt
                 key={c.id}
-                onClick={() => handleSelect(c)}
-                whileHover={{ scale: 1.03, y: -2 }}
-                whileTap={{ scale: 0.98 }}
-                className={`
-                  p-3.5 sm:p-4 rounded-2xl border transition-all duration-300 text-left flex flex-col justify-between
-                  bg-white/80 dark:bg-[#101218]/90 backdrop-blur-xl
-                  ${
-                    isSelected
-                      ? "border-cyan-400 shadow-[0_0_20px_rgba(6,182,212,0.3)]"
-                      : "border-slate-200 dark:border-white/10 hover:border-violet-500/40"
-                  }
-                `}
+                tiltMaxAngleX={6}
+                tiltMaxAngleY={6}
+                perspective={800}
+                scale={1.02}
+                className="w-full"
               >
-                <div className="flex items-center justify-between mb-2.5">
-                  <div
-                    className={`h-9 w-9 sm:h-10 sm:w-10 rounded-xl flex items-center justify-center text-white bg-gradient-to-br ${c.color} shadow-lg`}
-                  >
-                    <Icon size={18} />
+                <motion.button
+                  onClick={() => handleSelect(c)}
+                  onMouseEnter={() => soundFX.playHover()}
+                  whileTap={{ scale: 0.98 }}
+                  className={`
+                    w-full h-full p-3.5 sm:p-4 rounded-2xl border transition-all duration-300 text-left flex flex-col justify-between
+                    bg-white/80 dark:bg-[#101218]/90 backdrop-blur-xl
+                    ${
+                      isSelected
+                        ? "border-cyan-400 shadow-[0_0_25px_rgba(6,182,212,0.35)] ring-1 ring-cyan-400/50"
+                        : "border-slate-200 dark:border-white/10 hover:border-violet-500/40"
+                    }
+                  `}
+                >
+                  <div className="flex items-center justify-between mb-2.5">
+                    <div
+                      className={`h-9 w-9 sm:h-10 sm:w-10 rounded-xl flex items-center justify-center text-white bg-gradient-to-br ${c.color} shadow-lg`}
+                    >
+                      <Icon size={18} />
+                    </div>
+                    <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+                      {c.rank}
+                    </span>
                   </div>
-                  <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
-                    {c.rank}
-                  </span>
-                </div>
 
-                <div>
-                  <h4 className="text-sm font-bold font-['Rajdhani',sans-serif] text-slate-900 dark:text-white">
-                    {c.name.split(" ")[0]}
-                  </h4>
-                  <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 block truncate">
-                    {c.role}
-                  </span>
-                </div>
-              </motion.button>
+                  <div>
+                    <h4 className="text-sm font-bold font-['Rajdhani',sans-serif] text-slate-900 dark:text-white">
+                      {c.name.split(" ")[0]}
+                    </h4>
+                    <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 block truncate">
+                      {c.role}
+                    </span>
+                  </div>
+                </motion.button>
+              </Tilt>
             );
           })}
         </div>
@@ -145,66 +174,78 @@ export default function ShadowArmy() {
             transition={{ duration: 0.3 }}
             className="
               relative rounded-3xl border border-cyan-500/40
-              bg-white/90 dark:bg-[#101218]/95 backdrop-blur-2xl p-5 sm:p-6
+              bg-white/95 dark:bg-[#101218]/95 backdrop-blur-2xl p-5 sm:p-7
               shadow-[0_0_40px_rgba(0,0,0,0.6)] text-slate-900 dark:text-white overflow-hidden
             "
           >
             {/* Ambient Background Aura */}
             <div
-              className="absolute -right-20 -top-20 w-80 h-80 rounded-full blur-[120px] pointer-events-none opacity-30"
+              className="absolute -right-20 -top-20 w-96 h-96 rounded-full blur-[140px] pointer-events-none opacity-40 animate-pulse"
               style={{ background: activeCommander.glow }}
             />
 
             <div className="grid md:grid-cols-12 gap-5 sm:gap-7 items-center relative z-10">
 
               {/* Left Info (7 cols) */}
-              <div className="md:col-span-7 space-y-3">
+              <div className="md:col-span-7 space-y-3.5">
                 <div className="flex items-center gap-2 font-mono text-xs text-cyan-400">
                   <span className="h-2 w-2 rounded-full bg-cyan-400 animate-ping" />
                   <span>[ SHADOW COMMANDER EXTRACTED & READY ]</span>
                 </div>
 
-                <h3 className="text-2xl sm:text-3xl font-black font-['Rajdhani',sans-serif]">
-                  {activeCommander.name}
-                </h3>
-
-                <p className="text-sm font-semibold text-cyan-400 font-mono">
-                  {activeCommander.title}
-                </p>
+                <div>
+                  <h3 className="text-2xl sm:text-3xl font-black font-['Rajdhani',sans-serif] text-slate-900 dark:text-white">
+                    {activeCommander.name}
+                  </h3>
+                  <p className="text-xs sm:text-sm font-semibold text-cyan-600 dark:text-cyan-400 font-mono mt-0.5">
+                    {activeCommander.title}
+                  </p>
+                </div>
 
                 {/* Quote in voice bubble */}
-                <div className="p-3.5 rounded-2xl bg-slate-100 dark:bg-[#0c0d12] border border-slate-200 dark:border-white/5 text-xs sm:text-sm italic text-slate-700 dark:text-slate-300">
+                <div className="p-3.5 rounded-2xl bg-slate-100 dark:bg-[#0c0d12] border border-slate-200 dark:border-white/10 text-xs sm:text-sm italic text-slate-700 dark:text-slate-300">
                   "{activeCommander.quote}"
                 </div>
 
                 {/* Applied Passive Buff */}
-                <div className="flex items-center gap-2 p-3 rounded-xl bg-gradient-to-r from-violet-500/15 to-cyan-500/15 border border-cyan-500/30 font-mono text-xs text-cyan-400 font-bold">
-                  <Sparkles size={14} className="text-cyan-400 animate-pulse" />
+                <div className="flex items-center gap-2 p-3 rounded-xl bg-gradient-to-r from-violet-500/15 to-cyan-500/15 border border-cyan-500/30 font-mono text-xs text-cyan-600 dark:text-cyan-300 font-bold shadow-sm">
+                  <Sparkles size={15} className="text-cyan-400 animate-pulse shrink-0" />
                   <span>BUFF: {activeCommander.buff}</span>
                 </div>
               </div>
 
               {/* Right Combat Stats (5 cols) */}
               <div className="md:col-span-5 space-y-3 font-mono text-xs">
-                <div className="p-4 rounded-2xl bg-slate-100 dark:bg-[#0c0d12] border border-slate-200 dark:border-white/5 space-y-2.5">
-                  <span className="text-[10px] text-cyan-400 font-bold uppercase block border-b border-slate-200 dark:border-white/5 pb-1">
+                <div className="p-4 rounded-2xl bg-slate-100/90 dark:bg-[#0c0d12]/90 border border-slate-200 dark:border-white/10 space-y-3">
+                  <span className="text-[10px] text-cyan-500 dark:text-cyan-400 font-bold uppercase block border-b border-slate-200 dark:border-white/5 pb-1 tracking-wider">
                     COMMANDER COMBAT METRICS
                   </span>
 
-                  {Object.entries(activeCommander.stats).map(([k, v]) => (
-                    <div key={k} className="flex items-center justify-between">
-                      <span className="text-slate-500 dark:text-slate-400">{k}:</span>
-                      <span className="font-bold text-slate-900 dark:text-cyan-300">{v}</span>
+                  {activeCommander.stats.map((st, idx) => (
+                    <div key={idx} className="space-y-1">
+                      <div className="flex items-center justify-between text-[11px]">
+                        <span className="text-slate-600 dark:text-slate-400 font-medium">{st.label}</span>
+                        <span className="font-bold text-slate-900 dark:text-cyan-300">{st.text}</span>
+                      </div>
+                      <div className="h-1.5 w-full bg-slate-200 dark:bg-black/50 rounded-full overflow-hidden">
+                        <motion.div
+                          initial={{ width: 0 }}
+                          animate={{ width: `${st.val}%` }}
+                          transition={{ duration: 0.5, ease: "easeOut" }}
+                          className="h-full bg-gradient-to-r from-cyan-400 to-violet-500 rounded-full"
+                        />
+                      </div>
                     </div>
                   ))}
                 </div>
 
                 <button
                   onClick={() => soundFX.playArise()}
-                  className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-600 text-white font-bold font-mono text-xs shadow-lg hover:scale-105 transition flex items-center justify-center gap-2"
+                  onMouseEnter={() => soundFX.playHover()}
+                  className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-violet-600 via-indigo-600 to-cyan-500 text-white font-bold font-mono text-xs shadow-[0_0_20px_rgba(147,51,234,0.3)] hover:shadow-[0_0_25px_rgba(0,240,255,0.6)] hover:scale-105 active:scale-95 transition flex items-center justify-center gap-2"
                 >
-                  <Zap size={14} />
-                  <span>Summon Resonance</span>
+                  <Zap size={14} className="text-cyan-300" />
+                  <span>Summon Resonance (일어서라)</span>
                 </button>
               </div>
 

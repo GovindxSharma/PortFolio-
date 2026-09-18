@@ -1,14 +1,30 @@
-import React, { useState } from "react";
-import { ArrowUpRight, Sparkles, Zap, Shield, Swords, Terminal, Download, UserCheck, Brain, FileCheck2, Cpu, Layers } from "lucide-react";
-import { motion } from "framer-motion";
+import React, { useState, useEffect } from "react";
+import { ArrowUpRight, Sparkles, Zap, Shield, Swords, Terminal, Download, UserCheck, Brain, FileCheck2, Cpu, Layers, Activity, Gauge, Flame } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import Tilt from "react-parallax-tilt";
 import confetti from "canvas-confetti";
 import { soundFX } from "../utils/soundEffects";
 import { PROFILE } from "../data/profile";
 import DsaSpotlightModal from "./DsaSpotlightModal";
 
+const ROLES = [
+  "S-Rank Full-Stack Architect",
+  "2,000+ DSA & Algorithm Solver",
+  "Real-Time WebSocket Specialist",
+  "6+ Production Platforms Deployed",
+];
+
 const About = ({ onOpenStatus, onOpenRecruiterBrief, onOpenSimulator, onOpenArchitecture }) => {
   const [ariseActive, setAriseActive] = useState(false);
   const [dsaModalOpen, setDsaModalOpen] = useState(false);
+  const [roleIndex, setRoleIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setRoleIndex((prev) => (prev + 1) % ROLES.length);
+    }, 3200);
+    return () => clearInterval(timer);
+  }, []);
 
   const resumeUrl = PROFILE.resumeUrl;
 
@@ -31,10 +47,10 @@ const About = ({ onOpenStatus, onOpenRecruiterBrief, onOpenSimulator, onOpenArch
     soundFX.playArise();
     setAriseActive(true);
     confetti({
-      particleCount: 100,
-      spread: 90,
+      particleCount: 120,
+      spread: 100,
       origin: { y: 0.5 },
-      colors: ["#00f0ff", "#a855f7", "#3b82f6", "#ffffff", "#ef4444"],
+      colors: ["#00f0ff", "#a855f7", "#3b82f6", "#ffffff", "#ef4444", "#fbbf24"],
     });
     setTimeout(() => {
       setAriseActive(false);
@@ -83,12 +99,21 @@ const About = ({ onOpenStatus, onOpenRecruiterBrief, onOpenSimulator, onOpenArch
             transition={{ duration: 0.6 }}
             className="lg:col-span-7 text-center lg:text-left"
           >
-            {/* Solo Leveling Hunter Tag Badge */}
-            <div className="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-white/70 dark:bg-[#12141c]/90 px-3.5 py-1 shadow-md backdrop-blur-xl">
+            {/* Solo Leveling Dynamic Rotating Badge */}
+            <div className="inline-flex items-center gap-2 rounded-full border border-cyan-500/40 bg-white/80 dark:bg-[#12141c]/90 px-4 py-1.5 shadow-[0_0_20px_rgba(6,182,212,0.15)] backdrop-blur-xl">
               <span className="flex h-2 w-2 rounded-full bg-cyan-400 animate-ping" />
-              <span className="text-[10px] sm:text-xs font-mono font-bold tracking-widest text-cyan-500 dark:text-cyan-300 uppercase">
-                [ S-RANK SYSTEM ARCHITECT // AWAKENED ]
-              </span>
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={roleIndex}
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.3 }}
+                  className="text-[10px] sm:text-xs font-mono font-bold tracking-wider text-cyan-600 dark:text-cyan-300 uppercase"
+                >
+                  [ {ROLES[roleIndex]} // AWAKENED ]
+                </motion.span>
+              </AnimatePresence>
             </div>
 
             {/* Main Headline */}
@@ -117,7 +142,7 @@ const About = ({ onOpenStatus, onOpenRecruiterBrief, onOpenSimulator, onOpenArch
                 <span
                   key={tech}
                   onMouseEnter={() => soundFX.playHover()}
-                  className="rounded-lg border border-slate-300/80 dark:border-white/10 bg-white/70 dark:bg-[#12141c]/80 px-2.5 py-0.5 text-[11px] sm:text-xs font-mono font-medium text-slate-800 dark:text-slate-200 hover:border-cyan-400 hover:text-cyan-400 transition cursor-default backdrop-blur-md"
+                  className="rounded-lg border border-slate-300/80 dark:border-white/10 bg-white/70 dark:bg-[#12141c]/80 px-2.5 py-0.5 text-[11px] sm:text-xs font-mono font-medium text-slate-800 dark:text-slate-200 hover:border-cyan-400 hover:text-cyan-400 hover:shadow-[0_0_12px_rgba(6,182,212,0.3)] transition cursor-default backdrop-blur-md"
                 >
                   {tech}
                 </span>
@@ -125,16 +150,16 @@ const About = ({ onOpenStatus, onOpenRecruiterBrief, onOpenSimulator, onOpenArch
             </div>
 
             {/* Proof-of-Work Interactive Badges */}
-            <div className="mt-3 flex flex-wrap items-center justify-center lg:justify-start gap-2">
+            <div className="mt-3.5 flex flex-wrap items-center justify-center lg:justify-start gap-2">
               <button
                 onClick={() => {
                   soundFX.playClick();
                   if (onOpenSimulator) onOpenSimulator();
                 }}
                 onMouseEnter={() => soundFX.playHover()}
-                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-bold bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-600 dark:text-cyan-400 border border-cyan-500/30 transition active:scale-95 shadow-sm"
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-[11px] font-mono font-bold bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-600 dark:text-cyan-400 border border-cyan-500/30 hover:border-cyan-400 transition active:scale-95 shadow-sm"
               >
-                <Cpu size={12} className="text-cyan-500" />
+                <Cpu size={13} className="text-cyan-500" />
                 <span>Architecture Lab Simulator &rarr;</span>
               </button>
               <button
@@ -143,9 +168,9 @@ const About = ({ onOpenStatus, onOpenRecruiterBrief, onOpenSimulator, onOpenArch
                   if (onOpenArchitecture) onOpenArchitecture();
                 }}
                 onMouseEnter={() => soundFX.playHover()}
-                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono font-bold bg-violet-500/10 hover:bg-violet-500/20 text-violet-600 dark:text-violet-400 border border-violet-500/30 transition active:scale-95 shadow-sm"
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-[11px] font-mono font-bold bg-violet-500/10 hover:bg-violet-500/20 text-violet-600 dark:text-violet-400 border border-violet-500/30 hover:border-violet-400 transition active:scale-95 shadow-sm"
               >
-                <Layers size={12} className="text-violet-500" />
+                <Layers size={13} className="text-violet-500" />
                 <span>System Blueprints &rarr;</span>
               </button>
             </div>
@@ -206,126 +231,151 @@ const About = ({ onOpenStatus, onOpenRecruiterBrief, onOpenSimulator, onOpenArch
 
           </motion.div>
 
-          {/* RIGHT HUNTER PROFILE CARD (Plain & Simple, Zero Dizzying 3D) */}
+          {/* RIGHT HUNTER PROFILE CARD WITH 3D TILT */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.15 }}
             className="lg:col-span-5 relative flex flex-col items-center w-full max-w-sm mx-auto"
           >
-            {/* Subtle Static Ambient Glow */}
-            <div className="absolute -inset-3 rounded-3xl bg-gradient-to-r from-cyan-500/15 via-blue-500/10 to-violet-600/15 blur-2xl pointer-events-none" />
+            {/* Subtle Ambient Aura */}
+            <div className="absolute -inset-3 rounded-3xl bg-gradient-to-r from-cyan-500/20 via-blue-500/15 to-violet-600/20 blur-2xl pointer-events-none animate-pulse" />
 
-            {/* Clean Hunter Card */}
-            <div className="relative w-full rounded-3xl border border-slate-200/80 dark:border-white/10 bg-white/90 dark:bg-[#101218]/95 p-4 sm:p-5 shadow-2xl backdrop-blur-2xl overflow-hidden">
-              {/* Header Label */}
-              <div className="flex items-center justify-between border-b border-slate-200 dark:border-white/10 pb-2 mb-2.5 font-mono text-[10px] sm:text-[11px] text-cyan-400">
-                <span className="flex items-center gap-1.5 font-bold tracking-wider">
-                  <Terminal size={12} /> HUNTER DOSSIER
-                </span>
-                <span className="flex items-center gap-1.5 font-bold text-emerald-400">
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                  AVAILABLE
-                </span>
-              </div>
-
-              {/* Developer Profile Visual (Plain, Clean, Focused) */}
-              <div className="relative rounded-2xl bg-gradient-to-b from-slate-100 to-slate-200/70 dark:from-[#0d0f15] dark:to-[#090a0e] border border-slate-200 dark:border-white/5 p-4 flex flex-col items-center text-center">
-                {/* Profile Avatar */}
-                <div className="relative mb-2.5">
-                  <div className="h-20 w-20 sm:h-22 sm:w-22 rounded-2xl p-1 bg-gradient-to-tr from-cyan-500 via-blue-500 to-violet-600 shadow-[0_0_15px_rgba(6,182,212,0.25)]">
-                    <img
-                      src="/github.png"
-                      alt="Govind Sharma"
-                      className="h-full w-full rounded-[14px] object-cover bg-[#0a0c10]"
-                    />
-                  </div>
-                  <div className="absolute -bottom-1 -right-1 px-2 py-0.5 rounded-full bg-cyan-500 text-black font-mono text-[9px] font-black tracking-wider shadow-md">
-                    LV. 99
-                  </div>
-                </div>
-
-                {/* Name & Title */}
-                <h3 className="text-lg sm:text-xl font-bold font-['Rajdhani',sans-serif] text-slate-900 dark:text-white tracking-wide">
-                  Govind Sharma
-                </h3>
-                <p className="text-xs font-mono text-cyan-600 dark:text-cyan-400 font-bold mt-0.5">
-                  Full-Stack Developer & Software Architect
-                </p>
-
-                {/* Class Badge */}
-                <div className="mt-2.5 inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-slate-200/80 dark:bg-white/5 border border-slate-300/80 dark:border-white/10 text-[11px] font-mono font-medium text-slate-700 dark:text-slate-300">
-                  <Shield size={12} className="text-cyan-400" />
-                  <span>S-Rank · Shadow Monarch</span>
-                </div>
-
-                {/* Focus Badges */}
-                <div className="mt-2.5 flex flex-wrap justify-center gap-1.5">
-                  {["React & Vite", "Node & Express", "MongoDB", "AI APIs"].map((pill, idx) => (
-                    <span
-                      key={idx}
-                      className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-white dark:bg-[#141722] border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 font-semibold"
-                    >
-                      {pill}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* Quantified Production Impact Grid */}
-              <div className="mt-3 grid grid-cols-2 gap-1.5 sm:gap-2 text-center font-mono">
-                <div
-                  onClick={() => {
-                    soundFX.playClick();
-                    setDsaModalOpen(true);
-                  }}
-                  onMouseEnter={() => soundFX.playHover()}
-                  className="rounded-xl border border-cyan-500/40 dark:border-cyan-400/30 bg-cyan-500/5 dark:bg-[#141720] p-2 hover:border-cyan-400 dark:hover:border-cyan-400 hover:shadow-md transition cursor-pointer group"
-                  title="Click to view Algorithmic Mastery Breakdown"
-                >
-                  <div className="flex items-center justify-center gap-1">
-                    <h3 className="text-base sm:text-lg font-black text-cyan-600 dark:text-cyan-300 font-['Rajdhani',sans-serif]">
-                      2,000+
-                    </h3>
-                    <Brain className="w-3.5 h-3.5 text-cyan-500 group-hover:scale-125 transition-transform" />
-                  </div>
-                  <p className="text-[9px] text-slate-600 dark:text-slate-400 uppercase font-semibold">
-                    DSA Solved (LeetCode)
-                  </p>
-                  <span className="text-[8px] text-cyan-600 dark:text-cyan-400 font-bold block">
-                    [View Ledger &rarr;]
+            <Tilt
+              tiltMaxAngleX={7}
+              tiltMaxAngleY={7}
+              perspective={1000}
+              glareEnable={true}
+              glareMaxOpacity={0.12}
+              glareColor="#00f0ff"
+              glarePosition="all"
+              scale={1.01}
+              className="w-full"
+            >
+              {/* Hunter Holographic Dossier Card */}
+              <div className="relative w-full rounded-3xl border border-cyan-500/30 dark:border-white/15 bg-white/95 dark:bg-[#101218]/95 p-4 sm:p-5 shadow-2xl backdrop-blur-2xl overflow-hidden group">
+                
+                {/* Holographic Top Banner */}
+                <div className="flex items-center justify-between border-b border-slate-200 dark:border-white/10 pb-2.5 mb-3 font-mono text-[10px] sm:text-[11px] text-cyan-400">
+                  <span className="flex items-center gap-1.5 font-bold tracking-wider">
+                    <Terminal size={12} className="text-cyan-400" /> HUNTER DOSSIER // S-RANK
+                  </span>
+                  <span className="flex items-center gap-1.5 font-bold text-emerald-400">
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-ping" />
+                    ONLINE & ACTIVE
                   </span>
                 </div>
 
-                <div className="rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-[#141720] p-2 hover:border-cyan-400/40 transition">
-                  <h3 className="text-base sm:text-lg font-black text-emerald-500 dark:text-emerald-400 font-['Rajdhani',sans-serif]">
-                    -35% Latency
+                {/* Developer Profile Visual */}
+                <div className="relative rounded-2xl bg-gradient-to-b from-slate-100 to-slate-200/70 dark:from-[#0e111a] dark:to-[#08090d] border border-slate-200 dark:border-white/10 p-4 flex flex-col items-center text-center">
+                  
+                  {/* Profile Avatar */}
+                  <div className="relative mb-2.5">
+                    <div className="h-20 w-20 sm:h-22 sm:w-22 rounded-2xl p-1 bg-gradient-to-tr from-cyan-400 via-blue-500 to-violet-600 shadow-[0_0_20px_rgba(6,182,212,0.4)] group-hover:shadow-[0_0_25px_rgba(0,240,255,0.7)] transition-all">
+                      <img
+                        src="/github.png"
+                        alt="Govind Sharma"
+                        className="h-full w-full rounded-[14px] object-cover bg-[#0a0c10]"
+                      />
+                    </div>
+                    <div className="absolute -bottom-1 -right-1 px-2 py-0.5 rounded-full bg-cyan-400 text-black font-mono text-[9px] font-black tracking-wider shadow-md">
+                      LV. 99
+                    </div>
+                  </div>
+
+                  {/* Name & Title */}
+                  <h3 className="text-lg sm:text-xl font-bold font-['Rajdhani',sans-serif] text-slate-900 dark:text-white tracking-wide">
+                    Govind Sharma
                   </h3>
-                  <p className="text-[9px] text-slate-500 dark:text-slate-400 uppercase font-semibold">
-                    DB Indexing Speedup
+                  <p className="text-xs font-mono text-cyan-600 dark:text-cyan-400 font-bold mt-0.5">
+                    Full-Stack Developer & Software Architect
                   </p>
+
+                  {/* Class Badge */}
+                  <div className="mt-2.5 inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-slate-200/80 dark:bg-white/5 border border-slate-300/80 dark:border-white/10 text-[11px] font-mono font-medium text-slate-700 dark:text-slate-300">
+                    <Shield size={12} className="text-cyan-400" />
+                    <span>S-Rank · Shadow Monarch</span>
+                  </div>
+
+                  {/* Mini Telemetry Mana & Agility Bars */}
+                  <div className="mt-3 w-full space-y-1.5 px-1 font-mono text-[9px]">
+                    <div className="flex justify-between text-slate-500 dark:text-slate-400">
+                      <span>MANA CAPACITY</span>
+                      <span className="text-cyan-400 font-bold">100,000 / 100,000 MP</span>
+                    </div>
+                    <div className="h-1.5 w-full bg-slate-200 dark:bg-black/40 rounded-full overflow-hidden">
+                      <div className="h-full bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full w-[96%]" />
+                    </div>
+                  </div>
+
+                  {/* Focus Badges */}
+                  <div className="mt-3 flex flex-wrap justify-center gap-1.5">
+                    {["React & Vite", "Node & Express", "MongoDB", "AI APIs"].map((pill, idx) => (
+                      <span
+                        key={idx}
+                        className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-white dark:bg-[#141722] border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 font-semibold"
+                      >
+                        {pill}
+                      </span>
+                    ))}
+                  </div>
                 </div>
 
-                <div className="rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-[#141720] p-2 hover:border-cyan-400/40 transition">
-                  <h3 className="text-base sm:text-lg font-black text-violet-500 dark:text-violet-400 font-['Rajdhani',sans-serif]">
-                    95+ Score
-                  </h3>
-                  <p className="text-[9px] text-slate-500 dark:text-slate-400 uppercase font-semibold">
-                    Lighthouse SEO & Speed
-                  </p>
+                {/* Quantified Production Impact Grid */}
+                <div className="mt-3 grid grid-cols-2 gap-1.5 sm:gap-2 text-center font-mono">
+                  <div
+                    onClick={() => {
+                      soundFX.playClick();
+                      setDsaModalOpen(true);
+                    }}
+                    onMouseEnter={() => soundFX.playHover()}
+                    className="rounded-xl border border-cyan-500/40 dark:border-cyan-400/30 bg-cyan-500/5 dark:bg-[#141720] p-2 hover:border-cyan-400 dark:hover:border-cyan-400 hover:shadow-[0_0_15px_rgba(6,182,212,0.25)] transition cursor-pointer group/dsa"
+                    title="Click to view Algorithmic Mastery Breakdown"
+                  >
+                    <div className="flex items-center justify-center gap-1">
+                      <h3 className="text-base sm:text-lg font-black text-cyan-600 dark:text-cyan-300 font-['Rajdhani',sans-serif]">
+                        2,000+
+                      </h3>
+                      <Brain className="w-3.5 h-3.5 text-cyan-500 group-hover/dsa:scale-125 transition-transform" />
+                    </div>
+                    <p className="text-[9px] text-slate-600 dark:text-slate-400 uppercase font-semibold">
+                      DSA Solved (LeetCode)
+                    </p>
+                    <span className="text-[8px] text-cyan-600 dark:text-cyan-400 font-bold block">
+                      [View Ledger &rarr;]
+                    </span>
+                  </div>
+
+                  <div className="rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-[#141720] p-2 hover:border-emerald-400/40 hover:shadow-[0_0_15px_rgba(16,185,129,0.2)] transition">
+                    <h3 className="text-base sm:text-lg font-black text-emerald-500 dark:text-emerald-400 font-['Rajdhani',sans-serif]">
+                      -35% Latency
+                    </h3>
+                    <p className="text-[9px] text-slate-500 dark:text-slate-400 uppercase font-semibold">
+                      DB Indexing Speedup
+                    </p>
+                  </div>
+
+                  <div className="rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-[#141720] p-2 hover:border-violet-400/40 hover:shadow-[0_0_15px_rgba(147,51,234,0.2)] transition">
+                    <h3 className="text-base sm:text-lg font-black text-violet-500 dark:text-violet-400 font-['Rajdhani',sans-serif]">
+                      95+ Score
+                    </h3>
+                    <p className="text-[9px] text-slate-500 dark:text-slate-400 uppercase font-semibold">
+                      Lighthouse SEO & Speed
+                    </p>
+                  </div>
+
+                  <div className="rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-[#141720] p-2 hover:border-blue-400/40 hover:shadow-[0_0_15px_rgba(59,130,246,0.2)] transition">
+                    <h3 className="text-base sm:text-lg font-black text-blue-500 dark:text-blue-400 font-['Rajdhani',sans-serif]">
+                      &lt;50ms
+                    </h3>
+                    <p className="text-[9px] text-slate-500 dark:text-slate-400 uppercase font-semibold">
+                      WebSocket Events
+                    </p>
+                  </div>
                 </div>
 
-                <div className="rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-[#141720] p-2 hover:border-cyan-400/40 transition">
-                  <h3 className="text-base sm:text-lg font-black text-blue-500 dark:text-blue-400 font-['Rajdhani',sans-serif]">
-                    &lt;50ms
-                  </h3>
-                  <p className="text-[9px] text-slate-500 dark:text-slate-400 uppercase font-semibold">
-                    WebSocket Events
-                  </p>
-                </div>
               </div>
-
-            </div>
+            </Tilt>
           </motion.div>
 
         </div>
@@ -339,6 +389,5 @@ const About = ({ onOpenStatus, onOpenRecruiterBrief, onOpenSimulator, onOpenArch
     </section>
   );
 };
-
 
 export default About;

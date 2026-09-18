@@ -11,7 +11,8 @@ import {
   FaPaperPlane,
 } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sparkles, MessageSquare, Send, CheckCircle2, Shield, FileText, ArrowUpRight, Briefcase, Zap, Coffee } from "lucide-react";
+import Tilt from "react-parallax-tilt";
+import { Sparkles, MessageSquare, Send, CheckCircle2, Shield, FileText, ArrowUpRight, Briefcase, Zap, Coffee, Terminal } from "lucide-react";
 import { soundFX } from "../utils/soundEffects";
 import { PROFILE } from "../data/profile";
 
@@ -84,7 +85,7 @@ export default function Contact() {
           transition={{ duration: 0.6 }}
           className="lg:col-span-5 text-center lg:text-left"
         >
-          <div className="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-white/70 dark:bg-[#12141c] px-3.5 py-1 text-xs font-mono text-cyan-400 font-bold mb-2">
+          <div className="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-white/70 dark:bg-[#12141c] px-3.5 py-1 text-xs font-mono text-cyan-400 font-bold mb-2 shadow-sm">
             <MessageSquare size={13} className="text-cyan-400" />
             <span>[ SUMMON PORTAL // TRANSMISSION ]</span>
           </div>
@@ -101,7 +102,7 @@ export default function Contact() {
           </p>
 
           {/* Hunter Availability Beacon */}
-          <div className="mt-3.5 inline-flex items-center justify-center lg:justify-start gap-2.5 p-2.5 rounded-2xl bg-white/80 dark:bg-[#12141c] border border-slate-200 dark:border-white/10 backdrop-blur-md">
+          <div className="mt-3.5 inline-flex items-center justify-center lg:justify-start gap-2.5 p-2.5 rounded-2xl bg-white/80 dark:bg-[#12141c] border border-slate-200 dark:border-white/10 backdrop-blur-md shadow-sm">
             <span className="relative flex h-2.5 w-2.5">
               <span className="animate-ping absolute h-full w-full rounded-full bg-emerald-400 opacity-75" />
               <span className="relative h-2.5 w-2.5 rounded-full bg-emerald-500" />
@@ -117,7 +118,7 @@ export default function Contact() {
             <div
               onClick={() => copyToClipboard(email, "Email")}
               onMouseEnter={() => soundFX.playHover()}
-              className="flex items-center justify-between p-3 rounded-2xl bg-white/80 dark:bg-[#101218] border border-slate-200 dark:border-white/10 hover:border-cyan-400 dark:hover:shadow-[0_0_20px_rgba(6,182,212,0.2)] transition cursor-pointer group"
+              className="flex items-center justify-between p-3 rounded-2xl bg-white/80 dark:bg-[#101218] border border-slate-200 dark:border-white/10 hover:border-cyan-400 dark:hover:shadow-[0_0_20px_rgba(6,182,212,0.25)] transition cursor-pointer group"
             >
               <div className="flex items-center gap-3">
                 <div className="p-2.5 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 group-hover:scale-110 transition">
@@ -137,7 +138,7 @@ export default function Contact() {
             <div
               onClick={() => copyToClipboard(phone, "Phone")}
               onMouseEnter={() => soundFX.playHover()}
-              className="flex items-center justify-between p-3 rounded-2xl bg-white/80 dark:bg-[#101218] border border-slate-200 dark:border-white/10 hover:border-cyan-400 dark:hover:shadow-[0_0_20px_rgba(6,182,212,0.2)] transition cursor-pointer group"
+              className="flex items-center justify-between p-3 rounded-2xl bg-white/80 dark:bg-[#101218] border border-slate-200 dark:border-white/10 hover:border-cyan-400 dark:hover:shadow-[0_0_20px_rgba(6,182,212,0.25)] transition cursor-pointer group"
             >
               <div className="flex items-center gap-3">
                 <div className="p-2.5 rounded-xl bg-violet-500/10 text-violet-400 border border-violet-500/20 group-hover:scale-110 transition">
@@ -176,7 +177,7 @@ export default function Contact() {
                   bg-white/80 dark:bg-[#101218]
                   border border-slate-200 dark:border-white/10
                   text-slate-700 dark:text-cyan-300
-                  hover:border-cyan-400 hover:text-cyan-400
+                  hover:border-cyan-400 hover:text-cyan-400 hover:shadow-[0_0_15px_rgba(6,182,212,0.3)]
                   transition-all duration-200
                 "
                 title={s.name}
@@ -223,133 +224,147 @@ export default function Contact() {
           transition={{ duration: 0.6 }}
           className="lg:col-span-7"
         >
-          <div className="relative rounded-3xl border border-slate-200 dark:border-white/10 bg-white/90 dark:bg-[#101218]/95 p-5 sm:p-6 shadow-2xl backdrop-blur-2xl overflow-hidden">
-            {/* Top Glowing Edge */}
-            <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent" />
+          <Tilt
+            tiltMaxAngleX={4}
+            tiltMaxAngleY={4}
+            perspective={1000}
+            glareEnable={true}
+            glareMaxOpacity={0.06}
+            glareColor="#00f0ff"
+            scale={1.01}
+            className="w-full"
+          >
+            <div className="relative rounded-3xl border border-cyan-500/30 dark:border-white/10 bg-white/90 dark:bg-[#101218]/95 p-5 sm:p-6 shadow-2xl backdrop-blur-2xl overflow-hidden group">
+              {/* Top Glowing Edge */}
+              <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-75" />
 
-            <div className="flex items-center justify-between border-b border-slate-200 dark:border-white/10 pb-2.5 mb-4 font-mono text-xs text-cyan-400">
-              <span className="flex items-center gap-2">
-                <Send size={13} /> GUILD TRANSMISSION FORM
-              </span>
-              <span className="text-[10px] text-slate-400">ENCRYPTION: ACTIVE</span>
-            </div>
+              <div className="flex items-center justify-between border-b border-slate-200 dark:border-white/10 pb-2.5 mb-4 font-mono text-xs text-cyan-400">
+                <span className="flex items-center gap-2 font-bold">
+                  <Send size={13} className="text-cyan-400" /> GUILD TRANSMISSION FORM
+                </span>
+                <span className="text-[10px] text-emerald-400 flex items-center gap-1 font-bold">
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-ping" />
+                  ENCRYPTION: 256-BIT
+                </span>
+              </div>
 
-            {sentSuccess ? (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="py-12 text-center space-y-3"
-              >
-                <div className="h-16 w-16 mx-auto rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center border border-emerald-500/40 shadow-[0_0_20px_rgba(34,197,94,0.3)]">
-                  <CheckCircle2 size={32} />
-                </div>
-                <h4 className="text-xl font-bold font-['Rajdhani',sans-serif] text-slate-900 dark:text-white">
-                  Transmission Dispatched!
-                </h4>
-                <p className="text-xs font-mono text-slate-500 dark:text-slate-400 max-w-sm mx-auto">
-                  Your message has opened in your email client to reach Govind Sharma directly.
-                </p>
-              </motion.div>
-            ) : (
-              <form onSubmit={handleSendMessage} className="space-y-3 font-mono text-xs">
-                <div>
-                  <label className="block text-slate-700 dark:text-slate-300 font-bold mb-1 uppercase text-[11px]">
-                    Your Name / Guild:
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={senderName}
-                    onChange={(e) => setSenderName(e.target.value)}
-                    placeholder="e.g. Sung Jin-Woo / Tech Lead"
-                    className="w-full rounded-xl border border-slate-300 dark:border-white/10 bg-slate-50 dark:bg-[#0c0d12] px-3.5 py-2.5 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-400 transition"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-slate-700 dark:text-slate-300 font-bold mb-1 uppercase text-[11px]">
-                    Your Email Address:
-                  </label>
-                  <input
-                    type="email"
-                    required
-                    value={senderEmail}
-                    onChange={(e) => setSenderEmail(e.target.value)}
-                    placeholder="e.g. hunter@association.org"
-                    className="w-full rounded-xl border border-slate-300 dark:border-white/10 bg-slate-50 dark:bg-[#0c0d12] px-3.5 py-2.5 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-400 transition"
-                  />
-                </div>
-
-                <div>
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 mb-1">
-                    <label className="block text-slate-700 dark:text-slate-300 font-bold uppercase text-[11px]">
-                      Quest Transmission Message:
-                    </label>
-                    <span className="text-[10px] text-slate-500 font-mono">
-                      Click a template or write custom:
-                    </span>
-                  </div>
-
-                  {/* 1-Click Preset Template Chips */}
-                  <div className="flex flex-wrap gap-1.5 mb-2">
-                    {[
-                      {
-                        label: "Full-Time Role",
-                        icon: Briefcase,
-                        text: "Hi Govind, we reviewed your production platforms and 2,000+ LeetCode DSA background. We'd love to speak with you regarding a Software Engineer role at our organization.",
-                      },
-                      {
-                        label: "Production Project",
-                        icon: Zap,
-                        text: "Hi Govind, we have an ambitious web platform project and would like your full-stack expertise to architect and build the system.",
-                      },
-                      {
-                        label: "Architecture Chat",
-                        icon: Coffee,
-                        text: "Hi Govind, loved your database optimization and full-stack work. Would like to connect for an engineering chat!",
-                      },
-                    ].map((preset, idx) => {
-                      const Icon = preset.icon;
-                      return (
-                        <button
-                          key={idx}
-                          type="button"
-                          onClick={() => {
-                            soundFX.playClick();
-                            setMessage(preset.text);
-                          }}
-                          onMouseEnter={() => soundFX.playHover()}
-                          className="inline-flex items-center gap-1.5 text-[10px] font-mono px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-[#141722] hover:bg-cyan-500/15 border border-slate-200 dark:border-white/10 hover:border-cyan-400 text-slate-700 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-300 transition"
-                        >
-                          <Icon size={12} className="text-cyan-500" />
-                          <span>{preset.label}</span>
-                        </button>
-                      );
-                    })}
-                  </div>
-
-                  <textarea
-                    rows={3}
-                    required
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                    placeholder="Describe your project, hiring opportunity, or architectural inquiry..."
-                    className="w-full rounded-xl border border-slate-300 dark:border-white/10 bg-slate-50 dark:bg-[#0c0d12] px-3.5 py-2.5 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-400 transition resize-none"
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  onMouseEnter={() => soundFX.playHover()}
-                  className="w-full py-3 px-6 rounded-xl bg-gradient-to-r from-cyan-500 via-blue-600 to-violet-600 text-white font-mono font-bold text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(6,182,212,0.3)] hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] hover:scale-[1.01] active:scale-[0.99] transition"
+              {sentSuccess ? (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="py-12 text-center space-y-3"
                 >
-                  <FaPaperPlane size={13} />
-                  <span>Transmit Transmission To Govind</span>
-                </button>
-              </form>
-            )}
+                  <div className="h-16 w-16 mx-auto rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center border border-emerald-500/40 shadow-[0_0_20px_rgba(34,197,94,0.3)]">
+                    <CheckCircle2 size={32} />
+                  </div>
+                  <h4 className="text-xl font-bold font-['Rajdhani',sans-serif] text-slate-900 dark:text-white">
+                    Transmission Dispatched!
+                  </h4>
+                  <p className="text-xs font-mono text-slate-500 dark:text-slate-400 max-w-sm mx-auto">
+                    Your message has opened in your email client to reach Govind Sharma directly.
+                  </p>
+                </motion.div>
+              ) : (
+                <form onSubmit={handleSendMessage} className="space-y-3 font-mono text-xs">
+                  <div>
+                    <label className="block text-slate-700 dark:text-slate-300 font-bold mb-1 uppercase text-[11px]">
+                      Your Name / Guild:
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={senderName}
+                      onChange={(e) => setSenderName(e.target.value)}
+                      placeholder="e.g. Sung Jin-Woo / Tech Lead"
+                      className="w-full rounded-xl border border-slate-300 dark:border-white/10 bg-slate-50 dark:bg-[#0c0d12] px-3.5 py-2.5 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-400 transition"
+                    />
+                  </div>
 
-          </div>
+                  <div>
+                    <label className="block text-slate-700 dark:text-slate-300 font-bold mb-1 uppercase text-[11px]">
+                      Your Email Address:
+                    </label>
+                    <input
+                      type="email"
+                      required
+                      value={senderEmail}
+                      onChange={(e) => setSenderEmail(e.target.value)}
+                      placeholder="e.g. hunter@association.org"
+                      className="w-full rounded-xl border border-slate-300 dark:border-white/10 bg-slate-50 dark:bg-[#0c0d12] px-3.5 py-2.5 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-400 transition"
+                    />
+                  </div>
+
+                  <div>
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 mb-1">
+                      <label className="block text-slate-700 dark:text-slate-300 font-bold uppercase text-[11px]">
+                        Quest Transmission Message:
+                      </label>
+                      <span className="text-[10px] text-slate-500 font-mono">
+                        Click a template or write custom:
+                      </span>
+                    </div>
+
+                    {/* 1-Click Preset Template Chips */}
+                    <div className="flex flex-wrap gap-1.5 mb-2">
+                      {[
+                        {
+                          label: "Full-Time Role",
+                          icon: Briefcase,
+                          text: "Hi Govind, we reviewed your production platforms and 2,000+ LeetCode DSA background. We'd love to speak with you regarding a Software Engineer role at our organization.",
+                        },
+                        {
+                          label: "Production Project",
+                          icon: Zap,
+                          text: "Hi Govind, we have an ambitious web platform project and would like your full-stack expertise to architect and build the system.",
+                        },
+                        {
+                          label: "Architecture Chat",
+                          icon: Coffee,
+                          text: "Hi Govind, loved your database optimization and full-stack work. Would like to connect for an engineering chat!",
+                        },
+                      ].map((preset, idx) => {
+                        const Icon = preset.icon;
+                        return (
+                          <button
+                            key={idx}
+                            type="button"
+                            onClick={() => {
+                              soundFX.playClick();
+                              setMessage(preset.text);
+                            }}
+                            onMouseEnter={() => soundFX.playHover()}
+                            className="inline-flex items-center gap-1.5 text-[10px] font-mono px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-[#141722] hover:bg-cyan-500/15 border border-slate-200 dark:border-white/10 hover:border-cyan-400 text-slate-700 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-300 transition"
+                          >
+                            <Icon size={12} className="text-cyan-500" />
+                            <span>{preset.label}</span>
+                          </button>
+                        );
+                      })}
+                    </div>
+
+                    <textarea
+                      rows={3}
+                      required
+                      value={message}
+                      onChange={(e) => setMessage(e.target.value)}
+                      placeholder="Describe your project, hiring opportunity, or architectural inquiry..."
+                      className="w-full rounded-xl border border-slate-300 dark:border-white/10 bg-slate-50 dark:bg-[#0c0d12] px-3.5 py-2.5 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:border-cyan-400 focus:outline-none focus:ring-1 focus:ring-cyan-400 transition resize-none"
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    onMouseEnter={() => soundFX.playHover()}
+                    className="w-full py-3 px-6 rounded-xl bg-gradient-to-r from-cyan-500 via-blue-600 to-violet-600 text-white font-mono font-bold text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(6,182,212,0.3)] hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] hover:scale-[1.01] active:scale-[0.99] transition"
+                  >
+                    <FaPaperPlane size={13} />
+                    <span>Transmit Transmission To Govind</span>
+                  </button>
+                </form>
+              )}
+
+            </div>
+          </Tilt>
         </motion.div>
 
       </div>
