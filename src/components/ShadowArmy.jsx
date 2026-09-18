@@ -201,9 +201,10 @@ export default function ShadowArmy() {
 
                 <button
                   onClick={() => soundFX.playArise()}
-                  className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-600 text-white font-bold font-mono text-xs shadow-lg hover:scale-105 transition"
+                  className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-600 text-white font-bold font-mono text-xs shadow-lg hover:scale-105 transition flex items-center justify-center gap-2"
                 >
-                  Summon Resonance ⚡
+                  <Zap size={14} />
+                  <span>Summon Resonance</span>
                 </button>
               </div>
 

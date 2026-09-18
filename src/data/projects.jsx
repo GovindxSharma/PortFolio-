@@ -21,7 +21,7 @@ import {
 import { TbCapture } from "react-icons/tb";
 
 const projects = [
-  // 🌟 S-Rank Featured / Flagship Production Systems
+  // S-Rank Featured / Flagship Production Systems
   {
     title: "ShopSphere",
     icon: <FaShoppingCart />,
@@ -93,7 +93,7 @@ const projects = [
     highlight: true,
   },
 
-  // 🏢 Client Production Deployments & Enterprise Dashboards
+  // Client Production Deployments & Enterprise Dashboards
   {
     title: "Aarya Foundation",
     icon: <FaGlobe />,
@@ -188,7 +188,7 @@ const projects = [
     highlight: false,
   },
 
-  // 🧠 Productivity Extensions & Utilities
+  // Productivity Extensions & Utilities
   {
     title: "YouTube PiP Extension",
     icon: <SiYoutube />,
@@ -234,7 +234,7 @@ const projects = [
     highlight: false,
   },
 
-  // 🎮 Algorithmic & Canvas Projects
+  // Algorithmic & Canvas Projects
   {
     title: "Ping Pong Game",
     icon: <FaGamepad />,

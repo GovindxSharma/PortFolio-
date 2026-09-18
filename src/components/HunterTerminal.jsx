@@ -75,25 +75,25 @@ export default function HunterTerminal({
 
       case "brief":
       case "recruiter":
-        newHistory.push({ type: "output", text: "✨ [BRIEF]: Opening Recruiter Executive Brief..." });
+        newHistory.push({ type: "output", text: ">> [SYSTEM // BRIEF]: Opening Recruiter Executive Brief..." });
         if (onOpenRecruiterBrief) onOpenRecruiterBrief();
         break;
 
       case "sim":
       case "simulator":
-        newHistory.push({ type: "output", text: "⚙️ [SIMULATOR]: Launching Architecture Simulator Lab..." });
+        newHistory.push({ type: "output", text: ">> [SYSTEM // SIMULATOR]: Launching Architecture Simulator Lab..." });
         if (onOpenSimulator) onOpenSimulator();
         break;
 
       case "arch":
       case "blueprint":
       case "blueprints":
-        newHistory.push({ type: "output", text: "📐 [BLUEPRINTS]: Opening System Architecture Blueprints..." });
+        newHistory.push({ type: "output", text: ">> [SYSTEM // BLUEPRINTS]: Opening System Architecture Blueprints..." });
         if (onOpenArchitecture) onOpenArchitecture();
         break;
 
       case "status":
-        newHistory.push({ type: "output", text: "✨ [STATUS]: Opening S-Rank Hunter Status Window..." });
+        newHistory.push({ type: "output", text: ">> [SYSTEM // STATUS]: Opening S-Rank Hunter Status Window..." });
         if (onOpenStatus) {
           onOpenStatus();
         }
@@ -103,7 +103,7 @@ export default function HunterTerminal({
         soundFX.playArise();
         newHistory.push({
           type: "special",
-          text: "✨ [ARISE ACTIVATED]: The Shadow Monarch's domain expands. Shadow extraction complete.",
+          text: ">> [ARISE ACTIVATED]: The Shadow Monarch's domain expands. Shadow extraction complete.",
         });
         break;
 

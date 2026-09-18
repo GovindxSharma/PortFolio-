@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { FaGraduationCap } from "react-icons/fa";
-import { ShieldAlert, Sparkles, CheckCircle2, ChevronRight, Award } from "lucide-react";
+import { ShieldAlert, Sparkles, CheckCircle2, ChevronRight, Award, Calendar } from "lucide-react";
 import { soundFX } from "../utils/soundEffects";
 
 const educationData = [
@@ -102,8 +102,9 @@ export default function Education() {
                   {currentFloor.floor}
                 </span>
 
-                <span className="text-xs font-mono text-cyan-400 font-bold">
-                  📅 {currentFloor.subtitle}
+                <span className="inline-flex items-center gap-1.5 text-xs font-mono text-cyan-400 font-bold">
+                  <Calendar size={13} className="text-cyan-400" />
+                  <span>{currentFloor.subtitle}</span>
                 </span>
               </div>
 

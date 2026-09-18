@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   FaGithub,
@@ -552,154 +553,159 @@ export default function ProjectsExperience() {
       </div>
 
       {/* QUICK INSPECT MODAL */}
-      <AnimatePresence>
-        {activeModalProject && (
-          <div
-            onClick={() => setActiveModalProject(null)}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto no-scrollbar cursor-pointer"
-          >
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/60 dark:bg-black/80 backdrop-blur-md"
-            />
+      {typeof document !== "undefined" &&
+        createPortal(
+          <AnimatePresence>
+            {activeModalProject && (
+              <div
+                onClick={() => setActiveModalProject(null)}
+                className="fixed inset-0 z-[120] flex items-center justify-center p-4 overflow-y-auto no-scrollbar cursor-pointer"
+              >
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="fixed inset-0 bg-black/60 dark:bg-black/80 backdrop-blur-md"
+                />
 
-            <motion.div
-              onClick={(e) => e.stopPropagation()}
-              initial={{ opacity: 0, scale: 0.9, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="relative w-full max-w-xl max-h-[85vh] overflow-y-auto rounded-3xl border border-slate-200 dark:border-cyan-500/50 bg-white dark:bg-[#101218] p-5 sm:p-7 text-slate-900 dark:text-white shadow-2xl backdrop-blur-2xl z-10 custom-scrollbar cursor-default"
-            >
-              <div className="flex items-center justify-between border-b border-slate-200 dark:border-white/10 pb-3 mb-4">
-                <div className="flex items-center gap-3">
-                  <div className="p-2.5 rounded-xl bg-cyan-500/10 text-cyan-600 dark:text-cyan-300 text-xl border border-cyan-500/30">
-                    {activeModalProject.icon}
-                  </div>
-                  <div>
-                    <span className="text-[10px] font-mono text-cyan-600 dark:text-cyan-400 uppercase font-bold">
-                      [ ARTIFACT INSPECTION // SYSTEM BLUEPRINT ]
-                    </span>
-                    <h3 className="text-xl sm:text-2xl font-bold font-['Rajdhani',sans-serif]">
-                      {activeModalProject.title}
-                    </h3>
-                  </div>
-                </div>
-
-                <button
-                  onClick={() => setActiveModalProject(null)}
-                  className="rounded-full p-2 text-slate-400 hover:text-slate-700 dark:hover:text-white transition"
-                  aria-label="Close modal"
+                <motion.div
+                  onClick={(e) => e.stopPropagation()}
+                  initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                  className="relative w-full max-w-xl max-h-[85vh] overflow-y-auto rounded-3xl border border-slate-200 dark:border-cyan-500/50 bg-white dark:bg-[#101218] p-5 sm:p-7 text-slate-900 dark:text-white shadow-2xl backdrop-blur-2xl z-10 custom-scrollbar cursor-default"
                 >
-                  <FaTimes size={16} />
-                </button>
-              </div>
+                  <div className="flex items-center justify-between border-b border-slate-200 dark:border-white/10 pb-3 mb-4">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2.5 rounded-xl bg-cyan-500/10 text-cyan-600 dark:text-cyan-300 text-xl border border-cyan-500/30">
+                        {activeModalProject.icon}
+                      </div>
+                      <div>
+                        <span className="text-[10px] font-mono text-cyan-600 dark:text-cyan-400 uppercase font-bold">
+                          [ ARTIFACT INSPECTION // SYSTEM BLUEPRINT ]
+                        </span>
+                        <h3 className="text-xl sm:text-2xl font-bold font-['Rajdhani',sans-serif]">
+                          {activeModalProject.title}
+                        </h3>
+                      </div>
+                    </div>
 
-              {/* Brief Overview */}
-              <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed mb-4">
-                {activeModalProject.desc}
-              </p>
-
-              {/* Architectural Breakdown Grid */}
-              <div className="space-y-3 mb-5 font-mono text-xs">
-                {/* 1. Problem Statement */}
-                {activeModalProject.problem && (
-                  <div className="p-3.5 rounded-2xl bg-amber-500/10 border border-amber-500/25">
-                    <span className="text-[10px] uppercase font-bold text-amber-600 dark:text-amber-400 flex items-center gap-1.5 mb-1.5">
-                      <Target size={13} /> Problem Addressed
-                    </span>
-                    <p className="text-xs text-slate-800 dark:text-slate-200 leading-relaxed font-sans">
-                      {activeModalProject.problem}
-                    </p>
+                    <button
+                      onClick={() => setActiveModalProject(null)}
+                      className="rounded-full p-2 text-slate-400 hover:text-slate-700 dark:hover:text-white transition"
+                      aria-label="Close modal"
+                    >
+                      <FaTimes size={16} />
+                    </button>
                   </div>
-                )}
 
-                {/* 2. Architecture & Decision (How & Why) */}
-                {activeModalProject.solution && (
-                  <div className="p-3.5 rounded-2xl bg-violet-500/10 border border-violet-500/25">
-                    <span className="text-[10px] uppercase font-bold text-violet-600 dark:text-violet-400 flex items-center gap-1.5 mb-1.5">
-                      <Cpu size={13} /> Engineering Architecture (How & Why)
-                    </span>
-                    <p className="text-xs text-slate-800 dark:text-slate-200 leading-relaxed font-sans">
-                      {activeModalProject.solution}
-                    </p>
+                  {/* Brief Overview */}
+                  <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed mb-4">
+                    {activeModalProject.desc}
+                  </p>
+
+                  {/* Architectural Breakdown Grid */}
+                  <div className="space-y-3 mb-5 font-mono text-xs">
+                    {/* 1. Problem Statement */}
+                    {activeModalProject.problem && (
+                      <div className="p-3.5 rounded-2xl bg-amber-500/10 border border-amber-500/25">
+                        <span className="text-[10px] uppercase font-bold text-amber-600 dark:text-amber-400 flex items-center gap-1.5 mb-1.5">
+                          <Target size={13} /> Problem Addressed
+                        </span>
+                        <p className="text-xs text-slate-800 dark:text-slate-200 leading-relaxed font-sans">
+                          {activeModalProject.problem}
+                        </p>
+                      </div>
+                    )}
+
+                    {/* 2. Architecture & Decision (How & Why) */}
+                    {activeModalProject.solution && (
+                      <div className="p-3.5 rounded-2xl bg-violet-500/10 border border-violet-500/25">
+                        <span className="text-[10px] uppercase font-bold text-violet-600 dark:text-violet-400 flex items-center gap-1.5 mb-1.5">
+                          <Cpu size={13} /> Engineering Architecture (How & Why)
+                        </span>
+                        <p className="text-xs text-slate-800 dark:text-slate-200 leading-relaxed font-sans">
+                          {activeModalProject.solution}
+                        </p>
+                      </div>
+                    )}
+
+                    {/* 3. Measured Impact */}
+                    {activeModalProject.impact && (
+                      <div className="p-3.5 rounded-2xl bg-cyan-500/10 border border-cyan-500/30">
+                        <span className="text-[10px] uppercase font-bold text-cyan-600 dark:text-cyan-400 flex items-center gap-1.5 mb-1.5">
+                          <Zap size={13} /> Measured Production Impact
+                        </span>
+                        <p className="text-xs text-cyan-700 dark:text-cyan-300 font-bold leading-relaxed font-sans">
+                          {activeModalProject.impact}
+                        </p>
+                      </div>
+                    )}
                   </div>
-                )}
 
-                {/* 3. Measured Impact */}
-                {activeModalProject.impact && (
-                  <div className="p-3.5 rounded-2xl bg-cyan-500/10 border border-cyan-500/30">
-                    <span className="text-[10px] uppercase font-bold text-cyan-600 dark:text-cyan-400 flex items-center gap-1.5 mb-1.5">
-                      <Zap size={13} /> Measured Production Impact
-                    </span>
-                    <p className="text-xs text-cyan-700 dark:text-cyan-300 font-bold leading-relaxed font-sans">
-                      {activeModalProject.impact}
-                    </p>
-                  </div>
-                )}
-              </div>
-
-              {/* Full Tech Stack Pills */}
-              {activeModalProject.tech && (
-                <div className="mb-5">
-                  <span className="text-[10px] font-mono uppercase text-slate-500 dark:text-slate-400 font-bold block mb-1.5">
-                    Technologies & Frameworks
-                  </span>
-                  <div className="flex flex-wrap gap-1.5">
-                    {activeModalProject.tech.map((t, idx) => (
-                      <span
-                        key={idx}
-                        className="text-[10px] font-mono px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-800 dark:text-cyan-300 font-medium"
-                      >
-                        {t}
+                  {/* Full Tech Stack Pills */}
+                  {activeModalProject.tech && (
+                    <div className="mb-5">
+                      <span className="text-[10px] font-mono uppercase text-slate-500 dark:text-slate-400 font-bold block mb-1.5">
+                        Technologies & Frameworks
                       </span>
-                    ))}
-                  </div>
-                </div>
-              )}
+                      <div className="flex flex-wrap gap-1.5">
+                        {activeModalProject.tech.map((t, idx) => (
+                          <span
+                            key={idx}
+                            className="text-[10px] font-mono px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-800 dark:text-cyan-300 font-medium"
+                          >
+                            {t}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
 
-              {/* Action Buttons */}
-              <div className="flex flex-wrap items-center gap-3">
-                {activeModalProject.apk && (
-                  <a
-                    href={activeModalProject.apk}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => soundFX.playClick()}
-                    className="flex-1 min-w-[140px] py-3 px-4 rounded-xl bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 text-white font-mono font-bold text-xs text-center shadow-lg hover:scale-[1.02] transition flex items-center justify-center gap-2"
-                  >
-                    <Download size={14} />
-                    <span>Download Android APK 📥</span>
-                  </a>
-                )}
-                {activeModalProject.live && !activeModalProject.apk && activeModalProject.live !== "Coming Soon" && (
-                  <a
-                    href={activeModalProject.live}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => soundFX.playClick()}
-                    className="flex-1 min-w-[140px] py-3 px-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-mono font-bold text-xs text-center shadow-lg hover:scale-[1.02] transition"
-                  >
-                    Launch Live System 🚀
-                  </a>
-                )}
-                {activeModalProject.github && (
-                  <a
-                    href={activeModalProject.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => soundFX.playClick()}
-                    className="flex-1 min-w-[140px] py-3 px-4 rounded-xl border border-slate-300 dark:border-white/10 text-slate-800 dark:text-cyan-300 font-mono font-bold text-xs text-center hover:bg-slate-100 dark:hover:bg-cyan-500/10 transition"
-                  >
-                    GitHub Repository
-                  </a>
-                )}
+                  {/* Action Buttons */}
+                  <div className="flex flex-wrap items-center gap-3">
+                    {activeModalProject.apk && (
+                      <a
+                        href={activeModalProject.apk}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => soundFX.playClick()}
+                        className="flex-1 min-w-[140px] py-3 px-4 rounded-xl bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 text-white font-mono font-bold text-xs text-center shadow-lg hover:scale-[1.02] transition flex items-center justify-center gap-2"
+                      >
+                        <Download size={14} />
+                        <span>Download Android APK</span>
+                      </a>
+                    )}
+                    {activeModalProject.live && !activeModalProject.apk && activeModalProject.live !== "Coming Soon" && (
+                      <a
+                        href={activeModalProject.live}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => soundFX.playClick()}
+                        className="flex-1 min-w-[140px] py-3 px-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-mono font-bold text-xs text-center shadow-lg hover:scale-[1.02] transition flex items-center justify-center gap-2"
+                      >
+                        <FaExternalLinkAlt size={12} />
+                        <span>Launch Live System</span>
+                      </a>
+                    )}
+                    {activeModalProject.github && (
+                      <a
+                        href={activeModalProject.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => soundFX.playClick()}
+                        className="flex-1 min-w-[140px] py-3 px-4 rounded-xl border border-slate-300 dark:border-white/10 text-slate-800 dark:text-cyan-300 font-mono font-bold text-xs text-center hover:bg-slate-100 dark:hover:bg-cyan-500/10 transition"
+                      >
+                        GitHub Repository
+                      </a>
+                    )}
+                  </div>
+                </motion.div>
               </div>
-            </motion.div>
-          </div>
+            )}
+          </AnimatePresence>,
+          document.body
         )}
-      </AnimatePresence>
 
     </section>
   );

@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Code2,
@@ -31,8 +32,9 @@ export default function DsaSpotlightModal({ isOpen, onClose }) {
 
   if (!isOpen) return null;
 
-  return (
-    <AnimatePresence>
+  return typeof document !== "undefined"
+    ? createPortal(
+        <AnimatePresence>
       <div
         onClick={() => {
           soundFX.playClick();
@@ -191,6 +193,8 @@ export default function DsaSpotlightModal({ isOpen, onClose }) {
           </div>
         </motion.div>
       </div>
-    </AnimatePresence>
-  );
+        </AnimatePresence>,
+        document.body
+      )
+    : null;
 }

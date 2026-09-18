@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Activity, Cpu, Globe, Terminal, Zap, CheckCircle2, ExternalLink } from "lucide-react";
+import { Activity, Cpu, Globe, Terminal, Zap, CheckCircle2, ExternalLink, Calendar } from "lucide-react";
 import { soundFX } from "../utils/soundEffects";
 
 const Experience = () => {
@@ -141,8 +141,9 @@ const Experience = () => {
                   </div>
 
                   {/* DURATION BADGE */}
-                  <div className="mb-3 inline-block px-2.5 py-0.5 rounded-md bg-slate-100 dark:bg-[#151822] text-[10px] sm:text-[11px] font-mono text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-white/5">
-                    🗓️ {exp.duration}
+                  <div className="mb-3 inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-slate-100 dark:bg-[#151822] text-[10px] sm:text-[11px] font-mono text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-white/5">
+                    <Calendar size={12} className="text-cyan-500 shrink-0" />
+                    <span>{exp.duration}</span>
                   </div>
 
                   {/* PROVEN IMPACT BADGE */}

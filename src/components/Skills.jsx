@@ -360,8 +360,9 @@ export default function Skills() {
                       <Icon className="h-5 w-5" />
                     </div>
 
-                    <span className="text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20">
-                      ⚡ {group.mana}
+                    <span className="inline-flex items-center gap-1 text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20">
+                      <Zap size={10} className="text-cyan-500" />
+                      <span>{group.mana}</span>
                     </span>
                   </div>
 

@@ -363,9 +363,10 @@ export default function StatusWindowModal({ isOpen, onClose }) {
                   onClick={() => {
                     soundFX.playLevelUp();
                   }}
-                  className="text-xs px-3 py-1.5 rounded-lg bg-gradient-to-r from-cyan-500 to-violet-600 text-white font-bold hover:scale-105 active:scale-95 transition shadow-[0_0_15px_rgba(6,182,212,0.3)]"
+                  className="text-xs px-3 py-1.5 rounded-lg bg-gradient-to-r from-cyan-500 to-violet-600 text-white font-bold hover:scale-105 active:scale-95 transition shadow-[0_0_15px_rgba(6,182,212,0.3)] flex items-center gap-1.5"
                 >
-                  Claim Blessing ✨
+                  <Sparkles className="h-3.5 w-3.5" />
+                  <span>Claim Blessing</span>
                 </button>
               </div>
             </div>

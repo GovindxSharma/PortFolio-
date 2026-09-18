@@ -185,7 +185,7 @@ export default function Navbar({
               {isMuted ? <VolumeX size={13} className="text-slate-400" /> : <Volume2 size={13} className="text-cyan-500 dark:text-cyan-400" />}
             </button>
 
-            {/* Right: Command Hub Toggle (✦) */}
+            {/* Right: Command Hub Toggle */}
             <button
               onClick={() => {
                 soundFX.playClick();

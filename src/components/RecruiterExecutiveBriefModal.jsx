@@ -41,14 +41,14 @@ export default function RecruiterExecutiveBriefModal({ isOpen, onClose }) {
 **GitHub:** ${PROFILE.socials.github} | **LinkedIn:** ${PROFILE.socials.linkedin}
 
 ---
-#### 🔑 Key Verified Metrics & Engineering Accomplishments:
+#### Key Verified Metrics & Engineering Accomplishments:
 1. **Algorithmic Problem Solving:** 2,000+ DSA challenges solved across LeetCode & CodeStudio (Dynamic Programming, Graphs, Trees, Heaps).
 2. **Database Performance:** Reduced MongoDB query latency by 35% through compound B-Tree indexing and optimized aggregation pipelines.
 3. **Real-Time Architecture:** Architected WebSocket event pipelines maintaining sub-50ms round-trip delivery.
 4. **Client & Production Delivery:** Deployed 6+ production platforms with 0 downtime (Vizon Technolabs, Aerion MedTech, SK Foodz, Aarya Foundation).
 5. **Frontend Speed:** Consistent 95+ Google Lighthouse scores across Performance, Accessibility, and SEO.
 
-#### 🛠 Core Technical Stack:
+#### Core Technical Stack:
 - **Languages:** JavaScript (ES6+), TypeScript, C++, HTML5/CSS3
 - **Frontend:** React.js, Vite, Next.js, React Native / Expo, Tailwind CSS, Framer Motion
 - **Backend & DB:** Node.js, Express.js, MongoDB (Mongoose), RESTful APIs, WebSockets (Socket.io), JWT / RBAC

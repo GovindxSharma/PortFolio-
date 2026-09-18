@@ -234,7 +234,7 @@ export default function SystemArchitectureModal({ isOpen, onClose }) {
                   title="Download MealFit Android APK (Google Drive Direct)"
                 >
                   <Download size={13} className="animate-bounce" />
-                  <span>Download MealFit APK 📥</span>
+                  <span>Download MealFit APK</span>
                 </a>
               )}
             </div>

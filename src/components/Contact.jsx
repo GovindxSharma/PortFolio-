@@ -11,7 +11,7 @@ import {
   FaPaperPlane,
 } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sparkles, MessageSquare, Send, CheckCircle2, Shield, FileText, ArrowUpRight } from "lucide-react";
+import { Sparkles, MessageSquare, Send, CheckCircle2, Shield, FileText, ArrowUpRight, Briefcase, Zap, Coffee } from "lucide-react";
 import { soundFX } from "../utils/soundEffects";
 import { PROFILE } from "../data/profile";
 
@@ -294,31 +294,38 @@ export default function Contact() {
                   <div className="flex flex-wrap gap-1.5 mb-2">
                     {[
                       {
-                        label: "💼 Full-Time Role",
+                        label: "Full-Time Role",
+                        icon: Briefcase,
                         text: "Hi Govind, we reviewed your production platforms and 2,000+ LeetCode DSA background. We'd love to speak with you regarding a Software Engineer role at our organization.",
                       },
                       {
-                        label: "⚡ Production Project",
+                        label: "Production Project",
+                        icon: Zap,
                         text: "Hi Govind, we have an ambitious web platform project and would like your full-stack expertise to architect and build the system.",
                       },
                       {
-                        label: "☕ Architecture Chat",
+                        label: "Architecture Chat",
+                        icon: Coffee,
                         text: "Hi Govind, loved your database optimization and full-stack work. Would like to connect for an engineering chat!",
                       },
-                    ].map((preset, idx) => (
-                      <button
-                        key={idx}
-                        type="button"
-                        onClick={() => {
-                          soundFX.playClick();
-                          setMessage(preset.text);
-                        }}
-                        onMouseEnter={() => soundFX.playHover()}
-                        className="text-[10px] font-mono px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-[#141722] hover:bg-cyan-500/15 border border-slate-200 dark:border-white/10 hover:border-cyan-400 text-slate-700 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-300 transition"
-                      >
-                        {preset.label}
-                      </button>
-                    ))}
+                    ].map((preset, idx) => {
+                      const Icon = preset.icon;
+                      return (
+                        <button
+                          key={idx}
+                          type="button"
+                          onClick={() => {
+                            soundFX.playClick();
+                            setMessage(preset.text);
+                          }}
+                          onMouseEnter={() => soundFX.playHover()}
+                          className="inline-flex items-center gap-1.5 text-[10px] font-mono px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-[#141722] hover:bg-cyan-500/15 border border-slate-200 dark:border-white/10 hover:border-cyan-400 text-slate-700 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-300 transition"
+                        >
+                          <Icon size={12} className="text-cyan-500" />
+                          <span>{preset.label}</span>
+                        </button>
+                      );
+                    })}
                   </div>
 
                   <textarea
